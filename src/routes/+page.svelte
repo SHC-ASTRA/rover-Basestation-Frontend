@@ -16,4 +16,5 @@
 <div>
         <h1>Test</h1>
         <p>This should be light gray</p>
+        <h2>I Hope this works properly</h2>
 </div>
