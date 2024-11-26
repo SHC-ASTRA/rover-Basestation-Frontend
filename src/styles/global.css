@@ -1,0 +1,22 @@
+@import 'colors.css';
+div {
+	color: var(--text-color);
+	width: 100%;
+	height: 200px;
+	vertical-align: top;
+	background-color: var(--bgd);
+	text-align: center;
+}
+
+h1 {
+	color: orange;
+}
+
+p {
+	color: pink;
+}
+
+h2 {
+	text-align: right;
+	color: brown;
+}

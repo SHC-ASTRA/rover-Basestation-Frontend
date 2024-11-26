@@ -2,8 +2,7 @@ import { mdsvex } from "mdsvex";
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-/** @type {import('@sveltejs/kit').Config} */
-const config = {
+export default {
     // Consult https://svelte.dev/docs/kit/integrations
     // for more information about preprocessors
     preprocess: [vitePreprocess(), mdsvex()],
@@ -15,15 +14,11 @@ const config = {
 		adapter: adapter({
 			// default options are shown. On some platforms
 			// these options are set automatically — see below
-			pages: 'build',
-			assets: 'build',
-			fallback: undefined,
+			pages: '../static',
+			assets: '../static',
 			precompress: false,
 			strict: true
 		})
 	},
     extensions: [".svelte", ".svx"]
 };
-
-export default config;
-export const prerender = true;
