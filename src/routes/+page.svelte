@@ -8,7 +8,7 @@
 		Styles
 	} from '@sveltestrap/sveltestrap'
 
-	import * as fr from '../presets/Arm/Control.svelte'
+//	import * as fr from '../presets/Arm/Control.svelte'
 
 
 //  const IP = "ws:// /api/";
@@ -156,5 +156,5 @@ use svelte SPA templating for presets
 
 <div id="dynamic">
 	<!-- {@html ret} -->
-	{@render fr.frame()}
+	<!-- {@render fr.frame()} -->
 </div>
