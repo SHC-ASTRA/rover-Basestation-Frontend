@@ -10,32 +10,107 @@
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
+
 <style>
-	
 	:root {
-	--text-color: rgb(239, 81, 81);
-	--bgd: rgb(6,6,47);
+		background-color: rgb(216, 216, 216);
+		
+		--text-color:lightgreen;
+		--bgd: #30304c;
+		--ddBgd: #ffffff;
 	}
 
 	div {
 		color: var(--text-color);
-		width: 100%;
-		height: 200px;
-		vertical-align: top;
 		background-color: var(--bgd);
+		vertical-align: top;
 		text-align: center;
 	}
-	
-	h1 {
-		color: orange;
+
+	.cboxDivShortHead {
+		color:var(--text-color);
+		background-color: var(--bgd);
+		border: 5px solid rgb(0,0,0);
+		float:left;
+		margin: 20px;
+		height: 10%;
+		width: 200px;
 	}
 	
-	p {
-		color: pink;
+	.cboxDiv {
+		color:var(--text-color);
+		background-color: var(--bgd);
+		height: 15%;
+	}
+
+	.cboxDivTall {
+		color:var(--text-color);
+		background-color: var(--bgd);
+		height: 20%;
+	}
+
+	.buttonDiv {
+		width:0%;
+		position:relative;
+
+	}
+
+	.inlineButton {
+		width:0%;
+		position:relative;
+		right:40%;
+		bottom:74px;
+	}
+
+	.div2 {
+		color: var(--bgd);
+	}
+	
+	.lImg {
+		float:inline-start;
+		max-width: 60pt;
+	}
+
+	.rImg {
+		float:inline-end;
+		max-width: 60pt;
+	}
+
+	h1 {
+		color: var(--text-color);
+		text-align: center;
+	}
+	sub {
+		color: var(--text-color);
 	}
 	
 	h2 {
 		text-align: right;
-		color: brown;
+		color: var(--text-color);
+	}
+
+	.dropdownParent {
+		width: 60pt;
+		text-align: center;
+		padding-left: 5pt;
+	}
+
+	.dropdown {
+		color:var(--ddBgd);
+		background-color:var(--ddBgd);
+	}
+
+	.dropdown-item {
+		text-align: left;
+		background-color:var(--ddBgd);
+	}
+
+	.dropdown-subitem {
+		text-align: right;
+		background-color: var(--ddBgd);
+	}
+
+	.refreshButton {
+		width: 60pt;
 	}
 </style>
