@@ -8,6 +8,9 @@
 		Styles
 	} from '@sveltestrap/sveltestrap'
 
+	import * as fr from '../presets/Arm/Control.svelte'
+
+
 //  const IP = "ws:// /api/";
 // 	function SEN()
 // 	{
@@ -40,7 +43,7 @@
 
 	const SubTeams = ["dev", "Arm", "Autonomy", "Base Station", "Biosensor", "Core", "Drone"];
 
-	let { ret = null } = $props();
+	let ret = $state("");
 
 	async function ld()
 	{
@@ -56,27 +59,31 @@
 	var presets = $state(0);
 	
 </script>
-
-<div style:height=100%>
+<!-- 
+Snippets
+separate HTML files
+use svelte SPA templating for presets
+-->
+<div>
 	<img src="favicon.png" alt="Astra Logo" class="lImg">
 	<img src="clucky.png" alt="Clucky!" class="rImg">
 	<h1><ruby>UAH Space Hardware Club ASTRA<rt>Autonomous Science Target Recognition and Analysis</rt></ruby></h1>
 
-	<div class="bDiv">
+	<div class="buttonDiv">
 		<Button class="refreshButton" on:click={() => ld()}>
 			Refresh
 		</Button>
 
 	</div>
-	<div class="bDiv" style:left=120px>
+	<span class="inlineButton" style:bottom=37px>
 		<Button class="refreshButton" on:click={() => exportTestFile()}>
-			Export	
+			Export
 		</Button>
-	</div>
+	</span>
 
 	<div style:width=0% style:right=60pt style:position=absolute>
 		<Styles/>
-		<Dropdown>
+		<Dropdown class="inlineButton">
 			<DropdownToggle class="dropdownParent">▼Presets</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem class="dropdown-item" on:click={() => {presets = 0x00; ld()}}>Development</DropdownItem>
@@ -130,24 +137,12 @@
 
 				<Dropdown direction="left" class="dropdown">
 					<DropdownToggle caret class="dropdown-item">
-						Core
+						Core Rover
 					</DropdownToggle>
 					<DropdownMenu>
-						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x50; ld()}}>Alpha</DropdownItem>
-						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x51; ld()}}>Bravo</DropdownItem>
-						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x52; ld()}}>Charlie</DropdownItem>
-					</DropdownMenu>
-				</Dropdown>
-
-
-				<Dropdown direction="left" class="dropdown">
-					<DropdownToggle caret class="dropdown-item">
-						Drone
-					</DropdownToggle>
-					<DropdownMenu>
-						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x60; ld()}}>Alpha</DropdownItem>
-						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x61; ld()}}>Bravo</DropdownItem>
-						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x62; ld()}}>Charlie</DropdownItem>
+						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x50; ld()}}>Telemetry</DropdownItem>
+						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x51; ld()}}>Driving</DropdownItem>
+						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x52; ld()}}></DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
 
@@ -156,6 +151,10 @@
 	</div>
 </div>
 
+<!-- Literally just masks over a strange "lip" -->
+<div style="background-color:white" style:width=100% style:position=relative style:border-bottom-width=0px style:border-bottom-style=solid style:margin-bottom=0px style:bottom=37px style:height=40px></div>
+
 <div id="dynamic">
-	{@html ret}
+	<!-- {@html ret} -->
+	{@render fr.frame()}
 </div>
