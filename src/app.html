@@ -24,7 +24,6 @@
 		color: var(--text-color);
 		background-color: var(--bgd);
 		vertical-align: top;
-		text-align: center;
 	}
 
 	.cboxDivShortHead {
@@ -49,68 +48,50 @@
 		height: 20%;
 	}
 
-	.buttonDiv {
+	.flexDiv {
 		width:0%;
-		position:relative;
-
+		display: flex;
+		float:left;
 	}
 
-	.inlineButton {
-		width:0%;
-		position:relative;
-		right:40%;
-		bottom:74px;
+	.expoButton {
+		float:right;
+		width: 5em;
 	}
 
-	.div2 {
-		color: var(--bgd);
-	}
-	
 	.lImg {
-		float:inline-start;
-		max-width: 60pt;
+		float:left;
+		max-height: 5em;
 	}
 
 	.rImg {
-		float:inline-end;
-		max-width: 60pt;
+		float:right;
+		max-height: 5em;
 	}
 
 	h1 {
 		color: var(--text-color);
 		text-align: center;
-	}
-	sub {
-		color: var(--text-color);
+		overflow: visible;
+		font-size: 2cqi;
 	}
 	
-	h2 {
-		text-align: right;
-		color: var(--text-color);
-	}
-
 	.dropdownParent {
-		width: 60pt;
 		text-align: center;
-		padding-left: 5pt;
+		width: 5em;
 	}
 
 	.dropdown {
+		text-align: center;
 		color:var(--ddBgd);
 		background-color:var(--ddBgd);
 	}
 
 	.dropdown-item {
-		text-align: left;
-		background-color:var(--ddBgd);
+		text-align: right;
 	}
 
 	.dropdown-subitem {
-		text-align: right;
-		background-color: var(--ddBgd);
-	}
-
-	.refreshButton {
-		width: 60pt;
+		text-align: left;
 	}
 </style>

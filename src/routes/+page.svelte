@@ -56,38 +56,31 @@
 		console.log(html);
 	}
 
-	var presets = $state(0);
-	
+	let presets = $state(0);
 </script>
 <!-- 
 Snippets
 separate HTML files
 use svelte SPA templating for presets
 -->
-<div>
+<div style:height=5em>
 	<img src="favicon.png" alt="Astra Logo" class="lImg">
 	<img src="clucky.png" alt="Clucky!" class="rImg">
-	<h1><ruby>UAH Space Hardware Club ASTRA<rt>Autonomous Science Target Recognition and Analysis</rt></ruby></h1>
+	<h1><ruby>UAH Space Hardware Club ASTRA<rt>Autonomous Science Transport Research Apparatus</rt></ruby></h1>
 
-	<div class="buttonDiv">
-		<Button class="refreshButton" on:click={() => ld()}>
-			Refresh
-		</Button>
 
-	</div>
-	<span class="inlineButton" style:bottom=37px>
-		<Button class="refreshButton" on:click={() => exportTestFile()}>
-			Export
-		</Button>
-	</span>
+</div>
 
-	<div style:width=0% style:right=60pt style:position=absolute>
+<div class="flexDiv">
+	<div>
+		<!-- DO NOT DELETE THIS IT'LL BLOW UP EVERYTHING -->
 		<Styles/>
-		<Dropdown class="inlineButton">
-			<DropdownToggle class="dropdownParent">▼Presets</DropdownToggle>
+
+		<Dropdown>
+			<DropdownToggle class="dropdownParent">Presets▼</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem class="dropdown-item" on:click={() => {presets = 0x00; ld()}}>Development</DropdownItem>
-				<Dropdown direction="left" class="dropdown">
+				<Dropdown direction="right" class="dropdown">
 					<DropdownToggle caret class="dropdown-item">
 						Arm
 					</DropdownToggle>
@@ -97,9 +90,9 @@ use svelte SPA templating for presets
 						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x12; ld()}}>Charlie</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-
-
-				<Dropdown direction="left" class="dropdown">
+				
+				
+				<Dropdown direction="right" class="dropdown">
 					<DropdownToggle caret class="dropdown-item">
 						Autonomy
 					</DropdownToggle>
@@ -109,9 +102,9 @@ use svelte SPA templating for presets
 						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x22; ld()}}>Charlie</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-
-
-				<Dropdown direction="left" class="dropdown">
+				
+				
+				<Dropdown direction="right" class="dropdown">
 					<DropdownToggle caret class="dropdown-item">
 						Based Station
 					</DropdownToggle>
@@ -121,9 +114,9 @@ use svelte SPA templating for presets
 						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x32; ld()}}>Charlie</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-
-
-				<Dropdown direction="left" class="dropdown">
+				
+				
+				<Dropdown direction="right" class="dropdown">
 					<DropdownToggle caret class="dropdown-item">
 						Bio Sensor
 					</DropdownToggle>
@@ -133,9 +126,9 @@ use svelte SPA templating for presets
 						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x42; ld()}}>Charlie</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-
-
-				<Dropdown direction="left" class="dropdown">
+				
+				
+				<Dropdown direction="right" class="dropdown">
 					<DropdownToggle caret class="dropdown-item">
 						Core Rover
 					</DropdownToggle>
@@ -145,16 +138,25 @@ use svelte SPA templating for presets
 						<DropdownItem class="dropdown-subitem" on:click={() => {presets = 0x52; ld()}}></DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
-
+				
 			</DropdownMenu>
 		</Dropdown>
 	</div>
+	
+	<Button class="expoButton" on:click={() => ld()}>
+		Refresh
+	</Button>
 </div>
 
+<Button class="expoButton" on:click={() => exportTestFile()}>
+	Export
+</Button>
+
 <!-- Literally just masks over a strange "lip" -->
-<div style="background-color:white" style:width=100% style:position=relative style:border-bottom-width=0px style:border-bottom-style=solid style:margin-bottom=0px style:bottom=37px style:height=40px></div>
+<!-- <div style="background-color:white" style:width=100% style:position=relative style:border-bottom-width=0px style:border-bottom-style=solid style:margin-bottom=0px style:bottom=37px style:height=40px></div> -->
 
 <div id="dynamic">
 	<!-- {@html ret} -->
 	<!-- {@render fr.frame()} -->
+
 </div>
