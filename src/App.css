@@ -18,28 +18,6 @@ div {
 	vertical-align: top;
 }
 
-.cboxDivShortHead {
-	color:var(--text-color);
-	background-color: var(--primary2);
-	border: 5px solid rgb(0,0,0);
-	float:left;
-	margin: 20px;
-	height: 10%;
-	width: 200px;
-}
-
-.cboxDiv {
-	color:var(--text-color);
-	background-color: var(--primary2);
-	height: 15%;
-}
-
-.cboxDivTall {
-	color:var(--text-color);
-	background-color: var(--primary2);
-	height: 20%;
-}
-
 .flexDiv {
 	width:0%;
 	display: flex;
@@ -64,7 +42,6 @@ div {
 h1 {
 	color: var(--text-color);
 	text-align: center;
-	overflow: visible;
 	font-size: 2cqi;
 }
 
@@ -72,30 +49,6 @@ h1 {
 	padding-left: 0;
 	padding-right: 0;
 	width: 10em;
-}
-
-.dropdown-menu {
-	border: 0;
-	padding: 0;
-}
-
-.dropdown-item {
-	text-align: center;
-	width: 10em;
-}
-
-.btn {
-	background-color: var(--bgdColor);
-	color: var(--primary2);
-	--bs-btn-active-bg: var(--primary2);
-	--bs-btn-border-color:var(--primary2);
-}
-
-.btn:hover {
-	background-color: var(--bgdColor);
-	color: var(--primary2);
-	--bs-btn-active-bg: var(--primary2);
-	--bs-btn-border-color:var(--primary2);
 }
 
 .btn.show {
