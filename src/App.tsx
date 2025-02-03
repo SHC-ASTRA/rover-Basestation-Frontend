@@ -1,3 +1,4 @@
+import '../src/App.css'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';

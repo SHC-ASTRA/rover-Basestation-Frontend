@@ -43,6 +43,7 @@ h1 {
 	color: var(--text-color);
 	text-align: center;
 	font-size: 2cqi;
+	margin-top: 0;
 }
 
 .dropdown-toggle {
