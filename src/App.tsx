@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
-import logo from '../src/static/favicon.png';
-import clucky from '../src/static/clucky.png';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import logo from './assets/favicon.png';
+import clucky from './assets/clucky.png';
 import './App.css';
 
 const SubTeams = ["dev", "Arm", "Autonomy", "Biosensor", "Core"];
@@ -29,7 +28,7 @@ function App() {
 
   	return (
 		<>
-			<div class="headDiv">
+			<div className="headDiv">
 				<img src={logo} alt="Astra Logo" className="lImg" />
 				<img src={clucky} alt="Clucky!" className="rImg" />
 				<h1>
@@ -40,7 +39,7 @@ function App() {
 				</h1>
 			</div>
 
-			<div class="flexDiv">
+			<div className="flexDiv">
 				<div>
 					<Dropdown>
 						<Dropdown.Toggle variant="success">
@@ -113,11 +112,11 @@ function App() {
 					</Dropdown>
 				</div>
 
-				<Button class="expoButton" onClick={() => loadCurrentPreset()}>
+				<Button className="expoButton" onClick={() => loadCurrentPreset()}>
 					Refresh
 				</Button>
 			
-			<Button class="expoButton" onClick={() => exportTestFile()}>
+			<Button className="expoButton" onClick={() => exportTestFile()}>
 				Export
 			</Button>
 
