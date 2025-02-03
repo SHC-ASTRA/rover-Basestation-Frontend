@@ -1,7 +1,10 @@
+import { useMemo, useState } from 'react';
 import '../src/App.css'
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { CoreFeedbackData } from './lib/webSocketTypes';
+import useWebSocket from './lib/useWebSocket';
+import { CoreFeedbackContext } from './lib/webSocketContext';
 
 let selectedPage = "";
 function exportTestFile()
@@ -10,6 +13,15 @@ function exportTestFile()
 }
 
 export default function App() {
+
+	// set up websocket
+	const [coreFeedback, setCoreFeedback] = useState<CoreFeedbackData | null>(null);
+
+	const handlers = useMemo(() => ({
+		coreFeedback: setCoreFeedback,
+	}), []);
+
+	useWebSocket('ws://localhost/api/ws', handlers);
 
 	async function loadCurrentPreset()
 	{
@@ -103,6 +115,19 @@ export default function App() {
 
 			<div id="dynamic" style={{textAlign:"center"}}>
 			</div>
+			{/* this is for example purposes */}
+			<CoreFeedbackContext.Provider value={coreFeedback}>
+				<div>
+					<h1>Core Feedback</h1>
+					{coreFeedback && (
+						<>
+							<p>Temperature: {coreFeedback.temperature}</p>
+							<p>Pressure: {coreFeedback.pressure}</p>
+							<p>Humidity: {coreFeedback.humidity}</p>
+						</>
+					) || <p>No core feedback</p>}
+				</div>
+			</CoreFeedbackContext.Provider>
 		</>
   );
 }
