@@ -1,38 +1,27 @@
-import './App.css';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import logo from '../src/static/favicon.png';
-import clucky from '../src/static/clucky.png';
-import { useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-//let ret = "";
 let selectedPage = "";
 function exportTestFile()
 {
 	console.log(document.getElementById('dynamic')?.firstElementChild?.outerHTML);
-	// this is just to mark the function as "used". Don't @ me.
 }
 
 export default function App() {
-	const navigate = useNavigate();
 
 	async function loadCurrentPreset()
 	{
-		selectedPage;
-		// navigate(selectedPage);
 		// ret = await (await fetch('presets/' + SubTeams[Math.floor(selectedPreset / 16) - 1] + '/' + selectedPreset % 16 + '.jsx')).text();
 		// selectedPresetFile = ret;
-		
 		// console.log(ret);
 	}
 
   	return (
 		<>
-			<div class="headDiv">
-				<img src={logo} alt="Astra Logo" className="lImg" />
-				<img src={clucky} alt="Clucky!" className="rImg" />
+			<div className="headDiv">
+				<img src="../src/assets/favicon.png" alt="Astra Logo" className="lImg" />
+				<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				<h1>
 				<ruby>
 					UAH Space Hardware Club ASTRA
@@ -41,7 +30,7 @@ export default function App() {
 				</h1>
 			</div>
 
-			<div class="flexDiv">
+			<div className="flexDiv">
 				<div>
 					<Dropdown>
 						<Dropdown.Toggle variant="success">
@@ -101,11 +90,11 @@ export default function App() {
 					</Dropdown>
 				</div>
 
-				<Button class="expoButton" onClick={() => loadCurrentPreset()}>
+				<Button className="expoButton" onClick={() => loadCurrentPreset()}>
 					Refresh
 				</Button>
 			
-			<Button class="expoButton" onClick={() => exportTestFile()}>
+			<Button className="expoButton" onClick={() => exportTestFile()}>
 				Export
 			</Button>
 
