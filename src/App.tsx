@@ -1,36 +1,28 @@
+import '../src/App.css'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
-import logo from './assets/favicon.png';
-import clucky from './assets/clucky.png';
-import './App.css';
 
-const SubTeams = ["dev", "Arm", "Autonomy", "Biosensor", "Core"];
-
-let ret = "";
-let selectedPresetFile = "";
-
+let selectedPage = "";
 function exportTestFile()
 {
 	console.log(document.getElementById('dynamic')?.firstElementChild?.outerHTML);
-	// this is just to mark the function as "used". Don't @ me.
 }
 
-function App() {
-	const [selectedPreset, setPresets] = useState(0x00);
-	
+export default function App() {
+
 	async function loadCurrentPreset()
 	{
-		ret = await (await fetch('presets/' + SubTeams[Math.floor(selectedPreset / 16) - 1] + '/' + selectedPreset % 16 + '.jsx')).text();
-		selectedPresetFile = ret;
-		console.log(ret);
+		// ret = await (await fetch('presets/' + SubTeams[Math.floor(selectedPreset / 16) - 1] + '/' + selectedPreset % 16 + '.jsx')).text();
+		// selectedPresetFile = ret;
+		// console.log(ret);
 	}
 
   	return (
 		<>
 			<div className="headDiv">
-				<img src={logo} alt="Astra Logo" className="lImg" />
-				<img src={clucky} alt="Clucky!" className="rImg" />
+				<img src="../src/assets/favicon.png" alt="Astra Logo" className="lImg" />
+				<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				<h1>
 				<ruby>
 					UAH Space Hardware Club ASTRA
@@ -47,64 +39,51 @@ function App() {
 						</Dropdown.Toggle>
 						<Dropdown.Menu>
 							
-							<Dropdown.Item onClick={() => {setPresets(0x00); loadCurrentPreset()}}>Development</Dropdown.Item>
+							<Dropdown.Item onClick={() => {selectedPage="/dev"; loadCurrentPreset()}}>Development</Dropdown.Item>
 							
-							<Dropdown drop="end">
+							<Dropdown drop="end" onClick={() => {selectedPage = "Arm/"}}>
 								<Dropdown.Toggle variant="success">
 									Arm
 								</Dropdown.Toggle>
 								<Dropdown.Menu>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x10); loadCurrentPreset()}}>Alpha</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x11); loadCurrentPreset()}}>Bravo</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x12); loadCurrentPreset()}}>Charlie</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Alpha</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Bravo</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Charlie</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
 							
 							
-							<Dropdown drop="end">
+							<Dropdown drop="end" onClick={() => {selectedPage = "Autonomy/"}}>
 								<Dropdown.Toggle variant="success">
 									Autonomy
 								</Dropdown.Toggle>
 								<Dropdown.Menu>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x20); loadCurrentPreset()}}>Alpha</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x21); loadCurrentPreset()}}>Bravo</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x22); loadCurrentPreset()}}>Charlie</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Alpha</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Bravo</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Charlie</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
 							
-							
-							<Dropdown drop="end">
+							<Dropdown drop="end" onClick={() => {selectedPage = "Biosensor/"}}>
 								<Dropdown.Toggle variant="success">
-									Based Station
+									Biosensor
 								</Dropdown.Toggle>
 								<Dropdown.Menu>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x30); loadCurrentPreset()}}>Alpha</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x31); loadCurrentPreset()}}>Bravo</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x32); loadCurrentPreset()}}>Charlie</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Alpha</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Bravo</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}>Charlie</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
 							
 							
-							<Dropdown drop="end">
-								<Dropdown.Toggle variant="success">
-									Bio Sensor
-								</Dropdown.Toggle>
-								<Dropdown.Menu>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x40); loadCurrentPreset()}}>Alpha</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x41); loadCurrentPreset()}}>Bravo</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x42); loadCurrentPreset()}}>Charlie</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
-							
-							
-							<Dropdown drop="end">
+							<Dropdown drop="end" onClick={() => {selectedPage = "Core/"}}>
 								<Dropdown.Toggle variant="success">
 									Core Rover
 								</Dropdown.Toggle>
 								<Dropdown.Menu>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x50); loadCurrentPreset()}}>Telemetry</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x51); loadCurrentPreset()}}>Driving</Dropdown.Item>
-									<Dropdown.Item as="button" onClick={() => {setPresets(0x52); loadCurrentPreset()}}></Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {selectedPage += "Telemetry"; loadCurrentPreset()}}>Telemetry</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {selectedPage += "Driving"; loadCurrentPreset()}}>Driving</Dropdown.Item>
+									<Dropdown.Item as="button" onClick={() => {loadCurrentPreset()}}></Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
 							
@@ -123,12 +102,7 @@ function App() {
 			</div>
 
 			<div id="dynamic" style={{textAlign:"center"}}>
-				{selectedPreset}
-				<script async src={selectedPresetFile} onLoad={() => <selectedPreset.layout></selectedPreset.layout>} />
 			</div>
-
 		</>
   );
 }
-
-export default App;
