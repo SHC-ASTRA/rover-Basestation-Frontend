@@ -1,0 +1,7 @@
+@import "../../App.css";
+h2 {
+	text-align: center;
+	background-color: var(--bgdColor);
+	width: inherit;
+	height: inherit;
+}	

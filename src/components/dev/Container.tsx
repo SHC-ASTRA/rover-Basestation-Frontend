@@ -1,9 +1,8 @@
-import '../../App.css';
+import "./dev.css";
 
 import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal } from "react"
 
-export const Container = (props: 
-	{
+function Container(props: {
 		children: string | number | boolean | ReactElement<unknown, string | JSXElementConstructor<unknown>> | Iterable<ReactNode> | ReactPortal | null | undefined , 
 		padUp : string,
 		padRight : string,
@@ -12,8 +11,7 @@ export const Container = (props:
 	
 		widthSize : string,
 		heightSize : string,
-		
-	}) => {
+	}){
 
 	return (
 		<div style={
@@ -24,10 +22,12 @@ export const Container = (props:
 				'paddingLeft':props.padLeft,
 
 				'width':props.widthSize,
-				'height':props.heightSize,
-
+				'height':props.heightSize
 			} as React.CSSProperties
 		}
-		/>
+		>
+			{props.children}
+		</div>
 	);
 }
+export default Container;

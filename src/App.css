@@ -1,15 +1,26 @@
 :root {
 	--bgdColor: rgb(240,240,240);
-	--text-color:lightgreen;
+	--extra-text-color:rgb(200, 200, 200);
+	--text-color:rgb(10,20,10);
+	--bs-body-bg: rgb(216,216,216);
 	--primary2: #30304c;
-	background-color: rgb(216,216,216);
+	--standardSize: 5em;
+	background-color: var(--bs-body-bg);
+}
+
+body {
+	background-color: var(--bs-body-bg);
+}
+
+ruby {
+	color:var(--extra-text-color);
 }
 
 .headDiv {
 	color: var(--text-color);
 	background-color: var(--primary2);
 	vertical-align: top;
-	height: 5em;
+	height: var(--standardSize);
 }
 
 div {
@@ -19,24 +30,24 @@ div {
 }
 
 .flexDiv {
-	width:0%;
 	display: flex;
 	float:left;
 }
 
-.expoButton {
+.sideButton {
 	float:right;
-	width: 5em;
+	width: var(--standardSize);
+	height:min-content;
 }
 
 .lImg {
 	float:left;
-	max-height: 5em;
+	max-height: var(--standardSize);
 }
 
 .rImg {
 	float:right;
-	max-height: 5em;
+	max-height: var(--standardSize);
 }
 
 h1 {
