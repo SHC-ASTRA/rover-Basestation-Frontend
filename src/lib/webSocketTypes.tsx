@@ -1,13 +1,15 @@
 export interface WebSocketData {
     type: string;
-    [key: string]: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string] : any;
 }
 
-export interface CoreFeedbackData extends WebSocketData {
-    type: 'core_feedback';
+interface CoreFeedbackData extends WebSocketData {
+    type: 'feedback:core';
     telemetry: { // i don't know what this is supposed to be, so here is some temp data
         battery: number;
         temperature: number;
         humidity: number;
     };
 }
+export default CoreFeedbackData;

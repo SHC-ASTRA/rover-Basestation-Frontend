@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import Core_Telemetry from '../Core/Feeback.tsx';
+import Core_Telemetry from '../Core/Feedback.tsx';
 let currentPreset : string;
 let presetRender;
 

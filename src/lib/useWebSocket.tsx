@@ -1,7 +1,8 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { WebSocketData } from './webSocketTypes';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 
 export interface Handlers {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: React.Dispatch<React.SetStateAction<any>>;
 }
 
