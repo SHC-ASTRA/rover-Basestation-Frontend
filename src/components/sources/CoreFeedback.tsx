@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import useWebSocket from '../..//lib/useWebSocket';
 import { CoreFeedbackData } from '../..//lib/webSocketTypes';
 import { CoreFeedbackContext } from '../../lib/webSocketContext';
@@ -7,10 +7,10 @@ export default function Core_Feedback()
 {
 	// set up websocket
 	const [coreFeedback, setCoreFeedback] = useState<CoreFeedbackData | null>(null);
-	const handlers = useMemo(() => ({
-		coreFeedback: setCoreFeedback,
-	}), []);
-	useWebSocket('ws://api/ws', handlers);
+	const handlers = {
+		"feedback:core": setCoreFeedback,
+	};
+	useWebSocket('ws://localhost/api/ws', handlers);
 
 	return (
 		<CoreFeedbackContext.Provider value={coreFeedback}>

@@ -18,6 +18,7 @@ const useWebSocket = (url: string, handlers: Handlers) => {
       const handler = handlers[data.type];
       if (handler) {
         // if there was a handler for our data type, call it
+        console.log(data);
         handler(data);
       }
     } catch (error) {
