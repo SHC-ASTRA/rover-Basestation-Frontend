@@ -1,19 +1,19 @@
 import { useMemo, useState } from 'react';
 import useWebSocket from '../..//lib/useWebSocket';
-import { ArmBioData } from '../..//lib/webSocketTypes';
-import { ArmBioContext } from '../../lib/webSocketContext';
+import { FaerieFeedbackData } from '../..//lib/webSocketTypes';
+import { ArmFaerieContext } from '../../lib/webSocketContext';
 
 export default function Arm_Bio()
 {
 	// set up websocket
-	const [armBio, setArmBio] = useState<ArmBioData | null>(null);
+	const [armBio, setArmBio] = useState<FaerieFeedbackData | null>(null);
 	const handlers = useMemo(() => ({
 		armBio: setArmBio,
 	}), []);
 	useWebSocket('ws://api/ws', handlers);
 
 	return (
-		<ArmBioContext.Provider value={armBio}>
+		<ArmFaerieContext.Provider value={armBio}>
 			<div>
 				<h1>Arm Bio</h1>
 				{armBio && (
@@ -35,6 +35,6 @@ export default function Arm_Bio()
 					</>
 				) || <p>No Arm Bio</p>}
 			</div>
-		</ArmBioContext.Provider>
+		</ArmFaerieContext.Provider>
 	);
 }

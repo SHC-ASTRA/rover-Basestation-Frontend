@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import useWebSocket from '../..//lib/useWebSocket';
-import { ArmDigitData } from '../..//lib/webSocketTypes';
+import { DigitFeedbackData } from '../..//lib/webSocketTypes';
 import { ArmDigitContext } from '../../lib/webSocketContext';
 
 export default function Arm_Digit()
 {
 	// set up websocket
-	const [armDigit, setArmDigit] = useState<ArmDigitData | null>(null);
+	const [armDigit, setArmDigit] = useState<DigitFeedbackData | null>(null);
 	const handlers = useMemo(() => ({
 		armDigit: setArmDigit,
 	}), []);

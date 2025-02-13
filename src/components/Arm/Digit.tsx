@@ -1,4 +1,4 @@
-import Arm_Socket from './Socket';
+import Arm_Socket from './subcomponent/Socket';
 import Container from '../dev/Container'
 import Arm_Digit from '../sources/ArmDigit';
 

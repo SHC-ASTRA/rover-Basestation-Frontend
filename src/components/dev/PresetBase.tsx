@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import Arm_Bio from '../Arm/Bio.tsx';
 import Arm_Digit from '../Arm/Digit.tsx';
 import Core_Driving from '../Core/Driving.tsx';
-import Core_Telemetry from '../Core/Feedback.tsx';
+import Core_Telemetry from '../Core/subcomponent/Feedback.tsx';
 
 let currentPreset : string;
 let presetRender;

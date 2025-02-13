@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import Arm_Bio_Component from './components/Arm/Bio.tsx';
 import Arm_Digit_Component from './components/Arm/Digit.tsx';
 import Core_Driving_Component from './components/Core/Driving.tsx';
-import Core_Feedback_Component from './components/Core/Feedback.tsx';
+import Core_Feedback_Component from './components/Core/subcomponent/Feedback.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

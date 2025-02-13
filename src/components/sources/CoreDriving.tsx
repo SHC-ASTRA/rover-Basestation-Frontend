@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import useWebSocket from '../..//lib/useWebSocket';
-import { CoreDrivingData } from '../..//lib/webSocketTypes';
+import { CoreControlData } from '../..//lib/webSocketTypes';
 import { CoreDrivingContext } from '../../lib/webSocketContext';
 
-export default function Core_Driving()
+export default function Core_Driving_Control()
 {
 	// set up websocket
-	const [coreDriving, setCoreDriving] = useState<CoreDrivingData | null>(null);
+	const [coreDriving, setCoreDriving] = useState<CoreControlData | null>(null);
 	const handlers = useMemo(() => ({
 		coreDriving: setCoreDriving,
 	}), []);
