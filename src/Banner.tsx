@@ -3,13 +3,10 @@ import { Outlet } from "react-router";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { coreDrivingPath, coreFeedbackPath, armBioPath, armDigitPath } from './main.tsx';
 
 const Banner = () =>
 {
-	const coreDrivingPath = "/Core/Driving";
-	const coreFeedbackPath = "/Core/Feedback";
-	const armBioPath = "/Arm/Bio";
-	const armDigitPath = "/Arm/Digit";
 
   	return (
 		<>

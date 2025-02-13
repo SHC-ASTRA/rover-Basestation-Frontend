@@ -8,15 +8,20 @@ import Arm_Digit_Component from './components/Arm/Digit.tsx';
 import Core_Driving_Component from './components/Core/Driving.tsx';
 import Core_Feedback_Component from './components/Core/subcomponent/Feedback.tsx';
 
+export const coreDrivingPath = "/Core/Driving";
+export const coreFeedbackPath = "/Core/Feedback";
+export const armBioPath = "/Arm/Bio";
+export const armDigitPath = "/Arm/Digit";
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
 	<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<App />}>
-				<Route path="/arm/bio" element={<Arm_Bio_Component />} />
-				<Route path="/arm/digit" element={<Arm_Digit_Component />} />
-				<Route path="/core/feedback" element={<Core_Feedback_Component />} />
-				<Route path="/core/driving" element={<Core_Driving_Component />} />
+				<Route path={armBioPath} element={<Arm_Bio_Component />} />
+				<Route path={armDigitPath} element={<Arm_Digit_Component />} />
+				<Route path={coreFeedbackPath} element={<Core_Feedback_Component />} />
+				<Route path={coreDrivingPath} element={<Core_Driving_Component />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>

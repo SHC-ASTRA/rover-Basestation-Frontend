@@ -1,5 +1,5 @@
 import Container from '../../dev/Container'
-import Arm_Socket from 'src/components/sources/ArmSocket';
+import Arm_Socket from '../../sources/ArmSocket'
 
 export default function Arm_Socket_Component()
 {
