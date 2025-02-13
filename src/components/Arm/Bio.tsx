@@ -1,12 +1,12 @@
-import Arm_Socket from './subcomponent/Socket';
 import Container from '../dev/Container';
 import Arm_Bio from '../sources/ArmBio';
+import Arm_Socket_Component from './subcomponent/Socket';
 
 export default function Arm_Bio_Component()
 {
 	return (
 		<>
-			<Arm_Socket />
+			<Arm_Socket_Component />
 			<Container padUp='var(--buttonHeight)' padRight='12px' padDown='12px' padLeft='12px' widthSize='var(--standardSourceWidth)' heightSize='var(--standardSourceHeight)'>
 				<Arm_Bio />
 			</Container>
