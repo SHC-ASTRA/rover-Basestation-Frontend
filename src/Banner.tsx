@@ -68,13 +68,13 @@ const Banner = () =>
 					
 				</div>
 
-				<Button className="sideButton" type="submit">
+				<Button className="sideButton" href={window.location.href}>
 					Refresh
 				</Button>
 
 			</div>
-			<Outlet />
 
+			<Outlet />
 		</>
   );
 }

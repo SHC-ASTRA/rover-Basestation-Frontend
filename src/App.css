@@ -1,10 +1,14 @@
 :root {
-	--bgdColor: rgb(240,240,240);
-	--extra-text-color:rgb(200, 200, 200);
-	--text-color:rgb(10,20,10);
-	--bs-body-bg: rgb(216,216,216);
-	--primary2: #30304c;
+	--bs-body-bg: rgb(239, 241, 245);
+	--extra-text-color: rgb(230, 233, 239);
+	--text-color: rgb(76, 79, 105);
+	--primary: rgb(48, 52, 70);
+
 	--standardSize: 5em;
+	--buttonHeight: 40px;
+
+	--standardSourceWidth: 100vw;
+	--standardSourceHeight: 10vw;
 	background-color: var(--bs-body-bg);
 }
 
@@ -18,7 +22,7 @@ ruby {
 
 .headDiv {
 	color: var(--text-color);
-	background-color: var(--primary2);
+	background-color: var(--primary);
 	vertical-align: top;
 	height: var(--standardSize);
 }
@@ -61,11 +65,18 @@ h1 {
 	padding-left: 0;
 	padding-right: 0;
 	width: 10em;
+
+	--bs-btn-active-bg: var(--primary);
+	--bs-btn-border-color:var(--primary);
+	--bs-btn-hover-bg: var(--extra-text-color);
+	--bs-btn-bg: var(--bs-body-bg);
+	--bs-btn-hover-color: var(--text-color);
+	color: var(--text-color);
 }
 
 .btn.show {
-	background-color: var(--bgdColor);
-	color: var(--primary2);
-	--bs-btn-active-bg: var(--primary2);
-	--bs-btn-border-color:var(--primary2);
+	background-color: var(--bs-body-bg);
+	color: var(--primary);
+	--bs-btn-active-bg: var(--primary);
+	--bs-btn-border-color:var(--primary);
 }

@@ -1,10 +1,12 @@
-import Container from '../dev/Container'
-export default function Core_Driving()
+import Container from '../dev/Container';
+import Core_Driving from '../sources/CoreDriving';
+
+export default function Core_Driving_Component()
 {
 	return (
 		<>
-			<Container padUp='12px' padRight='12px' padDown='12px' padLeft='12px' widthSize='12px' heightSize='12px'>
-				<h1>Hi, I'm Core/Driving</h1>
+			<Container padUp='var(--buttonHeight)' padRight='12px' padDown='12px' padLeft='12px' widthSize='var(--standardSourceWidth)' heightSize='var(--standardSourceHeight)'>
+				<Core_Driving />
 			</Container>
 		</>
 	);

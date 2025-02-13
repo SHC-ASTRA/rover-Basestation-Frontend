@@ -1,5 +1,11 @@
+import '../../App.css';
 import { useParams } from "react-router";
+
+import Arm_Bio from '../Arm/Bio.tsx';
+import Arm_Digit from '../Arm/Digit.tsx';
+import Core_Driving from '../Core/Driving.tsx';
 import Core_Telemetry from '../Core/Feedback.tsx';
+
 let currentPreset : string;
 let presetRender;
 
@@ -7,10 +13,7 @@ export const Preset = () => {
 
 	const {module, preset} = useParams();
 	const fullName = module + '/' + preset;
-	if(module === undefined || preset === undefined)
-	{
-		throw("apolgy for bad english\nwhere were u wen basestation die?\nI was at house eating dorito when phone ring\n\"basestation is kil\"\n\"no\"");
-	}
+
 	if(currentPreset !== fullName)
 	{
 		currentPreset = fullName;
@@ -20,7 +23,13 @@ export const Preset = () => {
 				presetRender = Core_Telemetry();
 				break;
 			case "Core/Driving":
-				presetRender = <></>
+				presetRender = Core_Driving();
+			break;
+			case "Arm/Bio":
+				presetRender = Arm_Bio();
+			break;
+			case "Arm/Digit":
+				presetRender = Arm_Digit();
 			break;
 			default:
 				presetRender = <></>;

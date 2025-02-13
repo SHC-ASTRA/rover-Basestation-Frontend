@@ -1,13 +1,14 @@
 import Arm_Socket from './Socket';
 import Container from '../dev/Container'
+import Arm_Digit from '../sources/ArmDigit';
 
-export default function Arm_Digit()
+export default function Arm_Digit_Component()
 {
 	return (
 		<>
-		<Arm_Socket />
-			<Container padUp='12px' padRight='12px' padDown='12px' padLeft='12px' widthSize='100vw' heightSize='100vw'>
-				<h1>Hi, I'm Arm/Digit</h1>
+			<Arm_Socket />
+			<Container padUp='var(--buttonHeight)' padRight='12px' padDown='12px' padLeft='12px' widthSize='var(--standardSourceWidth)' heightSize='var(--standardSourceHeight)'>
+				<Arm_Digit />
 			</Container>
 		</>
 	);
