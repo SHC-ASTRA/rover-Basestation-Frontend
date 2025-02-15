@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import useWebSocket from '../..//lib/useWebSocket';
-import { SocketFeedbackData } from '../..//lib/webSocketTypes';
+import useWebSocket from '../../lib/useWebSocket';
+import { SocketFeedbackData } from '../../lib/webSocketTypes';
 import { ArmSocketContext } from '../../lib/webSocketContext';
+import { WebsocketAddress } from '../../lib/useWebSocket';
 
 export default function Arm_Socket()
 {
@@ -10,7 +11,7 @@ export default function Arm_Socket()
 	const handlers = useMemo(() => ({
 		armSocket: setArmSocket,
 	}), []);
-	useWebSocket('ws://api/ws', handlers);
+	useWebSocket(WebsocketAddress, handlers);
 
 	return (
 		<ArmSocketContext.Provider value={armSocket}>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Children, JSXElementConstructor, ReactNode } from "react";
-class vector3 extends React.Component
+export default class vector3 extends React.Component
 {
 	children : ReactNode;
 	type!: string | JSXElementConstructor<any>; 
@@ -19,14 +19,6 @@ class vector3 extends React.Component
 		this.x=X;
 		this.y=Y;
 		this.z=Z;
-	}
-
-	render() {
-	  return <h2>Hi, I am a Car!</h2>;
-	}
-
-	ReactPortal() {
 
 	}
 }
-export default vector3;

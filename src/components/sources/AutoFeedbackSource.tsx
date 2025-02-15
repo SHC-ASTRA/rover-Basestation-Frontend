@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import useWebSocket from '../../lib/useWebSocket';
 import { AutoFeedbackData } from '../../lib/webSocketTypes';
 import { AutoFeedbackContext } from '../../lib/webSocketContext';
+import { WebsocketAddress } from '../../lib/useWebSocket';
 
 export default function Auto_Feedback()
 {
@@ -10,7 +11,7 @@ export default function Auto_Feedback()
 	const handlers = useMemo(() => ({
 		autoFeedback: setAutoFeedback,
 	}), []);
-	useWebSocket('ws://api/ws', handlers);
+	useWebSocket(WebsocketAddress, handlers);
 
 	return (
 		<AutoFeedbackContext.Provider value={autoFeedback}>

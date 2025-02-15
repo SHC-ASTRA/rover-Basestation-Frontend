@@ -1,5 +1,5 @@
 import Container from '../dev/Container';
-import Auto_Feedback from '../sources/AutoFeedback';
+import Auto_Feedback from '../sources/AutoFeedbackSource';
 import Core_Feedback_Component from './subcomponent/Feedback';
 export default function Core_Autonomy_Component()
 {	

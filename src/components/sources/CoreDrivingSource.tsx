@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import useWebSocket from '../..//lib/useWebSocket';
-import { CoreControlData } from '../..//lib/webSocketTypes';
+import useWebSocket from '../../lib/useWebSocket';
+import { CoreControlData } from '../../lib/webSocketTypes';
 import { CoreDrivingContext } from '../../lib/webSocketContext';
+import { WebsocketAddress } from '../../lib/useWebSocket';
 
 export default function Core_Driving_Control()
 {
@@ -10,7 +11,7 @@ export default function Core_Driving_Control()
 	const handlers = useMemo(() => ({
 		coreDriving: setCoreDriving,
 	}), []);
-	useWebSocket('ws://api/ws', handlers);
+	useWebSocket(WebsocketAddress, handlers);
 
 	return (
 		<CoreDrivingContext.Provider value={coreDriving}>

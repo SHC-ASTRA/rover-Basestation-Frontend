@@ -1,5 +1,5 @@
 import Container from '../dev/Container';
-import Arm_Bio from '../sources/ArmBio';
+import Arm_Bio from '../sources/ArmBioSource';
 import Arm_Socket_Component from './subcomponent/Socket';
 
 export default function Arm_Bio_Component()

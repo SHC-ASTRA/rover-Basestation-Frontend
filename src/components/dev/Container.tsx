@@ -21,7 +21,8 @@ function Container(props: {
 				'paddingLeft':props.padLeft,
 
 				'width':props.widthSize,
-				'height':props.heightSize
+				'height':props.heightSize,
+				'border':'2px'
 			} as React.CSSProperties
 		}
 		>

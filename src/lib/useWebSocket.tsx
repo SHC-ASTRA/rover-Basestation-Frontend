@@ -6,6 +6,8 @@ export interface Handlers {
   [key: string]: React.Dispatch<React.SetStateAction<any>>;
 }
 
+export const WebsocketAddress = 'ws://localhost/api/ws';
+
 const useWebSocket = (url: string, handlers: Handlers) => {
   const [retryDelay, setRetryDelay] = useState(500);
   const ws = useRef<WebSocket | null>(null);

@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import useWebSocket from '../..//lib/useWebSocket';
-import { FaerieFeedbackData } from '../..//lib/webSocketTypes';
+import useWebSocket from '../../lib/useWebSocket';
+import { FaerieFeedbackData } from '../../lib/webSocketTypes';
 import { ArmFaerieContext } from '../../lib/webSocketContext';
+import { WebsocketAddress } from '../../lib/useWebSocket';
 
 export default function Arm_Bio()
 {
@@ -10,7 +11,7 @@ export default function Arm_Bio()
 	const handlers = useMemo(() => ({
 		armBio: setArmBio,
 	}), []);
-	useWebSocket('ws://api/ws', handlers);
+	useWebSocket(WebsocketAddress, handlers);
 
 	return (
 		<ArmFaerieContext.Provider value={armBio}>

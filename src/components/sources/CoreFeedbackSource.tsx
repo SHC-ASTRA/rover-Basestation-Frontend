@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import useWebSocket from '../..//lib/useWebSocket';
-import { CoreFeedbackData } from '../..//lib/webSocketTypes';
+import useWebSocket from '../../lib/useWebSocket';
+import { CoreFeedbackData } from '../../lib/webSocketTypes';
 import { CoreFeedbackContext } from '../../lib/webSocketContext';
+import { WebsocketAddress } from '../../lib/useWebSocket';
 
 export default function Core_Feedback()
 {
@@ -10,7 +11,7 @@ export default function Core_Feedback()
 	const handlers = {
 		"feedback:core": setCoreFeedback,
 	};
-	useWebSocket('ws://localhost/api/ws', handlers);
+	useWebSocket(WebsocketAddress, handlers);
 
 	return (
 		<CoreFeedbackContext.Provider value={coreFeedback}>
@@ -22,9 +23,9 @@ export default function Core_Feedback()
 						<p>Longitude: {coreFeedback.data.gps_long}</p>
 						<p>Satellites: {coreFeedback.data.gps_sats}</p>
 
-						<p>Gyro: {coreFeedback.data.bno_gyro}</p>
-						<p>Acceleration: {coreFeedback.data.bno_accel}</p>
-						
+						<p>Gyro: {coreFeedback.data.bno_gyro.x}, {coreFeedback.data.bno_gyro.y}, {coreFeedback.data.bno_gyro.z}</p>
+						<p>Acceleration: {coreFeedback.data.bno_accel.x}, {coreFeedback.data.bno_accel.y}, {coreFeedback.data.bno_accel.z}</p>
+
 						<p>Orientation: {coreFeedback.data.orientation}</p>
 
 						<p>Temp: {coreFeedback.data.bmp_temp}</p>

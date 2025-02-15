@@ -1,4 +1,4 @@
-import vector3 from './vector3';
+import vector3 from "./vector3";
 export interface WebSocketData {
     type: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,9 +8,9 @@ export interface WebSocketData {
 export interface CoreFeedbackData extends WebSocketData {
     type: 'feedback:core';
     data: {
-        gps_lat: number;
-        gps_long: number;
-        gps_sats: number;
+        gps_lat : number;
+        gps_long : number;
+        gps_sats : number;
 
 		bno_gyro : vector3;
 		bno_accel : vector3;

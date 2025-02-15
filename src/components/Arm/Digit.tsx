@@ -1,5 +1,5 @@
 import Container from '../dev/Container'
-import Arm_Digit from '../sources/ArmDigit';
+import Arm_Digit from '../sources/ArmDigitSource';
 import Arm_Socket_Component from './subcomponent/Socket';
 
 export default function Arm_Digit_Component()

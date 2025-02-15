@@ -1,5 +1,5 @@
 import Container from '../../dev/Container';
-import Core_Feedback from '../../sources/CoreFeedback';
+import Core_Feedback from '../../sources/CoreFeedbackSource';
 
 export default function Core_Feedback_Component()
 {	
