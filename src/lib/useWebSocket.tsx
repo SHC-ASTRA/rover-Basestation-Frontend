@@ -20,7 +20,7 @@ const useWebSocket = (url: string, handlers: Handlers) => {
       const handler = handlers[data.type];
       if (handler) {
         // if there was a handler for our data type, call it
-        console.log(data);
+        //console.log(data);
         handler(data);
       }
     } catch (error) {
@@ -37,11 +37,11 @@ const useWebSocket = (url: string, handlers: Handlers) => {
 
     ws.current = new WebSocket(url);
 
-    ws.current.onopen = () => console.log('WebSocket connected');
+    //ws.current.onopen = () => console.log('WebSocket connected');
     ws.current.onmessage = handleMessage;
-    ws.current.onerror = (error) => console.error('WebSocket error:', error);
+    //ws.current.onerror = (error) => console.error('WebSocket error:', error);
     ws.current.onclose = () => {
-      console.log('WebSocket disconnected, retrying in ' + retryDelay + 'ms');
+      //console.log('WebSocket disconnected, retrying in ' + retryDelay + 'ms');
       
       // reconnect after delay
       setTimeout(() => {

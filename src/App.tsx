@@ -1,9 +1,7 @@
 import Banner from './Banner';
-import Controller from './controller';
+import Controller_Display, { Controller } from './Controller';
 export default function App()
 {
- 	return (<>
-	<Controller/>
-	<Banner/>
-	</>);
+	Controller();
+ 	return (<><Banner/><Controller_Display /></>);
 }
