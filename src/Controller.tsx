@@ -3,23 +3,31 @@ import Container from "./components/dev/Container";
 let gamePads : (Gamepad | null)[];
 let loopStarted : boolean;
 
-export function Controller()
+let addedListeners : boolean;
+
+function Init_Controller()
 {
 	window.addEventListener("gamepadconnected", () => {
 		if(gamePads != null && gamePads[0])
 			return;
-		GamepadConnected();
+		Gamepad_Connected();
 	});
 
 	window.addEventListener("gamepaddisconnected", () => {
 		if(gamePads[0] == null)
 			//Hardware disconnect
 			return;
-		GamepadDisconnected();
+		Gamepad_Disconnected();
 	});
+	return(<></>);
 }
 function Controller_Display()
 {
+	if(!addedListeners)
+	{
+		Init_Controller();
+		addedListeners = true;
+	}
 	return (
 		<>
 			<Container padUp='var(--buttonHeight)' padRight='12px' padDown='12px' padLeft='12px' widthSize='var(--standardSourceWidth)' heightSize='var(--standardSourceHeight)'>
@@ -98,14 +106,15 @@ function Controller_Display()
 	);
 }
 
-function GamepadDisconnected()
+function Gamepad_Disconnected()
 {
 	document.querySelector('#controller0')?.remove();
 	gamePads = [];
 	console.warn("Gamepad Disconnected");
+	return(<></>);
 }
 
-function GamepadConnected()
+function Gamepad_Connected()
 {
 	gamePads = navigator.getGamepads();
 	if(gamePads[0] == null)
@@ -119,7 +128,7 @@ function GamepadConnected()
 	  requestAnimationFrame(updateStatus);
 	  loopStarted = true;
 	}
-
+	return(<></>);
 }
 
 function updateStatus()
@@ -159,6 +168,7 @@ function updateStatus()
 		}
 	}
 	requestAnimationFrame(updateStatus);
+	return(<></>);
 }
 
 export default Controller_Display;
