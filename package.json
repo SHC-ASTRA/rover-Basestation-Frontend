@@ -1,5 +1,5 @@
 {
-  "name": "frontend2",
+  "name": "rover-basestation-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,7 +14,8 @@
     "react": "latest",
     "react-bootstrap": "latest",
     "react-dom": "latest",
-    "react-router": "latest"
+    "react-router": "latest",
+    "react-use-websocket": "^4.13.0"
   },
   "devDependencies": {
     "@eslint/js": "latest",

@@ -1,31 +1,17 @@
-import { useMemo, useState } from 'react';
-import useWebSocket from '../../lib/useWebSocket';
-import { CoreControlData } from '../../lib/webSocketTypes';
-import { CoreDrivingContext } from '../../lib/webSocketContext';
-import { WebsocketAddress } from '../../lib/useWebSocket';
-
-export default function Core_Driving_Control()
-{
-	// set up websocket
-	const [coreDriving, setCoreDriving] = useState<CoreControlData | null>(null);
-	const handlers = useMemo(() => ({
-		coreDriving: setCoreDriving,
-	}), []);
-	useWebSocket(WebsocketAddress, handlers);
-
+export default function Core_Driving_Control() {
+	const coreControl = {data: { max_speed: 0, brake: 0, left_stick: 0, right_stick: 0 }};
+	
 	return (
-		<CoreDrivingContext.Provider value={coreDriving}>
-			<div>
-				<h1>Core Driving</h1>
-				{coreDriving && (
-					<>
-						<p>Max Speed: {coreDriving.data.max_speed}</p>
-						<p>Brake: {coreDriving.data.brake}</p>
-						<p>Left Stick: {coreDriving.data.left_stick}</p>
-						<p>Right Stick: {coreDriving.data.right_stick}</p>
-					</>
-				) || <p>No core driving</p>}
-			</div>
-		</CoreDrivingContext.Provider>
+		<div>
+			<h1>Core Driving</h1>
+			{coreControl && (
+				<>
+					<p>Max Speed: {coreControl.data.max_speed}</p>
+					<p>Brake: {coreControl.data.brake}</p>
+					<p>Left Stick: {coreControl.data.left_stick}</p>
+					<p>Right Stick: {coreControl.data.right_stick}</p>
+				</>
+			) || <p>No core driving</p>}
+		</div>
 	);
 }

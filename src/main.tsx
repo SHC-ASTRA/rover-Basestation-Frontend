@@ -1,6 +1,6 @@
 import './index.css';
 import App from './App.tsx';
-import { StrictMode } from 'react';
+import { createContext, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router";
 import Arm_Bio_Component from './components/Arm/Bio.tsx';
@@ -12,6 +12,8 @@ export const coreDrivingPath = "/Core/Driving";
 export const coreFeedbackPath = "/Core/Feedback";
 export const armBioPath = "/Arm/Bio";
 export const armDigitPath = "/Arm/Digit";
+
+createContext({});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
