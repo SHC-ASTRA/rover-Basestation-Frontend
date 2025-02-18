@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useController from "../../lib/controller";
 import { CoreControlData, useWebSocketSetup } from "../../lib/webSocket";
 
@@ -7,15 +7,10 @@ export default function Core_Driving_Control() {
 	const { connectedState, gamepad } = useController();
 	const [ coreControl, setCoreControl ] = useState<null | CoreControlData>(null);
 
-	useEffect(() => {
+	const interval = setInterval(() => {
 		if (!connectedState || !gamepad) {
-			return;
-		}
-
-		const interval = setInterval(() => {
-			if (!connectedState || !gamepad) {
-				clearInterval(interval);
-			}
+			clearInterval(interval);
+		} else {
 			const data: CoreControlData = {
 				data: {
 					max_speed: gamepad.buttons[0].value,
@@ -30,10 +25,9 @@ export default function Core_Driving_Control() {
 			sendMessage(JSON.stringify(data));
 
 			setCoreControl(data);
-		}, 100);
-
-		return () => clearInterval(interval);
-	}, [connectedState, gamepad, sendMessage]);
+		}
+	}, 1000);
+	// TODO: make this not spam the everloving shit out of backend please :)
 	
 	return (
 		<div>
