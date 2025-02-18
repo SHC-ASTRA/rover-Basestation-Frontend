@@ -3,12 +3,14 @@
 	--extra-text-color: rgb(230, 233, 239);
 	--text-color: rgb(76, 79, 105);
 	--primary: rgb(48, 52, 70);
-
+	
 	--standardSize: 5em;
 	--buttonHeight: 40px;
 
-	--standardSourceWidth: 100vw;
-	--standardSourceHeight: 10vw;
+	--stdContainerWidth: 20vw;
+	--stdContainerHeight: 10vw;
+	--stdPad:12px;
+	
 	background-color: var(--bs-body-bg);
 }
 
@@ -62,8 +64,16 @@ div {
 h1 {
 	color: var(--text-color);
 	text-align: center;
-	font-size: 3vi;
+	font-size: 2.5vi;
 	margin-top: 0;
+}
+
+h2 {
+	text-align: center;
+	background-color: var(--bgdColor);
+	width: inherit;
+	height: inherit;
+	font-size: 1vi;
 }
 
 .dropdown-toggle {

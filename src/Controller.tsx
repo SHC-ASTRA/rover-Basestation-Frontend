@@ -3,6 +3,8 @@ import Container from "./components/dev/Container";
 let gamePads : (Gamepad | null)[];
 let loopStarted : boolean;
 
+export let gamePad : Gamepad;
+
 let addedListeners : boolean;
 
 function Init_Controller()
@@ -19,18 +21,28 @@ function Init_Controller()
 			return;
 		Gamepad_Disconnected();
 	});
-	return(<></>);
 }
-function Controller_Display()
+
+function Controller_Display({isActive=true})
 {
 	if(!addedListeners)
 	{
 		Init_Controller();
 		addedListeners = true;
 	}
+
 	return (
 		<>
-			<Container padUp='var(--buttonHeight)' padRight='12px' padDown='12px' padLeft='12px' widthSize='var(--standardSourceWidth)' heightSize='var(--standardSourceHeight)'>
+			{isActive &&
+			<Container
+				padUp='var(--buttonHeight)'
+				padRight='var(--stdPad)'
+				padDown='var(--stdPad)'
+				padLeft='var(--stdPad)'
+				
+				widthSize='var(--stdContainerWidth)'
+				heightSize='inherit'
+			>
 				<div id="controller0">
 					<h1>
 						gamepad: 0
@@ -91,17 +103,25 @@ function Controller_Display()
 							</li>
 						</>
 					</ul>
-				</div>
 
-				<div className='axes'>
-					<progress className='axis' max='2' value='1'>
-						0
-					</progress>
-					<progress className='axis' max='2' value='1'>
-						1
-					</progress>
-				</div>		
+					<div className='axes'>
+						<progress className='axis' max='2' value='1'>
+							0
+						</progress>
+						<progress className='axis' max='2' value='1'>
+							1
+						</progress>
+						<progress className='axis' max='2' value='1'>
+							0
+						</progress>
+						<progress className='axis' max='2' value='1'>
+							1
+						</progress>
+					</div>		
+				</div>
   			</Container>
+		}
+		{!isActive && <div></div>}
 		</>
 	);
 }
@@ -122,13 +142,13 @@ function Gamepad_Connected()
 		console.warn("No gamepad found");
 		return;
 	}
+	gamePad = gamePads[0];
 	console.warn("Gamepad Connected");
 
 	if (!loopStarted) {
 	  requestAnimationFrame(updateStatus);
 	  loopStarted = true;
 	}
-	return(<></>);
 }
 
 function updateStatus()
@@ -168,7 +188,6 @@ function updateStatus()
 		}
 	}
 	requestAnimationFrame(updateStatus);
-	return(<></>);
 }
 
 export default Controller_Display;

@@ -1,4 +1,3 @@
-import "./dev.css";
 import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal } from "react"
 
 function Container(props: {
@@ -22,7 +21,8 @@ function Container(props: {
 
 				'width':props.widthSize,
 				'height':props.heightSize,
-				'border':'2px'
+				'border':'3px',
+				'borderStyle':'solid'
 			} as React.CSSProperties
 		}
 		>

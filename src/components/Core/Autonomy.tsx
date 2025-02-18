@@ -6,7 +6,7 @@ export default function Core_Autonomy_Component()
 	return (
 		<>
 			<Core_Feedback_Component />
-			<Container padUp='var(--buttonHeight)' padRight='12px' padDown='12px' padLeft='12px' widthSize='var(--standardSourceWidth)' heightSize='var(--standardSourceHeight)'>
+			<Container padUp='var(--buttonHeight)' padRight='var(--stdPad)' padDown='var(--stdPad)' padLeft='var(--stdPad)' widthSize='var(--stdContainerWidth)' heightSize='var(--stdContainerHeight)'>
 				<Auto_Feedback />
 			</Container>
 		</>

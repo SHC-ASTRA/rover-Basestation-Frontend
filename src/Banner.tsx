@@ -6,14 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { coreDrivingPath, coreFeedbackPath, armBioPath, armDigitPath } from './main.tsx';
 
-const Banner = () =>
+export default function Banner()
 {
 	const [iconAdr, setIconAdr] = useState("../src/assets/favicon.png");
   	return (
 		<>
 			<div className="headDiv">
-				<Button onClick={() => setIconAdr(iconAdr == '../src/assets/favicon.png' ? '../src/assets/serious.png' : '../src/assets/favicon.png')} className="lImg">
-				<img src={iconAdr} alt="Astra Logo" className="lImg"/></Button>
+				<button onClick={() => setIconAdr(iconAdr == '../src/assets/favicon.png' ? '../src/assets/serious.png' : '../src/assets/favicon.png')} className="lImg" >
+				<img src={iconAdr} alt="Astra Logo" className="lImg"/></button>
 				<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				<h1>
 				<ruby>
@@ -74,10 +74,9 @@ const Banner = () =>
 				</Button>
 
 			</div>
-
-			<Outlet />
+			<div className="flexDiv">
+				<Outlet />
+			</div>
 		</>
   );
 }
-
-export default Banner;

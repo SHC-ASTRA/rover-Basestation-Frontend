@@ -1,22 +1,21 @@
 import { useState } from "react";
-import useController from "../../lib/controller";
+import { gamePad } from "../../../src/Controller";
 import { CoreControlData, useWebSocketSetup } from "../../lib/webSocket";
 
 export default function Core_Driving_Control() {
 	const { sendMessage } = useWebSocketSetup();
-	const { connectedState, gamepad } = useController();
 	const [ coreControl, setCoreControl ] = useState<null | CoreControlData>(null);
 
 	const interval = setInterval(() => {
-		if (!connectedState || !gamepad) {
+		if (!gamePad || !gamePad.connected) {
 			clearInterval(interval);
 		} else {
 			const data: CoreControlData = {
 				data: {
-					max_speed: gamepad.buttons[0].value,
-					brake: gamepad.buttons[1].value == 1,
-					left_stick: -gamepad.axes[1],
-					right_stick: -gamepad.axes[3],
+					max_speed: gamePad.buttons[0].value,
+					brake: gamePad.buttons[1].value == 1,
+					left_stick: -gamePad.axes[1],
+					right_stick: -gamePad.axes[3],
 				},
 				type: "control:core/driving",
 				timestamp: Date.now(),
