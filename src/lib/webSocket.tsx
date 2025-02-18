@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import vector3 from "./vector3";
+import useWebSocket from "react-use-websocket";
 export interface WebSocketData {
     type: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -140,5 +142,59 @@ export interface FaerieFeedbackData extends WebSocketData {
 		lux_5 : number;
 		lux_6 : number;
 		lux_7 : number;
+    };
+}
+
+export class AllFeedbackData {
+    coreFeedback: CoreFeedbackData | null = null;
+    autoFeedback: AutoFeedbackData | null = null;
+    digitFeedback: DigitFeedbackData | null = null;
+    faerieFeedback: FaerieFeedbackData | null = null;
+    socketFeedback: SocketFeedbackData | null = null;
+}
+
+export function useWebSocketSetup() {
+    const [webSocketData, setWebSocketData] = useState<AllFeedbackData>(new AllFeedbackData());
+    const host = window.location.host;
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const url = `${protocol}//${host}/api/ws`;
+
+    const { sendMessage, lastMessage, readyState} = useWebSocket(url);
+
+    useEffect(() => {
+        if (lastMessage !== null) {
+            const data = JSON.parse(lastMessage.data);
+            const newWsData = webSocketData;
+
+            switch (data.type) {
+                case 'feedback:core/auto':
+                    newWsData.autoFeedback = data;
+                    break;
+                case 'feedback:core':
+                    newWsData.coreFeedback = data;
+                    break;
+                case 'feedback:core/digit':
+                    newWsData.digitFeedback = data;
+                    break;
+                case 'feedback:core/faerie':
+                    newWsData.faerieFeedback = data;
+                    break;
+                case 'feedback:arm/socket':
+                    newWsData.socketFeedback = data;
+                    break;
+            }
+
+            setWebSocketData(newWsData);
+        }
+    }, [lastMessage, webSocketData]);
+    
+    return {
+        sendMessage,
+        readyState,
+        autoFeedback: webSocketData.autoFeedback,
+        coreFeedback: webSocketData.coreFeedback,
+        digitFeedback: webSocketData.digitFeedback,
+        faerieFeedback: webSocketData.faerieFeedback,
+        socketFeedback: webSocketData.socketFeedback,
     };
 }
