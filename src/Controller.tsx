@@ -1,144 +1,138 @@
 import Container from "./components/dev/Container";
 
-let gamePads : (Gamepad | null)[];
-let loopStarted : boolean;
+let gamePads: (Gamepad | null)[];
+let loopStarted: boolean;
 
-export let gamePad : Gamepad;
+export let gamePad: Gamepad;
 
-let addedListeners : boolean;
+let addedListeners: boolean;
 
-function Init_Controller()
-{
+function addListeners() {
 	window.addEventListener("gamepadconnected", () => {
-		if(gamePads != null && gamePads[0])
+		if (gamePads != null && gamePads[0])
 			return;
-		Gamepad_Connected();
+		onGamepadConnected();
 	});
 
 	window.addEventListener("gamepaddisconnected", () => {
-		if(gamePads[0] == null)
+		if (gamePads[0] == null)
 			//Hardware disconnect
 			return;
-		Gamepad_Disconnected();
+		gamepadDisconnected();
 	});
 }
 
-function Controller_Display({isActive=true})
-{
-	if(!addedListeners)
-	{
-		Init_Controller();
+function ControllerDisplay({ isActive = true }) {
+	if (!addedListeners) {
+		addListeners();
 		addedListeners = true;
 	}
 
 	return (
 		<>
 			{isActive &&
-			<Container
-				padUp='var(--buttonHeight)'
-				padRight='var(--stdPad)'
-				padDown='var(--stdPad)'
-				padLeft='var(--stdPad)'
-				
-				widthSize='var(--stdContainerWidth)'
-				heightSize='inherit'
-			>
-				<div id="controller0">
-					<h1>
-						gamepad: 0
-					</h1>
+				<Container
+					padUp='var(--buttonHeight)'
+					padRight='var(--stdPad)'
+					padDown='var(--stdPad)'
+					padLeft='var(--stdPad)'
 
-					<ul className='buttons'>
-						<>
-							<li className='button'>
-								Button 0
-							</li>
-							<li className='button'>
-								Button 1
-							</li>
-							<li className='button'>
-								Button 2
-							</li>
-							<li className='button'>
-								Button 3
-							</li>
-							<li className='button'>
-								Button 4
-							</li>
-							<li className='button'>
-								Button 5
-							</li>
-							<li className='button'>
-								Button 6
-							</li>
-							<li className='button'>
-								Button 7
-							</li>
-							<li className='button'>
-								Button 8
-							</li>
-							<li className='button'>
-								Button 9
-							</li>
-							<li className='button'>
-								Button 10
-							</li>
-							<li className='button'>
-								Button 11
-							</li>
-							<li className='button'>
-								Button 12
-							</li>
-							<li className='button'>
-								Button 13
-							</li>
-							<li className='button'>
-								Button 14
-							</li>
-							<li className='button'>
-								Button 15
-							</li>
-							<li className='button'>
-								Button 16
-							</li>
-						</>
-					</ul>
+					widthSize='var(--stdContainerWidth)'
+					heightSize='inherit'
+				>
+					<div id="controller0">
+						<h1>
+							gamepad: 0
+						</h1>
 
-					<div className='axes'>
-						<progress className='axis' max='2' value='1'>
-							0
-						</progress>
-						<progress className='axis' max='2' value='1'>
-							1
-						</progress>
-						<progress className='axis' max='2' value='1'>
-							0
-						</progress>
-						<progress className='axis' max='2' value='1'>
-							1
-						</progress>
-					</div>		
-				</div>
-  			</Container>
-		}
-		{!isActive && <div></div>}
+						<ul className='buttons'>
+							<>
+								<li className='button'>
+									Button 0
+								</li>
+								<li className='button'>
+									Button 1
+								</li>
+								<li className='button'>
+									Button 2
+								</li>
+								<li className='button'>
+									Button 3
+								</li>
+								<li className='button'>
+									Button 4
+								</li>
+								<li className='button'>
+									Button 5
+								</li>
+								<li className='button'>
+									Button 6
+								</li>
+								<li className='button'>
+									Button 7
+								</li>
+								<li className='button'>
+									Button 8
+								</li>
+								<li className='button'>
+									Button 9
+								</li>
+								<li className='button'>
+									Button 10
+								</li>
+								<li className='button'>
+									Button 11
+								</li>
+								<li className='button'>
+									Button 12
+								</li>
+								<li className='button'>
+									Button 13
+								</li>
+								<li className='button'>
+									Button 14
+								</li>
+								<li className='button'>
+									Button 15
+								</li>
+								<li className='button'>
+									Button 16
+								</li>
+							</>
+						</ul>
+
+						<div className='axes'>
+							<progress className='axis' max='2' value='1'>
+								0
+							</progress>
+							<progress className='axis' max='2' value='1'>
+								1
+							</progress>
+							<progress className='axis' max='2' value='1'>
+								0
+							</progress>
+							<progress className='axis' max='2' value='1'>
+								1
+							</progress>
+						</div>
+					</div>
+				</Container>
+			}
+			{!isActive && <div></div>}
 		</>
 	);
 }
 
-function Gamepad_Disconnected()
-{
+function gamepadDisconnected() {
 	document.querySelector('#controller0')?.remove();
 	gamePads = [];
 	console.warn("Gamepad Disconnected");
-	return(<></>);
+	return (<></>);
 }
 
-function Gamepad_Connected()
-{
+function onGamepadConnected() {
 	gamePads = navigator.getGamepads();
-	if(gamePads[0] == null)
-	{
+	if (gamePads[0] == null) {
 		console.warn("No gamepad found");
 		return;
 	}
@@ -146,41 +140,36 @@ function Gamepad_Connected()
 	console.warn("Gamepad Connected");
 
 	if (!loopStarted) {
-	  requestAnimationFrame(updateStatus);
-	  loopStarted = true;
+		requestAnimationFrame(updateStatus);
+		loopStarted = true;
 	}
 }
 
-function updateStatus()
-{
-	if (gamePads[0])
-	{
+function updateStatus() {
+	if (gamePads[0]) {
 		const d = document.getElementById("controller0");
 		console.warn(d);
 		const buttonElements = d?.getElementsByClassName("button");
-		for (const [i, button] of gamePads[0].buttons.entries())
-		{
-			if(!buttonElements)
-			{
+		for (const [i, button] of gamePads[0].buttons.entries()) {
+			if (!buttonElements) {
 				console.warn('Controller Disconnected');
 				return;
 			}
 
-			const el : Element = buttonElements[i];
+			const el: Element = buttonElements[i];
 
 			if (button.pressed) {
-			el.textContent = `Button ${i} [PRESSED]`;
-			el.className = "button pressed";
+				el.textContent = `Button ${i} [PRESSED]`;
+				el.className = "button pressed";
 			} else {
-			el.textContent = `Button ${i}`;
-			el.className = "button";
+				el.textContent = `Button ${i}`;
+				el.className = "button";
 			}
 		}
-		
+
 		const axisElements = d?.getElementsByClassName("axis");
-		for (const [i, axis] of gamePads[0].axes.entries())
-		{
-			if(!axisElements)
+		for (const [i, axis] of gamePads[0].axes.entries()) {
+			if (!axisElements)
 				return;
 			const el = axisElements[i];
 			el.textContent = `${i}: ${axis.toFixed(4)}`;
@@ -190,4 +179,4 @@ function updateStatus()
 	requestAnimationFrame(updateStatus);
 }
 
-export default Controller_Display;
+export default ControllerDisplay;
