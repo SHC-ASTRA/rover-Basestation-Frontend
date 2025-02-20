@@ -87,7 +87,7 @@ function ControllerDisplay() {
 						</div>
 					</div>
 				</Container>
-				: <div></div>}
+				: <></>}
 		</>
 	);
 }

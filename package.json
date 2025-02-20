@@ -15,7 +15,8 @@
     "react-bootstrap": "latest",
     "react-dom": "latest",
     "react-router": "latest",
-    "react-use-websocket": "^4.13.0"
+    "react-use-websocket": "^4.13.0",
+    "recharts": "^2.15.1"
   },
   "devDependencies": {
     "@eslint/js": "latest",

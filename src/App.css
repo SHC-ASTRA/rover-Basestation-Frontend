@@ -31,7 +31,6 @@ ruby {
 
 div {
 	color: var(--text-color);
-	background-color: var(--ddBgd);
 	vertical-align: top;
 }
 
