@@ -123,7 +123,7 @@ export interface SocketFeedbackData extends WebSocketData {
     };
 }
 export interface ArmManualData extends WebSocketData {
-    type: 'control:arm/socket_manual';
+    type: 'control:arm/manual';
     data: {
         axis0: number;
         axis1: number;

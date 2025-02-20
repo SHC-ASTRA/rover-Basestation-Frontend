@@ -1,13 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useWebSocketSetup } from "../../lib/webSocket";
 import GamepadContext from "../../lib/gamepadContext";
 import { CoreControlData } from "src/lib/types";
 
+const POLLING_RATE = 40;
+const DEADZONE = 0.01;
+const POLLING_INTERVAL = Math.round(1000 / POLLING_RATE);
+
 export default function Core_Driving_Control() {
 	const { sendMessage } = useWebSocketSetup();
 	const [coreControl, setCoreControl] = useState<null | CoreControlData>(null);
+	const lastUpdate = useRef(Date.now());
 
 	const gamepadState = useContext(GamepadContext);
+
+	function applyDeadzone(value: number) {
+		return Math.abs(value) > DEADZONE ? value : 0;
+	}
 
 	useEffect(() => {
 		const data: CoreControlData = {
@@ -16,15 +25,21 @@ export default function Core_Driving_Control() {
 			data: {
 				max_speed: Math.round(gamepadState.right_trigger),
 				brake: gamepadState.b,
-				left_stick: gamepadState.left_stick.y,
-				right_stick: gamepadState.right_stick.y
+				left_stick: applyDeadzone(gamepadState.left_stick.y),
+				right_stick: applyDeadzone(gamepadState.right_stick.y)
 			}
 		};
 
 		setCoreControl(data);
+
+		// only send data at the polling rate
+		if (Date.now() - lastUpdate.current < POLLING_INTERVAL) {
+			return;
+		}
+
+		lastUpdate.current = Date.now();
 		sendMessage(JSON.stringify(data));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [gamepadState]);
+	}, [gamepadState, sendMessage]);
 
 	return (
 		<div>
