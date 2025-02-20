@@ -23,10 +23,10 @@ export default function Core_Driving_Control() {
 			type: "control:core/driving",
 			timestamp: Date.now(),
 			data: {
-				max_speed: gamepadState.a ? 1 : 0,
+				max_speed: gamepadState.a ? 100 : 75,
 				brake: gamepadState.b,
-				left_stick: applyDeadzone(gamepadState.left_stick.y),
-				right_stick: gamepadState.right_trigger < 0.5 ? applyDeadzone(gamepadState.right_stick.y) : applyDeadzone(gamepadState.left_stick.y)
+				left_stick: gamepadState.right_trigger < 0.5 ? applyDeadzone(gamepadState.left_stick.y) : applyDeadzone(gamepadState.right_stick.y),
+				right_stick: applyDeadzone(gamepadState.right_stick.y)
 			}
 		};
 
