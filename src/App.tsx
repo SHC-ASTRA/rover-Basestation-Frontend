@@ -1,5 +1,6 @@
-import Banner from './Banner';
-import ControllerDisplay from './components/dev/Controller';
+import './App.css'
+import Banner from './components/Banner';
+import ControllerDisplay from './components/Controller';
 import GamepadProvider from './lib/gamepad';
 
 export default function App() {

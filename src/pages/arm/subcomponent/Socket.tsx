@@ -1,12 +1,11 @@
-import Container from '../../dev/Container';
-import Core_Feedback from '../../sources/CoreFeedbackSource';
+import Container from '../../../components/Container'
+import Arm_Socket from '../../../components/arm/ArmSocketSource'
 
-export default function Core_Feedback_Component()
-{	
+export default function Arm_Socket_Component() {
 	return (
 		<>
 			<Container padUp='var(--buttonHeight)' padRight='var(--stdPad)' padDown='var(--stdPad)' padLeft='var(--stdPad)' widthSize='var(--stdContainerWidth)' heightSize='var(--stdContainerHeight)'>
-				<Core_Feedback />
+				<Arm_Socket />
 			</Container>
 		</>
 	);

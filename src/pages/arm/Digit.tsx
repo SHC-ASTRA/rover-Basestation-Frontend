@@ -1,9 +1,8 @@
-import Container from '../dev/Container'
-import Arm_Digit from '../sources/ArmDigitSource';
+import Container from '../../components/Container'
+import Arm_Digit from '../../components/arm/ArmDigitSource';
 import Arm_Socket_Component from './subcomponent/Socket';
 
-export default function Arm_Digit_Component()
-{
+export default function Arm_Digit_Component() {
 	return (
 		<>
 			<Arm_Socket_Component />
