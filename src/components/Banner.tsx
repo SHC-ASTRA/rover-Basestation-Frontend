@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -16,6 +16,21 @@ export default function Banner() {
 					<h1 className="banner">
 						UAH S.H.C ASTRA
 					</h1>
+					<button>
+						<NavLink to={coreDrivingPath} end>
+							<img src={"../src/assets/banner_icons/controller.png"} />
+						</NavLink>
+					</button>
+					<button>
+						<NavLink to={coreDrivingPath} end>
+							<img src={"../src/assets/banner_icons/controller.png"} />
+						</NavLink>
+					</button>
+					<button>
+						<NavLink to={coreDrivingPath} end>
+							<img src={"../src/assets/banner_icons/controller.png"} />
+						</NavLink>
+					</button>
 					<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				</div>
 			</div>

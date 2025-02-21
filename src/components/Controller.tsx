@@ -55,7 +55,7 @@ function ControllerDisplay() {
 		<>
 			{gamepad.gamepadConnected ?
 				<Container
-					marginUp='var(--buttonHeight)'
+					marginUp='var(--stdMargin)'
 					marginRight='var(--stdMargin)'
 					marginDown='var(--stdMargin)'
 					marginLeft='var(--stdMargin)'
