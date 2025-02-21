@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Link, NavLink, Outlet } from "react-router";
-import Button from 'react-bootstrap/Button';
+import { NavLink, Outlet } from "react-router";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { coreDrivingPath, coreFeedbackPath, armBioPath, armDigitPath } from '../main.tsx';
+import { coreDrivingPath, armDigitPath } from '../main.tsx';
 
 export default function Banner() {
 	const [iconAdr, setIconAdr] = useState("../src/assets/favicon.png");
@@ -16,75 +14,26 @@ export default function Banner() {
 					<h1 className="banner">
 						UAH S.H.C ASTRA
 					</h1>
+
 					<button>
 						<NavLink to={coreDrivingPath} end>
-							<img src={"../src/assets/banner_icons/controller.png"} />
+							<img src={"../src/assets/banner_icons/controller.webp"} />
 						</NavLink>
 					</button>
 					<button>
 						<NavLink to={coreDrivingPath} end>
-							<img src={"../src/assets/banner_icons/controller.png"} />
+							<img src={"../src/assets/banner_icons/rover.webp"} />
 						</NavLink>
 					</button>
 					<button>
-						<NavLink to={coreDrivingPath} end>
-							<img src={"../src/assets/banner_icons/controller.png"} />
+						<NavLink to={armDigitPath} end>
+							<img src={"../src/assets/banner_icons/arm.webp"} />
 						</NavLink>
 					</button>
 					<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				</div>
 			</div>
-			<div className="flexDiv">
-				<div>
-					<Dropdown>
-						<Dropdown.Toggle variant="success">
-							Presets
-						</Dropdown.Toggle>
-						<Dropdown.Menu>
 
-							<Dropdown.Item >Development</Dropdown.Item>
-
-							<Dropdown drop="end">
-								<Dropdown.Toggle variant="success">
-									Arm
-								</Dropdown.Toggle>
-
-								<Dropdown.Menu>
-									<Dropdown.Item href={armBioPath}>
-										Bio
-									</Dropdown.Item>
-
-									<Dropdown.Item href={armDigitPath}>
-										Digit
-									</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
-
-							<Dropdown drop="end">
-								<Dropdown.Toggle variant="success">
-									Core Rover
-								</Dropdown.Toggle>
-
-								<Dropdown.Menu>
-									<Dropdown.Item href={coreDrivingPath}>
-										Driving
-									</Dropdown.Item>
-
-									<Dropdown.Item href={coreFeedbackPath}>
-										Feedback
-									</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
-						</Dropdown.Menu>
-					</Dropdown>
-
-				</div>
-
-				<Button className="sideButton" href={window.location.href}>
-					Refresh
-				</Button>
-
-			</div>
 			<div className="flexDiv">
 				<Outlet />
 			</div>

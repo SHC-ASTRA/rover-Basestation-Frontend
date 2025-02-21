@@ -13,7 +13,7 @@ export default function Arm_Bio_Component() {
 				widthSize='var(--stdContainerWidth)'
 				heightSize='var(--stdContainerHeight)'
 			>
-				<Arm_Bio />
+				<BioFeedback />
 			</Container>
 		</>
 	);

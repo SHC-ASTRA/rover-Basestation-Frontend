@@ -25,6 +25,8 @@ body {
 	background-color: var(--primary);
 	height: 100vh;
 	width: var(--standardSize);
+	display: flex;
+	flex-direction: column;
 }
 
 div {
@@ -37,10 +39,15 @@ div {
 	float:left;
 }
 
-.sideButton {
+button {
 	float:right;
-	width: var(--standardSize);
-	height:min-content;
+	max-width: var(--standardSize);
+	max-height:var(--standardSize);
+	flex-grow: 1;
+}
+
+img {
+	width: 5em;
 }
 
 .lImg {
@@ -81,7 +88,6 @@ h1 {
 .banner {
 	color:var(--bs-body-bg);
 	font-size: 2em;
-	padding-top: 40vh;
 }
 
 h2 {
