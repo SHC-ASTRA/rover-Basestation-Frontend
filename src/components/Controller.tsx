@@ -11,10 +11,10 @@ function ControllerDisplay() {
 		<>
 			{gamepad.gamepadConnected ?
 				<Container
-					padUp='var(--buttonHeight)'
-					padRight='var(--stdPad)'
-					padDown='var(--stdPad)'
-					padLeft='var(--stdPad)'
+					marginUp='var(--buttonHeight)'
+					marginRight='var(--stdMargin)'
+					marginDown='var(--stdMargin)'
+					marginLeft='var(--stdMargin)'
 
 					widthSize='var(--stdContainerWidth)'
 					heightSize='inherit'

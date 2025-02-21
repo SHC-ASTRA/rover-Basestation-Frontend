@@ -4,7 +4,14 @@ import Arm_Socket from '../../../components/arm/ArmSocketSource'
 export default function Arm_Socket_Component() {
 	return (
 		<>
-			<Container padUp='var(--buttonHeight)' padRight='var(--stdPad)' padDown='var(--stdPad)' padLeft='var(--stdPad)' widthSize='var(--stdContainerWidth)' heightSize='var(--stdContainerHeight)'>
+			<Container
+				marginUp='var(--stdMargin)'
+				marginRight='var(--stdMargin)'
+				marginDown='var(--stdMargin)'
+				marginLeft='var(--stdMargin)'
+				widthSize='var(--stdContainerWidth)'
+				heightSize='var(--stdContainerHeight)'
+			>
 				<Arm_Socket />
 			</Container>
 		</>

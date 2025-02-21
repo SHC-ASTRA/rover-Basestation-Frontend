@@ -62,9 +62,7 @@ const GamepadProvider = ({ children }: { children: React.ReactNode }) => {
 	}));
 
 	return (
-		<GamepadContext.Provider value={gamepadState}>
-			{children}
-		</GamepadContext.Provider>
+		<GamepadContext.Provider value={gamepadState} children={children} />
 	);
 }
 

@@ -5,8 +5,15 @@ export default function Arm_Bio_Component() {
 	return (
 		<>
 			<Arm_Socket_Component />
-			<Container padUp='var(--buttonHeight)' padRight='var(--stdPad)' padDown='var(--stdPad)' padLeft='var(--stdPad)' widthSize='var(--stdContainerWidth)' heightSize='var(--stdContainerHeight)'>
-				<BioFeedback />
+			<Container
+				marginUp='var(--stdMargin)'
+				marginRight='var(--stdMargin)'
+				marginDown='var(--stdMargin)'
+				marginLeft='var(--stdMargin)'
+				widthSize='var(--stdContainerWidth)'
+				heightSize='var(--stdContainerHeight)'
+			>
+				<Arm_Bio />
 			</Container>
 		</>
 	);

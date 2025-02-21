@@ -31,13 +31,13 @@
 	--text-color: var(--text);
 	--primary: var(--surface-0);
 	
-	--standardSize: 5em;
+	--standardSize: 6em;
 	--buttonHeight: 40px;
 
 	--stdContainerWidth: 20vw;
 	--stdContainerHeight: 10vw;
-	--stdPad:12px;
-
+	--stdMargin:48px;
+	
 	background-color: var(--bs-body-bg);
 }
 
@@ -45,15 +45,11 @@ body {
 	background-color: var(--bs-body-bg);
 }
 
-ruby {
-	color:var(--extra-text-color);
-}
-
 .headDiv {
 	color: var(--text-color);
 	background-color: var(--primary);
-	vertical-align: top;
-	height: var(--standardSize);
+	height: 100vh;
+	width: var(--standardSize);
 }
 
 div {
@@ -75,6 +71,7 @@ div {
 .lImg {
 	float:left;
 	max-height: var(--standardSize);
+	width: var(--standardSize);
 	border: 0;
 	padding: 0;
 	--bs-btn-bg: transparent;
@@ -83,8 +80,10 @@ div {
 }
 
 .rImg {
-	float:right;
+	bottom: 0%;
+	position: absolute;
 	max-height: var(--standardSize);
+	width: var(--standardSize);
 }
 
 h1 {
@@ -94,9 +93,15 @@ h1 {
 	margin-top: 0;
 }
 
+.banner {
+	color:var(--bs-body-bg);
+	font-size: 2em;
+	padding-top: 40vh;
+}
+
 h2 {
 	text-align: center;
-	background-color: var(--bgdColor);
+	background-color: var(--bs-body-bg);
 	width: inherit;
 	height: inherit;
 	font-size: 1vi;
@@ -120,4 +125,9 @@ h2 {
 	color: var(--primary);
 	--bs-btn-active-bg: var(--primary);
 	--bs-btn-border-color:var(--primary);
+}
+
+div#controller
+{
+	display:inline-block
 }
