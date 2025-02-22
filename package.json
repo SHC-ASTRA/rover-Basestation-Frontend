@@ -10,9 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "latest",
     "react": "latest",
-    "react-bootstrap": "latest",
     "react-dom": "latest",
     "react-router": "latest",
     "react-use-websocket": "^4.13.0",

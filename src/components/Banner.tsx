@@ -1,7 +1,7 @@
+import "../App.css"
 import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation, useNavigate } from "react-router";
-import { coreDrivingPath, armDigitPath } from '../main.tsx';
+import { coreDrivingPath, armDigitPath, autonomyPath, debugPath } from '../main.tsx';
 
 function BannerButton(props: { path: string, img: string }) {
 	const navigate = useNavigate();
@@ -27,6 +27,9 @@ export default function Banner() {
 				<BannerButton path="/" img={"../src/assets/banner_icons/manual.webp"} />
 				<BannerButton path={coreDrivingPath} img="../src/assets/banner_icons/rover.webp" />
 				<BannerButton path={armDigitPath} img="../src/assets/banner_icons/arm.webp" />
+				<BannerButton path={autonomyPath} img="../src/assets/banner_icons/autonomy.webp" />
+				<BannerButton path={debugPath} img="../src/assets/banner_icons/debug.webp" />
+
 				<BannerButton path={autonomyPath} img="../src/assets/banner_icons/autonomy.webp" />
 				<BannerButton path={debugPath} img="../src/assets/banner_icons/debug.webp" />
 

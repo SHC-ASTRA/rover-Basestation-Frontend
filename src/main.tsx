@@ -11,6 +11,8 @@ export const coreDrivingPath = "/core/driving";
 export const coreFeedbackPath = "/core/feedback";
 export const armBioPath = "/arm/bio";
 export const armDigitPath = "/arm/digit";
+export const autonomyPath = "/autonomy";
+export const debugPath = "/debug";
 
 createContext({});
 
@@ -23,6 +25,8 @@ createRoot(document.getElementById('root')!).render(
 					<Route path={armDigitPath} element={<Arm_Digit_Component />} />
 					<Route path={coreFeedbackPath} element={<Core_Feedback_Component />} />
 					<Route path={coreDrivingPath} element={<Core_Driving_Component />} />
+					<Route path={autonomyPath} element={<Core_Driving_Component />} />
+					<Route path={debugPath} element={<Core_Driving_Component />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
