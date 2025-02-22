@@ -34,6 +34,11 @@ body {
 	background-color: var(--base);
 }
 
+.basestation {
+	display: flex;
+	flex-direction: row;
+}
+
 .banner {
 	background-color: var(--mantle);
 	height: 100vh;
@@ -51,35 +56,35 @@ body {
 	width: calc(100% - 8px);
 	aspect-ratio: 1/1;
 	padding: 4px;
-	margin: 8px 4px;
-	background-color: var(--crust);
+	margin: 2px 4px;
+	background-color: var(--surface-0);
 	border-width: 0;
 	border-radius: var(--border-radius);
 }
 
 .banner-button-active {
-	background: linear-gradient(var(--crust),var(--sapphire));
+	background: linear-gradient(var(--surface-0),var(--sapphire));
+}
+
+.button-image {
+	/* use nearest neighbor scaling */
+	image-rendering: pixelated;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	aspect-ratio: 1/1;
 }
 
 .buttonSpacer {
 	display: none;
 }
 
-img {
-	width: 5em;
-}
-
-.lImg {
-	float:left;
+.logo {
 	border: 0;
 	padding: 0;
-	
-	max-height: var(--standardSize);
-	width: var(--standardSize);
-	
-	--bs-btn-bg: transparent;
-	--bs-btn-hover-bg: transparent;
-	--bs-btn-active-bg: transparent;
+
+	width: 100%;
+	aspect-ratio: 1/1;
 }
 
 .rImg {

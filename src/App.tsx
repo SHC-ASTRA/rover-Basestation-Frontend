@@ -6,8 +6,12 @@ import GamepadProvider from './lib/gamepad';
 export default function App() {
 	return <>
 		<GamepadProvider>
-			<Banner />
-			<Outlet />
+			<div className="basestation">
+				<Banner />
+				<div className="display">
+					<Outlet />
+				</div>
+			</div>
 		</GamepadProvider>
 	</>;
 }
