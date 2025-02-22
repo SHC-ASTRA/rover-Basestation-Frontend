@@ -13,12 +13,12 @@ function BannerButton(props: { path: string, img: string }) {
 }
 
 export default function Banner() {
-	const [iconAdr, setIconAdr] = useState("../src/assets/favicon.png");
+	const [iconAdr, setIconAdr] = useState("../ASTRA_Logo.png");
 
 	return (
 		<>
 			<div className="banner">
-				<button onClick={() => setIconAdr(iconAdr == '../src/assets/favicon.png' ? '../src/assets/serious.png' : '../src/assets/favicon.png')} className="lImg" >
+				<button onClick={() => setIconAdr(iconAdr == '../ASTRA_Logo.png' ? '../src/assets/serious.png' : '../ASTRA_Logo.png')} className="lImg" >
 					<img src={iconAdr} alt="Astra Logo" className="logo" /></button>
 
 				<div style={{ flexGrow: 1 }}></div>
