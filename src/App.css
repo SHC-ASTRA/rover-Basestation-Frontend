@@ -1,4 +1,5 @@
 @import "./Colors.css";
+
 :root {
 
 	--bs-body-bg: var(--base);
@@ -39,11 +40,29 @@ div {
 	float:left;
 }
 
-button {
+.unselectedButton {
 	float:right;
 	max-width: var(--standardSize);
 	max-height:var(--standardSize);
 	flex-grow: 1;
+	padding:0;
+	border-color: black;
+	border:solid;
+}
+
+.selectedButton {
+	float:right;
+	max-width: var(--standardSize);
+	max-height:var(--standardSize);
+	flex-grow: 1;
+	padding:0;
+	border-color: black;
+	border:solid;
+	background:linear-gradient(var(--base),var(--sapphire));
+}
+
+.buttonSpacer {
+	height: 5px;
 }
 
 img {
