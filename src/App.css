@@ -4,8 +4,6 @@
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
 	--extra-text-color: var(--subtext-0);
 	--text-color: var(--text);
@@ -15,7 +13,6 @@
 	--banner-width: 100px;
 		
 	--border-radius: 10%;
-	--standardSize: 6em;
 	--buttonHeight: 40px;
 
 	--stdContainerWidth: 20vw;
@@ -23,15 +20,12 @@
 	--stdMargin:48px;
 
 	color: var(--text-color);
+	background-color: var(--base);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 	monospace;
-}
-
-body {
-	background-color: var(--base);
 }
 
 .basestation {
@@ -40,11 +34,16 @@ body {
 }
 
 .banner {
-	background-color: var(--mantle);
+	background-color: var(--text);
 	height: 100vh;
 	width: var(--banner-width);
 	display: flex;
 	flex-direction: column;
+}
+
+.banner > * {
+	width: calc(100% - 8px);
+	margin: 2px 4px;
 }
 
 .flexDiv {
@@ -53,20 +52,17 @@ body {
 }
 
 .banner-button {
-	width: calc(100% - 8px);
 	aspect-ratio: 1/1;
 	padding: 4px;
-	margin: 2px 4px;
-	background-color: var(--surface-0);
-	border-width: 0;
-	border-radius: var(--border-radius);
+	background-color: var(--mantle);
+	border: none;
 }
 
 .banner-button-active {
-	background: linear-gradient(var(--surface-0),var(--sapphire));
+	background: linear-gradient(var(--mantle),var(--sapphire));
 }
 
-.button-image {
+.banner-button-image {
 	/* use nearest neighbor scaling */
 	image-rendering: pixelated;
 	padding: 0;
@@ -87,19 +83,20 @@ body {
 	aspect-ratio: 1/1;
 }
 
-.rImg {
-	float:left;
-	bottom:0px;
-	padding: 0;
-	left:0px;
-	
-	position:absolute;
-	max-height: var(--standardSize);
-	width: var(--standardSize);
+.clucky {
+	width: initial;
+	margin: initial;
+	padding: 4px;
+	aspect-ratio: 1/1;
+	border: none;
+}
 
-	--bs-btn-bg: transparent;
-	--bs-btn-hover-bg: transparent;
-	--bs-btn-active-bg: transparent;
+.clucky-image {
+
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	aspect-ratio: 1/1;
 }
 
 h1 {
