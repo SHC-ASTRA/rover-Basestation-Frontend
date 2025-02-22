@@ -1,19 +1,9 @@
-import Container from '../../../components/Container';
-import Core_Feedback from '../../../components/core/CoreFeedbackSource';
+import MapComponent from '../../../components/Map';
+import CoreDrivingFeedback from '../../../components/core/CoreDrivingFeedback';
 
-export default function Core_Feedback_Component() {
-	return (
-		<>
-			<Container
-				marginUp='var(--stdMargin)'
-				marginRight='var(--stdMargin)'
-				marginDown='var(--stdMargin)'
-				marginLeft='var(--stdMargin)'
-				widthSize='var(--stdContainerWidth)'
-				heightSize='var(--stdContainerHeight)'
-			>
-				<Core_Feedback />
-			</Container>
-		</>
-	);
+export default function CoreFeedbackComponent() {
+	return <>
+		<MapComponent />
+		<CoreDrivingFeedback dev={false} />
+	</>
 }

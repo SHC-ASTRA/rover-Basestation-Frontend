@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function ColoredIndicator({ bad_value, good_value, current_value, unit }: { bad_value: number, good_value: number, current_value: number, unit: string | undefined }) {
+export default function ColoredIndicator({ bad_value, good_value, current_value, precision, unit }: { bad_value: number, good_value: number, current_value: number, precision?: number, unit?: string }) {
     const [color, setColor] = useState('var(--green)');
     useEffect(() => {
         if (bad_value < good_value) {
@@ -27,7 +27,7 @@ export default function ColoredIndicator({ bad_value, good_value, current_value,
 
     return (
         <div style={{ color: color }} className="colored-indicator">
-            <p>{current_value} {unit
+            <p>{current_value.toFixed(precision)}{unit
                 ? unit
                 : null}</p>
         </div>

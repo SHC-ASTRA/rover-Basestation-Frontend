@@ -9,8 +9,7 @@ import Core_Telemetry from '../pages/core/subcomponent/Feedback.tsx';
 let currentPreset: string;
 let presetRender;
 
-export const Preset = () => {
-
+export default function Preset() {
 	const { module, preset } = useParams();
 	const fullName = module + '/' + preset;
 

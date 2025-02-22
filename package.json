@@ -10,14 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "latest",
-    "react-dom": "latest",
+    "leaflet": "^1.9.4",
+    "maplibre-gl": "^5.1.1",
+    "react": "^19.0.0-rc.1",
+    "react-dom": "^19.0.0-rc.1",
     "react-router": "latest",
     "react-use-websocket": "^4.13.0",
     "recharts": "^2.15.1"
   },
   "devDependencies": {
     "@eslint/js": "latest",
+    "@types/leaflet": "^1.9.16",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react-swc": "latest",

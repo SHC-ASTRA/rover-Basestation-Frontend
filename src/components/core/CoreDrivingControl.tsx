@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useWebSocketSetup } from "../../lib/webSocket";
 import GamepadContext from "../../lib/gamepadContext";
-import { CoreControlData } from "src/lib/types";
+import { CoreControlData } from "../../lib/types";
 
 const POLLING_RATE = 40;
 const DEADZONE = 0.01;
 const POLLING_INTERVAL = Math.round(1000 / POLLING_RATE);
 
-export default function Core_Driving_Control() {
+export default function CoreDrivingControl() {
 	const { sendMessage } = useWebSocketSetup();
 	const [coreControl, setCoreControl] = useState<null | CoreControlData>(null);
 	const lastUpdate = useRef(Date.now());
@@ -41,7 +41,8 @@ export default function Core_Driving_Control() {
 		sendMessage(JSON.stringify(data));
 	}, [gamepadState, sendMessage]);
 
-	return (
+
+	return <>
 		<div>
 			<h1>Core Driving</h1>
 			{coreControl && (
@@ -53,5 +54,5 @@ export default function Core_Driving_Control() {
 				</>
 			) || <p>No core driving</p>}
 		</div>
-	);
+	</>
 }

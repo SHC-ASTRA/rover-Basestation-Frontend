@@ -9,19 +9,19 @@
 	--text-color: var(--text);
 	--primary: var(--text);
 
-	/* Banner Variables */
-	--banner-width: 100px;
-		
 	--border-radius: 10%;
 	--buttonHeight: 40px;
 
 	/* Container Variables */
-	--stdContainerWidth: 20vw;
-	--stdContainerHeight: 10vw;
-	--stdMargin:48px;
+	--container-margin: 24px;
 
 	color: var(--text-color);
 	background-color: var(--base);
+}
+
+body {
+	margin: 0;
+	padding: 0;
 }
 
 code {
@@ -29,15 +29,47 @@ code {
 	monospace;
 }
 
+.container {
+	border: 3px;
+	border-style: solid;
+	border-color: var(--text);
+}
+
 .basestation {
 	display: flex;
 	flex-direction: row;
 }
 
+.display {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	text-overflow: clip;
+}
+
+.feedback {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin: var(--container-margin) calc(var(--container-margin) / 2) var(--container-margin) var(--container-margin);
+	text-overflow: clip;
+}
+
+.control {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin: var(--container-margin) var(--container-margin) var(--container-margin) calc(var(--container-margin) / 2);
+}
+
+.display * * {
+	flex-grow: 1;
+}
+
 .banner {
 	background-color: var(--text);
 	height: 100vh;
-	width: var(--banner-width);
+	width: 100px;
 	display: flex;
 	flex-direction: column;
 }
@@ -53,22 +85,31 @@ code {
 }
 
 .banner-button {
-	aspect-ratio: 1/1;
 	padding: 4px;
-	background-color: var(--mantle);
+	background-color: transparent;
 	border: none;
 }
 
+.banner-button:hover {
+	padding: 4px;
+	border: none;
+	cursor: pointer;
+}
+
 .banner-button-active {
-	background: linear-gradient(var(--mantle),var(--sapphire));
+	background: linear-gradient(transparent,  var(--sapphire));
+}
+
+.banner-button-active:hover {
+	background: linear-gradient(var(--surface-1),var(--sapphire));
 }
 
 .banner-button-image {
-	/* use nearest neighbor scaling */
-	image-rendering: pixelated;
 	padding: 0;
 	margin: 0;
 	width: 100%;
+	aspect-ratio: 1;
+	background-color: var(--base);
 }
 
 .logo {
@@ -84,10 +125,19 @@ code {
 }
 
 .clucky-image {
-
 	padding: 0;
 	margin: 0;
 	width: 100%;
+}
+
+.banner-text {
+	background-color: var(--text-color);
+	color: var(--bs-body-bg);
+	font-size: 2em;
+}
+
+#map {
+	flex-grow: 1;
 }
 
 h1 {
@@ -95,12 +145,6 @@ h1 {
 	text-align: center;
 	font-size: 2.5vi;
 	margin-top: 0;
-}
-
-.banner-text {
-	background-color: var(--text-color);
-	color: var(--bs-body-bg);
-	font-size: 2em;
 }
 
 h2 {
