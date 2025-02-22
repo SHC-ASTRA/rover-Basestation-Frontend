@@ -7,7 +7,7 @@ function BannerButton(props: { path: string, img: string }) {
 	const navigate = useNavigate();
 	const currentLocation = useLocation();
 
-	return <button onClick={() => navigate('/')} className={`banner-button ${(currentLocation.pathname == props.path) && "banner-button-active"}`}>
+	return <button onClick={() => navigate(props.path)} className={`banner-button ${(currentLocation.pathname == props.path) && "banner-button-active"}`}>
 		<img src={props.img} />
 	</button>
 }
