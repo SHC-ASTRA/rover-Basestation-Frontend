@@ -21,7 +21,7 @@ body {
 	background-color: var(--bs-body-bg);
 }
 
-.headDiv {
+.banner {
 	color: var(--text-color);
 	background-color: var(--primary);
 	height: 100vh;
@@ -104,8 +104,9 @@ h1 {
 	margin-top: 0;
 }
 
-.banner {
-	color:var(--bs-body-bg);
+.banner-text {
+	background-color: var(--text-color);
+	color: var(--bs-body-bg);
 	font-size: 2em;
 }
 

@@ -8,10 +8,10 @@ export default function Banner() {
 	return (
 		<>
 			<div>
-				<div className="headDiv">
+				<div className="banner">
 					<button onClick={() => setIconAdr(iconAdr == '../src/assets/favicon.png' ? '../src/assets/serious.png' : '../src/assets/favicon.png')} className="lImg" >
 						<img src={iconAdr} alt="Astra Logo" className="lImg" /></button>
-					<h1 className="banner">
+					<h1 className="banner-text">
 						UAH S.H.C ASTRA
 					</h1>
 
