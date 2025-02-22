@@ -21,14 +21,18 @@ export default function Banner() {
 				<button onClick={() => setIconAdr(iconAdr == '../src/assets/favicon.png' ? '../src/assets/serious.png' : '../src/assets/favicon.png')} className="lImg" >
 					<img src={iconAdr} alt="Astra Logo" className="logo" /></button>
 
+				<div style={{ flexGrow: 1 }}></div>
+
 				<BannerButton path="/" img={"../src/assets/banner_icons/autonomy.webp"} />
 				<BannerButton path={coreDrivingPath} img="../src/assets/banner_icons/rover.webp" />
 				<BannerButton path={armDigitPath} img="../src/assets/banner_icons/arm.webp" />
 				<BannerButton path={autonomyPath} img="../src/assets/banner_icons/autonomy.webp" />
 				<BannerButton path={debugPath} img="../src/assets/banner_icons/debug.webp" />
 
-				<div className="banner-button">
-					<img className="banner-button-image" src="../src/assets/clucky.png" alt="Clucky!" />
+				<div style={{ flexGrow: 1 }}></div>
+
+				<div className="clucky">
+					<img className="clucky-image" src="../src/assets/clucky.png" alt="Clucky!" />
 				</div>
 			</div>
 		</>

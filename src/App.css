@@ -41,7 +41,7 @@ code {
 	flex-direction: column;
 }
 
-.banner > * {
+.banner * {
 	width: calc(100% - 8px);
 	margin: 2px 4px;
 }
@@ -69,10 +69,6 @@ code {
 	margin: 0;
 	width: 100%;
 	aspect-ratio: 1/1;
-}
-
-.buttonSpacer {
-	display: none;
 }
 
 .logo {
