@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useLocation, NavLink, Outlet } from "react-router";
+import { useLocation, NavLink } from "react-router";
 import { coreDrivingPath, armDigitPath } from '../main.tsx';
 export default function Banner() {
 	const [iconAdr, setIconAdr] = useState("../src/assets/favicon.png");
@@ -36,10 +36,6 @@ export default function Banner() {
 					</button>
 					<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				</div>
-			</div>
-
-			<div className="flexDiv">
-				<Outlet />
 			</div>
 		</>
 	);
