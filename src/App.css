@@ -7,11 +7,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-	--bs-body-bg: var(--base);
 	--extra-text-color: var(--subtext-0);
 	--text-color: var(--text);
 	--primary: var(--text);
-	
+
+	/* Banner Variables */
+	--banner-width: 100px;
+		
+	--border-radius: 10%;
 	--standardSize: 6em;
 	--buttonHeight: 40px;
 
@@ -19,7 +22,6 @@
 	--stdContainerHeight: 10vw;
 	--stdMargin:48px;
 
-	background-color: var(--bs-body-bg);
 	color: var(--text-color);
 }
 
@@ -29,14 +31,13 @@ code {
 }
 
 body {
-	background-color: var(--bs-body-bg);
+	background-color: var(--base);
 }
 
 .banner {
-	color: var(--text-color);
-	background-color: var(--primary);
+	background-color: var(--mantle);
 	height: 100vh;
-	width: var(--standardSize);
+	width: var(--banner-width);
 	display: flex;
 	flex-direction: column;
 }
@@ -46,29 +47,22 @@ body {
 	float:left;
 }
 
-.unselectedButton {
-	float:right;
-	max-width: var(--standardSize);
-	max-height:var(--standardSize);
-	flex-grow: 1;
-	padding:0;
-	border-color: black;
-	border:solid;
+.banner-button {
+	width: calc(100% - 8px);
+	aspect-ratio: 1/1;
+	padding: 4px;
+	margin: 8px 4px;
+	background-color: var(--crust);
+	border-width: 0;
+	border-radius: var(--border-radius);
 }
 
-.selectedButton {
-	float:right;
-	max-width: var(--standardSize);
-	max-height:var(--standardSize);
-	flex-grow: 1;
-	padding:0;
-	border-color: black;
-	border:solid;
-	background:linear-gradient(var(--base),var(--sapphire));
+.banner-button-active {
+	background: linear-gradient(var(--crust),var(--sapphire));
 }
 
 .buttonSpacer {
-	height: 5px;
+	display: none;
 }
 
 img {

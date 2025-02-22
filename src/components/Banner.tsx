@@ -1,10 +1,20 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useLocation, NavLink } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { coreDrivingPath, armDigitPath } from '../main.tsx';
+
+function BannerButton(props: { path: string, img: string }) {
+	const navigate = useNavigate();
+	const currentLocation = useLocation();
+
+	return <button onClick={() => navigate('/')} className={`banner-button ${(currentLocation.pathname == props.path) && "banner-button-active"}`}>
+		<img src={props.img} />
+	</button>
+}
+
 export default function Banner() {
 	const [iconAdr, setIconAdr] = useState("../src/assets/favicon.png");
-	const currentLocation = useLocation();
+
 	return (
 		<>
 			<div>
@@ -15,25 +25,9 @@ export default function Banner() {
 						UAH S.H.C ASTRA
 					</h1>
 
-					<button className={currentLocation.pathname == "/" ? "selectedButton" : "unselectedButton"}>
-						<NavLink to={'/'} end>
-							<img src={"../src/assets/banner_icons/manual.webp"} />
-						</NavLink>
-					</button>
-					<div className='buttonSpacer' />
-					<button className={currentLocation.pathname == coreDrivingPath ? "selectedButton" : "unselectedButton"}>
-						<NavLink to={coreDrivingPath} end>
-							<img src={"../src/assets/banner_icons/rover.webp"} />
-						</NavLink>
-					</button>
-					<div className='buttonSpacer' />
-					<button className={currentLocation.pathname == armDigitPath ? "selectedButton" : "unselectedButton"}>
-						<div className='button'>
-							<NavLink to={armDigitPath} end>
-								<img src={"../src/assets/banner_icons/arm.webp"} />
-							</NavLink>
-						</div>
-					</button>
+					<BannerButton path="/" img={"../src/assets/banner_icons/manual.webp"} />
+					<BannerButton path={coreDrivingPath} img="../src/assets/banner_icons/rover.webp" />
+					<BannerButton path={armDigitPath} img="../src/assets/banner_icons/arm.webp" />
 					<img src="../src/assets/clucky.png" alt="Clucky!" className="rImg" />
 				</div>
 			</div>
