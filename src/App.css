@@ -1,6 +1,11 @@
 @import "./Colors.css";
 
 :root {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
 	--bs-body-bg: var(--base);
 	--extra-text-color: var(--subtext-0);
@@ -15,6 +20,12 @@
 	--stdMargin:48px;
 
 	background-color: var(--bs-body-bg);
+	color: var(--text-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+	monospace;
 }
 
 body {
@@ -28,11 +39,6 @@ body {
 	width: var(--standardSize);
 	display: flex;
 	flex-direction: column;
-}
-
-div {
-	color: var(--text-color);
-	vertical-align: top;
 }
 
 .flexDiv {
