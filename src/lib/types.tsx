@@ -1,33 +1,50 @@
-export class Vector2 {
+export abstract class Vector {
+    abstract get unit(): Vector;
+
+    get magnitude() {
+        return Math.sqrt(this.numbers.reduce((acc, val) => acc + val * val, 0));
+    }
+    numbers: number[];
+
+    constructor(...numbers: number[]) {
+        this.numbers = Object.seal(numbers);
+    }
+}
+
+export class Vector2 extends Vector {
     x: number;
     y: number;
 
-    get magnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    }
     get angle() {
         return Math.atan2(this.y, this.x);
     }
 
+    get unit() {
+        return new Vector2(this.x / this.magnitude, this.y / this.magnitude);
+    }
+
+    static from_polar(angle: number, magnitude: number) {
+        return new Vector2(magnitude * Math.cos(angle), magnitude * Math.sin(angle));
+    }
+
     constructor(x: number, y: number) {
+        super(x, y);
         this.x = x;
         this.y = y;
     }
 }
 
-export class Vector3 {
+export class Vector3 extends Vector {
     x: number;
     y: number;
     z: number;
 
-    get magnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-    }
-    get direction() {
+    get unit() {
         return new Vector3(this.x / this.magnitude, this.y / this.magnitude, this.z / this.magnitude);
     }
 
     constructor(x: number, y: number, z: number) {
+        super(x, y, z);
         this.x = x;
         this.y = y;
         this.z = z;
