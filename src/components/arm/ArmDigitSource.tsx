@@ -1,6 +1,6 @@
-import { useWebSocketSetup } from "../../lib/webSocket";
+import useWebSocketSetup from "../../lib/webSocket";
 
-export default function Arm_Digit() {
+export default function ArmDigitFeedback() {
 	const { digitFeedback } = useWebSocketSetup();
 
 	return (

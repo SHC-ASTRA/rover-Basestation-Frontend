@@ -1,10 +1,10 @@
+import ArmSocketFeedback from '../../components/arm/ArmSocketSource';
 import BioFeedback from '../../components/arm/BioFeedback';
-import Arm_Socket_Component from './subcomponent/Socket';
 
-export default function Arm_Bio_Component() {
+export default function ArmBioPage() {
 	return <>
-		<div className="feeback container">
-			<Arm_Socket_Component />
+		<div className="feedback container">
+			<ArmSocketFeedback />
 		</div>
 		<div className="control container">
 			<BioFeedback />

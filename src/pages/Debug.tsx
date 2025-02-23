@@ -1,9 +1,13 @@
-import MapComponent from "../components/Map";
-import CoreDrivingFeedback from "../components/core/CoreDrivingFeedback";
+import ControllerDisplay from "../components/Controller";
+import CoreFeedbackComponent from "./core/subcomponent/Feedback";
 
-export default function Debug() {
+export default function DebugPage() {
     return <>
-        <MapComponent />
-        <CoreDrivingFeedback dev={true} />
+        <div className='container'>
+            <CoreFeedbackComponent />
+        </div>
+        <div className='container'>
+            <ControllerDisplay />
+        </div>
     </>
 }

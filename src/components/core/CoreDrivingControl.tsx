@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useWebSocketSetup } from "../../lib/webSocket";
+import useWebSocketSetup from "../../lib/webSocket";
 import GamepadContext from "../../lib/gamepadContext";
 import { CoreControlData } from "../../lib/types";
 

@@ -1,4 +1,4 @@
-import { useWebSocketSetup } from "../../lib/webSocket";
+import useWebSocketSetup from "../../lib/webSocket";
 
 import { VoltageIndicator_12, VoltageIndicator_5, VoltageIndicator_battery } from "../indicators/VoltageIndicator";
 

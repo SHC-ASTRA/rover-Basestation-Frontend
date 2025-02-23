@@ -1,8 +1,7 @@
 import { BarChart, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
-import { useWebSocketSetup } from "../../lib/webSocket";
+import useWebSocketSetup from "../../lib/webSocket";
 import useFaerieFeedbackHistory from "./useFaerieFeedback";
 import { useEffect, useState } from "react";
-import { FaerieFeedbackData } from "src/lib/types";
 
 export function LuxLineChart({ width, height }: { width: number, height: number }) {
     const plotData = useFaerieFeedbackHistory();
@@ -27,10 +26,9 @@ export function LuxLineChart({ width, height }: { width: number, height: number 
 
 export function LuxHistogram({ width, height }: { width: number, height: number }) {
     const { faerieFeedback } = useWebSocketSetup();
-    const [barChartData, setBarChartData] = useState<FaerieFeedbackData["data"] & { name: string }>();
+    const [barChartData, setBarChartData] = useState<{ name: string, lux: number }[]>([]);
 
     useEffect(() => {
-        return
         if (faerieFeedback !== null) {
             setBarChartData([
                 { name: "Lux 1", lux: faerieFeedback.data.lux_1 },

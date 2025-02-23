@@ -1,13 +1,13 @@
-import Arm_Digit from '../../components/arm/ArmDigitSource';
-import Arm_Socket_Component from './subcomponent/Socket';
+import ArmSocketFeedback from '../../components/arm/ArmSocketSource';
+import ArmDigitFeedback from '../../components/arm/ArmDigitSource';
 
-export default function Arm_Digit_Component() {
+export default function ArmDigitPage() {
 	return <>
 		<div className="feedback container">
-			<Arm_Socket_Component />
+			<ArmSocketFeedback />
 		</div>
 		<div className="control container">
-			<Arm_Digit />
+			<ArmDigitFeedback />
 		</div>
 	</>
 } 

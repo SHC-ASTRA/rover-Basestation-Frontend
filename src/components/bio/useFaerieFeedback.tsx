@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useWebSocketSetup } from "../../lib/webSocket";
+import useWebSocketSetup from "../../lib/webSocket";
 import { FaerieFeedbackData } from "../../lib/types";
 
 export default function useFaerieFeedbackHistory() {

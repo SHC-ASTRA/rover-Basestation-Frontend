@@ -30,6 +30,7 @@ code {
 }
 
 .container {
+	flex-grow: 1;
 	border: 3px;
 	border-style: solid;
 	border-color: var(--text);
@@ -47,27 +48,22 @@ code {
 	text-overflow: clip;
 }
 
-.feedback {
+.feedback, .control {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	margin: var(--container-margin) calc(var(--container-margin) / 2) var(--container-margin) var(--container-margin);
 	text-overflow: clip;
+	background-color: var(--mantle);
 }
-
+.feedback {
+	margin: var(--container-margin) calc(var(--container-margin) / 2) var(--container-margin) var(--container-margin);
+}
 .control {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
 	margin: var(--container-margin) var(--container-margin) var(--container-margin) calc(var(--container-margin) / 2);
 }
 
-.display * * {
-	flex-grow: 1;
-}
-
 .banner {
-	background-color: var(--text);
+	background-color: var(--crust);
 	height: 100vh;
 	width: 100px;
 	display: flex;
@@ -97,11 +93,7 @@ code {
 }
 
 .banner-button-active {
-	background: linear-gradient(transparent,  var(--sapphire));
-}
-
-.banner-button-active:hover {
-	background: linear-gradient(var(--surface-1),var(--sapphire));
+	background: var(--sapphire);
 }
 
 .banner-button-image {
@@ -109,7 +101,7 @@ code {
 	margin: 0;
 	width: 100%;
 	aspect-ratio: 1;
-	background-color: var(--base);
+	background-color: var(--text);
 }
 
 .logo {
@@ -138,6 +130,11 @@ code {
 
 #map {
 	flex-grow: 1;
+}
+@media (prefers-color-scheme: dark) {
+	#map {
+		filter: invert(1);
+	}
 }
 
 h1 {

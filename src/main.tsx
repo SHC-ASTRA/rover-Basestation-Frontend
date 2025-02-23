@@ -2,11 +2,12 @@ import App from './App.tsx';
 import { createContext, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router";
-import Arm_Bio_Component from './pages/arm/Bio.tsx';
-import Arm_Digit_Component from './pages/arm/Digit.tsx';
+import ArmBioPage from './pages/arm/Bio.tsx';
+import ArmDigitPage from './pages/arm/Digit.tsx';
 import CoreDrivingPage from './pages/core/Driving.tsx';
 import CoreFeedbackComponent from './pages/core/subcomponent/Feedback.tsx';
-import Debug from './pages/Debug.tsx';
+import DebugPage from './pages/Debug.tsx';
+import CoreAutonomyPage from './pages/core/Autonomy.tsx';
 
 export const coreDrivingPath = "/core/driving";
 export const coreFeedbackPath = "/core/feedback";
@@ -22,12 +23,11 @@ createRoot(document.getElementById('root')!).render(
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<App />}>
-					<Route path={armBioPath} element={<Arm_Bio_Component />} />
-					<Route path={armDigitPath} element={<Arm_Digit_Component />} />
-					<Route path={coreFeedbackPath} element={<CoreFeedbackComponent />} />
+					<Route path={armBioPath} element={<ArmBioPage />} />
+					<Route path={armDigitPath} element={<ArmDigitPage />} />
 					<Route path={coreDrivingPath} element={<CoreDrivingPage />} />
-					<Route path={autonomyPath} element={<CoreDrivingPage />} />
-					<Route path={debugPath} element={<Debug />} />
+					<Route path={autonomyPath} element={<CoreAutonomyPage />} />
+					<Route path={debugPath} element={<DebugPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

@@ -3,9 +3,12 @@ import useWebSocket from "react-use-websocket";
 import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, FaerieFeedbackData, SocketFeedbackData } from "./types";
 
 /**
- * Custom hook to setup the websocket connection and handle incoming messages
+ * Custom hook to setup the websocket connection and handle incoming messages. Doing it this way makes
+ * it so that dependent components only update when the data they care about changes.
+ * 
+ * @returns an object with the websocket connection state a function to send messages and the feedback data (split into different types)
  */
-export const useWebSocketSetup = () => {
+export default function useWebSocketSetup() {
     // storing data in state to trigger re-renders
     const [autoFeedback, setAutoFeedback] = useState<null | AutoFeedbackData>(null);
     const [coreFeedback, setCoreFeedback] = useState<null | CoreFeedbackData>(null);

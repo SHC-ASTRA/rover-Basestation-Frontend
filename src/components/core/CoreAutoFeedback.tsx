@@ -1,4 +1,4 @@
-import { useWebSocketSetup } from "../../lib/webSocket";
+import useWebSocketSetup from "../../lib/webSocket";
 
 export default function CoreAutoFeedback() {
 	const { autoFeedback } = useWebSocketSetup();
