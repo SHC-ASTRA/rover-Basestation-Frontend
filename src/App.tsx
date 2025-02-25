@@ -2,16 +2,20 @@ import { Outlet } from 'react-router';
 import './App.css'
 import Banner from './components/Banner';
 import GamepadProvider from './lib/gamepad';
+import { ErrorBoundary } from 'react-error-boundary';
+import LuxDataProvider from './components/bio/LuxDataProvider';
 
 export default function App() {
 	return <>
-		<GamepadProvider>
+		<GamepadProvider><LuxDataProvider>
 			<div className="basestation">
 				<Banner />
 				<div className="display">
-					<Outlet />
+					<ErrorBoundary fallback={<p>Something went wrong! Check the console for more details.</p>}>
+						<Outlet />
+					</ErrorBoundary>
 				</div>
 			</div>
-		</GamepadProvider>
+		</LuxDataProvider></GamepadProvider>
 	</>;
 }

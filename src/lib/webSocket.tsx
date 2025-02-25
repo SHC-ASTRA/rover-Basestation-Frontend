@@ -26,26 +26,29 @@ export default function useWebSocketSetup() {
 
     // do a thing when lastMessage changes (when we get a websocket message)
     useEffect(() => {
+        console.log("message!");
         // make sure we actually have a message
         if (lastMessage !== null) {
             // parse the data from the message
             const data = JSON.parse(lastMessage.data);
 
+            console.debug(data.type);
+
             // put the data in the right place based on the type
             switch (data.type) {
-                case 'feedback:core/auto':
+                case '/core/auto':
                     setAutoFeedback(data);
                     break;
-                case 'feedback:core':
+                case '/core/feedback':
                     setCoreFeedback(data);
                     break;
-                case 'feedback:core/digit':
+                case '/arm/feedback/digit':
                     setDigitFeedback(data);
                     break;
-                case 'feedback:core/faerie':
+                case '/arm/feedback/faerie':
                     setFaerieFeedback(data);
                     break;
-                case 'feedback:arm/socket':
+                case '/arm/feedback/socket':
                     setSocketFeedback(data);
                     break;
             }

@@ -1,4 +1,4 @@
-import ArmSocketFeedback from '../../components/arm/ArmSocketSource';
+import ArmSocketFeedback from '../../components/arm/ArmSocketFeedback';
 import ArmDigitFeedback from '../../components/arm/ArmDigitSource';
 
 export default function ArmDigitPage() {

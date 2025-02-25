@@ -1,7 +1,16 @@
 import "../App.css"
 import { useState } from 'react';
 import { useLocation, useNavigate } from "react-router";
-import { coreDrivingPath, armBioPath, armDigitPath, autonomyPath, debugPath } from '../main.tsx';
+import { coreDrivingPath, armBioPath, armDigitPath, autonomyPath, debugPath, doomGamePath } from '../main.tsx';
+
+function ImageBannerButton(props: { path: string, img: string, additionalClasses?: string }) {
+	const navigate = useNavigate();
+	const currentLocation = useLocation();
+
+	return <button onClick={() => navigate(props.path)} className={`banner-button ${(currentLocation.pathname == props.path) && "banner-button-active"} ${props.additionalClasses}`}>
+		<img src={props.img} alt="External Image" className="banner-button-image" />
+	</button>
+}
 
 function BannerButton(props: { path: string, img: string }) {
 	const navigate = useNavigate();
@@ -31,10 +40,11 @@ export default function Banner() {
 			<BannerButton path={armDigitPath} img="../src/assets/banner_icons/arm.webp" />
 			<BannerButton path={autonomyPath} img="../src/assets/banner_icons/autonomy.webp" />
 			<BannerButton path={debugPath} img="../src/assets/banner_icons/debug.webp" />
+			<ImageBannerButton path={doomGamePath} img="../src/assets/banner_icons/doom.webp" additionalClasses="hidden doom" />
 
 			<div style={{ flexGrow: 1 }}></div>
 
-			<div className="clucky">
+			<div className="clucky" onClick={() => { document.querySelector(".doom")?.classList.toggle("hidden"); }} >
 				<img className="clucky-image" src="../src/assets/clucky.png" alt="Clucky!" />
 			</div>
 		</div>

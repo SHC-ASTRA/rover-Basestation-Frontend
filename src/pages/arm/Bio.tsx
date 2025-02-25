@@ -1,5 +1,6 @@
-import ArmSocketFeedback from '../../components/arm/ArmSocketSource';
-import BioFeedback from '../../components/arm/BioFeedback';
+import { LuxHistogram, LuxLineChart } from '../../components/bio/LuxGraphs';
+import ArmSocketFeedback from '../../components/arm/ArmSocketFeedback';
+import FaerieVoltages from '../../components/bio/FaerieVoltages';
 
 export default function ArmBioPage() {
 	return <>
@@ -7,7 +8,9 @@ export default function ArmBioPage() {
 			<ArmSocketFeedback />
 		</div>
 		<div className="control container">
-			<BioFeedback />
+			<LuxLineChart />
+			<LuxHistogram />
+			<FaerieVoltages />
 		</div>
 	</>
 }

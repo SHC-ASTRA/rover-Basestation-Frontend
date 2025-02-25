@@ -2,6 +2,9 @@ import { useState, useRef, useContext, useEffect } from "react";
 import GamepadContext from "../../lib/gamepadContext";
 import { ArmManualData } from "../../lib/types";
 import useWebSocketSetup from "../../lib/webSocket";
+import MotorTempIndicator from "../indicators/MotorTempIndicator";
+import { VoltageIndicator_12, VoltageIndicator_3_3, VoltageIndicator_5, VoltageIndicator_battery } from "../indicators/VoltageIndicator";
+import { BaseCurrentIndicator } from "../indicators/CurrentIndicators";
 
 export default function ArmSocketFeedback() {
 	const { sendMessage, socketFeedback } = useWebSocketSetup();
@@ -16,7 +19,7 @@ export default function ArmSocketFeedback() {
 
 	useEffect(() => {
 		const data: ArmManualData = {
-			type: "control:arm/manual",
+			type: "/arm/control/manual",
 			timestamp: Date.now(),
 			data: {
 				...(!gamepadState.right_bumper ? { // regular mode
@@ -57,29 +60,55 @@ export default function ArmSocketFeedback() {
 			{socketFeedback && (
 				<>
 					<p>Axis0 Angle: {socketFeedback.data.axis0_angle}</p>
-					<p>Axis0 Temperature: {socketFeedback.data.axis0_temperature}</p>
-					<p>Axis0 Voltage: {socketFeedback.data.axis0_voltage}</p>
-					<p>Axis0 Current: {socketFeedback.data.axis0_current}</p>
-					<p />
 					<p>Axis1 Angle: {socketFeedback.data.axis1_angle}</p>
-					<p>Axis1 Temperature: {socketFeedback.data.axis1_temperature}</p>
-					<p>Axis1 Voltage: {socketFeedback.data.axis1_voltage}</p>
-					<p>Axis1 Current: {socketFeedback.data.axis1_current}</p>
-					<p />
 					<p>Axis2 Angle: {socketFeedback.data.axis2_angle}</p>
-					<p>Axis2 Temperature: {socketFeedback.data.axis2_temperature}</p>
-					<p>Axis2 Voltage: {socketFeedback.data.axis2_voltage}</p>
-					<p>Axis2 Current: {socketFeedback.data.axis2_current}</p>
-					<p />
 					<p>Axis3 Angle: {socketFeedback.data.axis3_angle}</p>
-					<p>Axis3 Temperature: {socketFeedback.data.axis3_temperature}</p>
-					<p>Axis3 Voltage: {socketFeedback.data.axis3_voltage}</p>
-					<p>Axis3 Current: {socketFeedback.data.axis3_current}</p>
-					<p />
-					<p>Battery Voltage: {socketFeedback.data.voltage_battery}</p>
-					<p>Voltage (12v): {socketFeedback.data.voltage_12v}</p>
-					<p>Voltage (5v): {socketFeedback.data.voltage_5v}</p>
-					<p>Voltage (3v): {socketFeedback.data.voltage_3v}</p>
+
+					<div className="horizontal-split">
+						<div className="container indicator-subsection">
+							<h2 className="indicator-subsection-label">Axis 0</h2>
+							<MotorTempIndicator temperature={socketFeedback.data.axis0_temp} />
+							<VoltageIndicator_battery voltage={socketFeedback.data.axis0_voltage} />
+							<BaseCurrentIndicator current={socketFeedback.data.axis0_current} />
+						</div>
+
+						<div className="container indicator-subsection">
+							<h2 className="indicator-subsection-label">Axis 1</h2>
+							<MotorTempIndicator temperature={socketFeedback.data.axis1_temp} />
+							<VoltageIndicator_battery voltage={socketFeedback.data.axis1_voltage} />
+							<BaseCurrentIndicator current={socketFeedback.data.axis1_current} />
+						</div>
+					</div>
+
+					<div className="horizontal-split">
+						<div className="container indicator-subsection">
+							<h2 className="indicator-subsection-label">Axis 2</h2>
+							<MotorTempIndicator temperature={socketFeedback.data.axis2_temp} />
+							<VoltageIndicator_battery voltage={socketFeedback.data.axis2_voltage} />
+							<BaseCurrentIndicator current={socketFeedback.data.axis2_current} />
+						</div>
+
+						<div className="container indicator-subsection">
+							<h2 className="indicator-subsection-label">Axis 3</h2>
+							<MotorTempIndicator temperature={socketFeedback.data.axis3_temp} />
+							<VoltageIndicator_battery voltage={socketFeedback.data.axis3_voltage} />
+							<BaseCurrentIndicator current={socketFeedback.data.axis3_current} />
+						</div>
+					</div>
+
+					<div className="container indicator-subsection">
+						<h2 className="indicator-subsection-label">System Voltages</h2>
+						<div className="horizontal-split">
+							<div>
+								<VoltageIndicator_battery label="Battery" voltage={socketFeedback.data.bat_voltage} />
+								<VoltageIndicator_12 label="12V" voltage={socketFeedback.data.voltage_12} />
+							</div>
+							<div>
+								<VoltageIndicator_5 label="5V" voltage={socketFeedback.data.voltage_5} />
+								<VoltageIndicator_3_3 label="3V" voltage={socketFeedback.data.voltage_3} />
+							</div>
+						</div>
+					</div>
 				</>
 			) || <p>No Arm Socket</p>}
 		</div>

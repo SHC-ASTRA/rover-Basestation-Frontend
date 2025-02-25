@@ -83,7 +83,7 @@ export interface CoreFeedbackData extends WebSocketData {
 }
 
 export interface CoreControlData extends WebSocketData {
-    type: 'control:core/driving';
+    type: '/core/control';
     data: {
         left_stick: number;
         right_stick: number;
@@ -94,7 +94,7 @@ export interface CoreControlData extends WebSocketData {
     };
 }
 export interface AutoFeedbackData extends WebSocketData {
-    type: 'feedback:core/auto';
+    type: '/core/auto';
     data: {
         mission_type: number
 
@@ -111,36 +111,36 @@ export interface AutoFeedbackData extends WebSocketData {
 
 
 export interface SocketFeedbackData extends WebSocketData {
-    type: 'feedback:arm/socket';
+    type: '/arm/feedback/socket';
     data: {
         axis0_angle: number;
-        axis0_temperature: number;
+        axis0_temp: number;
         axis0_voltage: number;
         axis0_current: number;
 
         axis1_angle: number;
-        axis1_temperature: number;
+        axis1_temp: number;
         axis1_voltage: number;
         axis1_current: number;
 
         axis2_angle: number;
-        axis2_temperature: number;
+        axis2_temp: number;
         axis2_voltage: number;
         axis2_current: number;
 
         axis3_angle: number;
-        axis3_temperature: number;
+        axis3_temp: number;
         axis3_voltage: number;
         axis3_current: number;
 
-        voltage_battery: number;
-        voltage_12v: number;
-        voltage_5v: number;
-        voltage_3v: number;
+        bat_voltage: number;
+        voltage_12: number;
+        voltage_5: number;
+        voltage_3: number;
     };
 }
 export interface ArmManualData extends WebSocketData {
-    type: 'control:arm/manual';
+    type: '/arm/control/manual';
     data: {
         axis0: number;
         axis1: number;
@@ -157,7 +157,7 @@ export interface ArmManualData extends WebSocketData {
     };
 }
 export interface ArmIKData extends WebSocketData {
-    type: 'control:arm/socket_ik';
+    type: '/arm/control/ik';
     data: {
         gripper: number;
         linear_actuator: number;
@@ -169,21 +169,21 @@ export interface ArmIKData extends WebSocketData {
     };
 }
 export interface DigitFeedbackData extends WebSocketData {
-    type: 'feedback:arm/digit';
+    type: '/arm/feedback/digit';
     data: {
         wrist_angle: number;
 
-        voltage_battery: number;
-        voltage_12v: number;
-        voltage_5v: number;
+        bat_voltage: number;
+        voltage_12: number;
+        voltage_5: number;
     };
 }
 export interface FaerieFeedbackData extends WebSocketData {
-    type: 'feedback:arm/faerie';
+    type: '/arm/feedback/faerie';
     data: {
-        voltage_battery: number;
-        voltage_12v: number;
-        voltage_5v: number;
+        bat_voltage: number;
+        voltage_12: number;
+        voltage_5: number;
 
         sht_temp: number;
         sht_humidity: number;
