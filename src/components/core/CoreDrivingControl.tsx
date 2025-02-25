@@ -73,8 +73,16 @@ export default function CoreDrivingControl() {
 							background:
 								`linear-gradient(to right, var(--sapphire), var(--sapphire) ${coreControl.max_speed}%, transparent ${coreControl.max_speed}%, transparent 100%)`
 						}}>
+							<input type="range" min="0" max="100" value={baseSpeed} list="values" onChange={e => setBaseSpeed(parseInt(e.currentTarget.value))} />
 						</div>
-						<input type="range" min="0" max="100" value={baseSpeed} onChange={e => setBaseSpeed(parseInt(e.target.value))} />
+
+						<datalist id="values" style={{ writingMode: "vertical-lr", display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%" }}>
+							<option value="0" label="0" />
+							<option value="25" label="25" />
+							<option value="50" label="50" />
+							<option value="75" label="75" />
+							<option value="100" label="100" />
+						</datalist>
 					</div>
 					<p>Max Speed: {coreControl.max_speed}</p>
 					<p>Brake: {coreControl.brake ? "true" : "false"}</p>
@@ -82,6 +90,6 @@ export default function CoreDrivingControl() {
 					<p>Right Stick: {coreControl.right_stick.toFixed(2)}</p>
 				</>
 			) || <p>No core driving</p>}
-		</div>
+		</div >
 	</>
 }

@@ -136,6 +136,11 @@ code {
 	aspect-ratio: 0.5;
 }
 
+input {
+	width: 100%;
+	accent-color: var(--sapphire);
+}
+
 .gradient-indicator {
 	width: 100%;
 	height: 100%;
