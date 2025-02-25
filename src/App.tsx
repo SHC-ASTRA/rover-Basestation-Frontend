@@ -3,11 +3,11 @@ import './App.css'
 import Banner from './components/Banner';
 import GamepadProvider from './lib/gamepad';
 import { ErrorBoundary } from 'react-error-boundary';
-import LuxDataProvider from './components/bio/LuxDataProvider';
+import BioDataProvider from './components/bio/BioDataProvider';
 
 export default function App() {
 	return <>
-		<GamepadProvider><LuxDataProvider>
+		<GamepadProvider><BioDataProvider>
 			<div className="basestation">
 				<Banner />
 				<div className="display">
@@ -16,6 +16,6 @@ export default function App() {
 					</ErrorBoundary>
 				</div>
 			</div>
-		</LuxDataProvider></GamepadProvider>
+		</BioDataProvider></GamepadProvider>
 	</>;
 }

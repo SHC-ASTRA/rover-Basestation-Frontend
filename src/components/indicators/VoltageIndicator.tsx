@@ -1,6 +1,6 @@
 import ColoredIndicator from "./ColoredIndicator";
 
-export function BaseVoltageIndicator({ label, voltage, good_value, bad_value, precision }: { label?: string, voltage: number, good_value: number, bad_value: number, precision: number }): JSX.Eelement {
+export function BaseVoltageIndicator({ label, voltage, good_value, bad_value, precision }: { label?: string, voltage: number, good_value: number, bad_value: number, precision: number }) {
     return <>
         <ColoredIndicator label={label ?? "Voltage"} bad_value={bad_value} good_value={good_value} current_value={voltage} precision={precision} unit="V" />
     </>

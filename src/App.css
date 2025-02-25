@@ -13,7 +13,7 @@
 	--buttonHeight: 40px;
 
 	/* Container Variables */
-	--container-margin: 24px;
+	--container-margin: 2px;
 
 	color: var(--text-color);
 	background-color: var(--base);
@@ -189,6 +189,20 @@ code {
 .hidden {
 	display: none;
 	visibility: collapse;
+}
+
+.angle-indicator {
+	border-radius: 50%;
+	background-color: var(--crust);
+	aspect-ratio: 1;
+}
+.angle-indicator-pointer {
+	width: 50%;
+	height: 2px;
+	background-color: var(--text);
+	position: absolute;
+	top: 50%;
+	left: 50%;
 }
 
 h1 {

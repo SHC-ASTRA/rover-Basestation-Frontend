@@ -9,8 +9,8 @@ export default function ArmDigitFeedback() {
 			{digitFeedback && (
 				<>
 					<p>Wrist angle: {digitFeedback.data.wrist_angle}</p>
-					<p>Voltage (12v): {digitFeedback.data.voltage_12v}</p>
-					<p>Voltage (5v): {digitFeedback.data.voltage_5v}</p>
+					<p>Voltage (12v): {digitFeedback.data.voltage_12}</p>
+					<p>Voltage (5v): {digitFeedback.data.voltage_5}</p>
 				</>
 			) || <p>No Arm Digit</p>}
 		</div>

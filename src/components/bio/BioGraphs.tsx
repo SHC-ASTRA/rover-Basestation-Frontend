@@ -1,10 +1,10 @@
-import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import useWebSocketSetup from "../../lib/webSocket";
 import { useContext, useEffect, useState } from "react";
-import LuxDataContext from "./LuxDataContext";
+import BioDataContext from "./BioDataContext";
 
 export function LuxLineChart() {
-    const plotData = useContext(LuxDataContext);
+    const plotData = useContext(BioDataContext);
 
     return <>
         <div className="graph container indicator-subsection" id="lux-graph">
@@ -12,7 +12,9 @@ export function LuxLineChart() {
                 <LineChart data={plotData.filter((d) => d.timestamp > Date.now() - 10 * 1000)}>
                     <XAxis dataKey="timestamp" />
                     <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
+                    <Legend />
                     <Line type="monotone" dataKey="lux_1" stroke="var(--red)" isAnimationActive={false} />
                     <Line type="monotone" dataKey="lux_2" stroke="var(--peach)" isAnimationActive={false} />
                     <Line type="monotone" dataKey="lux_3" stroke="var(--yellow)" isAnimationActive={false} />
@@ -62,7 +64,9 @@ export function LuxHistogram() {
                 <BarChart data={barChartData}>
                     <XAxis dataKey="name" />
                     <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
+                    <Legend />
                     <Bar type="monotone" dataKey="lux1" fill="var(--red)" />
                     <Bar type="monotone" dataKey="lux2" fill="var(--peach)" />
                     <Bar type="monotone" dataKey="lux3" fill="var(--yellow)" />
@@ -71,6 +75,27 @@ export function LuxHistogram() {
                     <Bar type="monotone" dataKey="lux6" fill="var(--blue)" />
                     <Bar type="monotone" dataKey="lux7" fill="var(--mauve)" />
                 </BarChart>
+            </ResponsiveContainer>
+        </div>
+    </>
+}
+
+export function ScabbardLineChart() {
+    const plotData = useContext(BioDataContext);
+
+    return <>
+        <div className="graph container indicator-subsection" id="scabbard-graph">
+            <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={plotData.filter((d) => d.timestamp > Date.now() - 10 * 1000)}>
+                    <XAxis dataKey="timestamp" />
+                    <YAxis yAxisId="left" />
+                    <YAxis yAxisId="right" orientation="right" />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Legend />
+                    <Line yAxisId="left" type="monotone" dataKey="sht_temp" stroke="var(--red)" isAnimationActive={false} />
+                    <Line yAxisId="right" type="monotone" dataKey="sht_humidity" stroke="var(--blue)" isAnimationActive={false} />
+                </LineChart>
             </ResponsiveContainer>
         </div>
     </>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { FaerieFeedbackData } from "../../lib/types";
 import useWebSocketSetup from "../../lib/webSocket";
-import LuxDataContext from "./LuxDataContext";
+import BioDataContext from "./BioDataContext";
 
-export default function LuxDataProvider({ children }: { children: React.ReactNode }) {
+export default function BioDataProvider({ children }: { children: React.ReactNode }) {
     const { faerieFeedback } = useWebSocketSetup();
     const [faerieFeedbackHistory, setFaerieFeedbackHistory] = useState<(FaerieFeedbackData["data"] & { timestamp: number })[]>([]);
 
@@ -22,5 +22,5 @@ export default function LuxDataProvider({ children }: { children: React.ReactNod
         }
     }, [faerieFeedback]);
 
-    return <LuxDataContext.Provider value={faerieFeedbackHistory} children={children} />
+    return <BioDataContext.Provider value={faerieFeedbackHistory} children={children} />
 }

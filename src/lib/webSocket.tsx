@@ -26,13 +26,10 @@ export default function useWebSocketSetup() {
 
     // do a thing when lastMessage changes (when we get a websocket message)
     useEffect(() => {
-        console.log("message!");
         // make sure we actually have a message
         if (lastMessage !== null) {
             // parse the data from the message
             const data = JSON.parse(lastMessage.data);
-
-            console.debug(data.type);
 
             // put the data in the right place based on the type
             switch (data.type) {
