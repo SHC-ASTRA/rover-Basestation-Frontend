@@ -8,6 +8,7 @@ import CoreDrivingPage from './pages/core/Driving.tsx';
 import DebugPage from './pages/Debug.tsx';
 import CoreAutonomyPage from './pages/core/Autonomy.tsx';
 import BSDooM from './components/BSDooM.tsx';
+import Home from './pages/Home.tsx';
 
 export const coreDrivingPath = "/core/driving";
 export const coreFeedbackPath = "/core/feedback";
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<App />}>
+					<Route index element={<Home />} />
 					<Route path={armBioPath} element={<ArmBioPage />} />
 					<Route path={armDigitPath} element={<ArmDigitPage />} />
 					<Route path={coreDrivingPath} element={<CoreDrivingPage />} />

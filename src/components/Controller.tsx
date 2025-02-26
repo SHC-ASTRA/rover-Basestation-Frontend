@@ -51,7 +51,7 @@ function ControllerDisplay() {
 	// TODO: add indicators for buttons and triggers :)
 
 	return (
-		<>
+		<div>
 			{gamepad.gamepadConnected ?
 				<svg
 					viewBox="0 0 36 36"
@@ -179,8 +179,48 @@ function ControllerDisplay() {
 						id="dpadUp"
 						style={{ fill: dpadUp, fillOpacity: 1 }} />
 				</svg>
-				: <></>}
-		</>
+				: <svg
+					viewBox="0 0 36 36"
+					version="1.1"
+					id="svg10"
+					xmlns="http://www.w3.org/2000/svg">
+					<defs
+						id="defs10" />
+					<path
+						fill={base_tertiary_color}
+						d="M2.13 14.856l-.004-.002S.075 27.271.075 29.061c0 1.824 1.343 3.302 3 3.302.68 0 1.3-.258 1.803-.678l10.166-8.938L2.13 14.856zm31.69 0l.004-.002s2.051 12.417 2.051 14.207c0 1.824-1.343 3.302-3 3.302-.68 0-1.3-.258-1.803-.678l-10.166-8.938 12.914-7.891z"
+						id="path1" />
+					<g
+						fill={base_color}
+						id="g2">
+						<circle
+							cx="25.975"
+							cy="15.551"
+							r="8.5"
+							id="circle1" />
+						<circle
+							cx="9.975"
+							cy="15.551"
+							r="8.5"
+							id="circle2" />
+						<path
+							d="M9.975 7.051h16v16.87h-16z"
+							id="path2" />
+					</g>
+					<circle
+						fill={base_secondary_color}
+						cx="13.075"
+						cy="23.301"
+						r="5"
+						id="circle3" />
+					<circle
+						fill={base_secondary_color}
+						cx="22.875"
+						cy="23.301"
+						r="5"
+						id="circle4" />
+				</svg>}
+		</div>
 	);
 }
 export default ControllerDisplay;

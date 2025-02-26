@@ -76,11 +76,6 @@ code {
 	margin: 2px 4px;
 }
 
-.flexDiv {
-	display: flex;
-	float:left;
-}
-
 .banner-button {
 	padding: 4px;
 	background-color: transparent;
