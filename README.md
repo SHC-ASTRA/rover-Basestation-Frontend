@@ -1,13 +1,3 @@
-# Building Frontend
+# rover-Basestation-Frontend
 
-To use the build script, run the following command in the root folder:
-
-```bash
-. scripts/build_frontend.sh
-```
-
-Or, manually in the rover-Basestation-Frontend directory:
-
-```bash
-npm run build
-```
+Frontend for Basestation written with Vite, React, and TypeScript.

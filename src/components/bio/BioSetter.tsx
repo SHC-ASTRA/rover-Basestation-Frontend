@@ -1,0 +1,37 @@
+import { ChangeEvent, PropsWithChildren, useEffect, useState } from "react";
+import SubmitButton from "../indicators/SubmitButton";
+
+export function BioSetter(props: PropsWithChildren<{ label: string, max: number, min: number, placeholder: string, onSubmission: (id: number, value: number) => void }>) {
+    const [inputValue, setInputValue] = useState("");
+    const selectedOption = parseInt(inputValue);
+    const [disabled, setDisabled] = useState(true);
+    const [id, setId] = useState<number>(0);
+
+    useEffect(() => {
+        setDisabled(isNaN(selectedOption) || selectedOption < props.min || selectedOption > props.max || isNaN(id) || id <= 0);
+    }, [id, props.max, props.min, selectedOption])
+
+    function onSelect(event: ChangeEvent<HTMLSelectElement>) {
+        setId(parseInt(event.target.value));
+    }
+
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        setInputValue(event.target.value);
+    }
+
+    function onClick() {
+        if (disabled) return;
+
+        props.onSubmission(id, selectedOption);
+
+        setInputValue("");
+    }
+
+    return <SubmitButton label={props.label} disabled={disabled} color="var(--crust)" callback={onClick}>
+        <select value={id} onChange={onSelect}>
+            <option value={0}>Select...</option>
+            {props.children}
+        </select>
+        <input type="number" value={inputValue} placeholder={props.placeholder} onChange={onChange} />
+    </SubmitButton>
+}

@@ -1,0 +1,219 @@
+import { useContext, useEffect, useRef, useState } from "react";
+import useWebSocketSetup from "../../lib/webSocket";
+import { BioSetter } from "./BioSetter";
+import BioDataContext from "./BioDataContext";
+import GradientIndicator from "../indicators/GradientIndicator";
+
+export default function BioControl() {
+    const { sendMessage } = useWebSocketSetup();
+    const { bioControl, setBioControl } = useContext(BioDataContext)
+    const lssDirection = useRef<{ left: boolean, right: boolean }>({
+        left: false,
+        right: false
+    });
+    const drillRunning = useRef(false);
+    const [rawDrillDuty, setRawDrillDuty] = useState("0");
+    const drillDuty = useRef(0);
+    const [laserEnabled, setLaserEnabled] = useState(false);
+    const [vibrationEnabled, setVibrationEnabled] = useState(false);
+    const [drillShake, setDrillShake] = useState(0);
+
+    useEffect(() => {
+        setBioControl((b) => {
+            return {
+                ...b,
+                laser: laserEnabled ? 1 : 0,
+                vibration_motor: vibrationEnabled ? 1 : 0,
+                drill_shake: drillShake
+            }
+        });
+    }, [drillShake, laserEnabled, setBioControl, vibrationEnabled]);
+
+    useEffect(() => {
+        let parsed = parseInt(rawDrillDuty);
+        if (Math.abs(parsed) > 100) {
+            setRawDrillDuty(Math.min(100, Math.max(parsed, -100)).toString())
+            return;
+        }
+        if (isNaN(parsed)) {
+            parsed = 0;
+        }
+        drillDuty.current = parsed;
+    }, [rawDrillDuty])
+
+
+    // listen for left and right on the keyboard
+    useEffect(() => {
+        function updateLssDirection(left?: boolean, right?: boolean) {
+            // if left or right is undefined, use the current value
+            left = left ?? lssDirection.current.left;
+            right = right ?? lssDirection.current.right;
+
+            // if nothing changed, return
+            if (left === lssDirection.current.left && right === lssDirection.current.right) return;
+
+            lssDirection.current = { left, right };
+            setBioControl((b) => {
+                return {
+                    ...b,
+                    lss_direction: (right ? 1 : 0) - (left ? 1 : 0)
+                }
+            });
+        }
+
+        function onKeyDown(e: KeyboardEvent) {
+            let left: boolean | undefined = undefined;
+            let right: boolean | undefined = undefined;
+
+            if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                left = true;
+            }
+            if (e.key === "ArrowRight") {
+                e.preventDefault();
+                right = true;
+            }
+            updateLssDirection(left, right);
+
+            if (e.key === " ") {
+                e.preventDefault();
+                if (!drillRunning.current) {
+                    drillRunning.current = true;
+                    setBioControl((b) => {
+                        return {
+                            ...b,
+                            drill_duty: drillDuty.current
+                        }
+                    });
+                }
+            }
+        }
+        function onKeyUp(e: KeyboardEvent) {
+            let left: boolean | undefined = undefined;
+            let right: boolean | undefined = undefined;
+
+            if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                left = false;
+            }
+            if (e.key === "ArrowRight") {
+                e.preventDefault();
+                right = false;
+            }
+            updateLssDirection(left, right);
+
+            if (e.key === " ") {
+                e.preventDefault();
+                if (drillRunning.current) {
+                    drillRunning.current = false;
+                    setBioControl((b) => {
+                        return {
+                            ...b,
+                            drill_duty: 0
+                        }
+                    });
+                }
+            }
+        }
+
+        window.addEventListener("keydown", onKeyDown);
+        window.addEventListener("keyup", onKeyUp);
+
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+            window.removeEventListener("keyup", onKeyUp);
+        }
+    }, [setBioControl]);
+
+    useEffect(() => {
+        const data = {
+            type: "/bio/control",
+            timestamp: Date.now(),
+            data: bioControl
+        };
+
+        sendMessage(JSON.stringify(data));
+
+        // reset bioControl without updating state
+        bioControl.pump_id = 0;
+        bioControl.pump_amount = 0;
+        bioControl.fan_id = 0;
+        bioControl.fan_duration = 0;
+        bioControl.servo_id = 0;
+        bioControl.servo_position = 0;
+        bioControl.lss_direction = 0;
+        bioControl.drill_duty = 0;
+        bioControl.drill_shake = 0;
+    }, [bioControl, sendMessage]);
+
+    return <>
+        <div className="container indicator-subsection vertical-split">
+            <BioSetter label="Pumps" min={0} max={Infinity} placeholder="amount (mL)" onSubmission={(id, value) => {
+                setBioControl((b) => {
+                    return {
+                        ...b,
+                        pump_id: id,
+                        pump_amount: value
+                    }
+                });
+            }}>
+                <option value={1}>Pump 1</option>
+                <option value={2}>Pump 2</option>
+                <option value={3}>Pump 3</option>
+                <option value={4}>Pump 4</option>
+            </BioSetter>
+            <BioSetter label="Fans" min={0} max={Infinity} placeholder="duration (ms)" onSubmission={(id, value) => {
+                setBioControl((b) => {
+                    return {
+                        ...b,
+                        fan_id: id,
+                        fan_duration: value
+                    }
+                }
+                );
+            }}>
+                <option value={1}>Fan 1</option>
+                <option value={2}>Fan 2</option>
+                <option value={3}>Fan 3</option>
+            </BioSetter>
+            <BioSetter label="Servos" max={360} min={0} placeholder="angle" onSubmission={(id, value) => {
+                setBioControl((b) => {
+                    return {
+                        ...b,
+                        servo_id: id,
+                        servo_position: value
+                    }
+                });
+            }}>
+                <option value={1}>Servo 1</option>
+                <option value={2}>Servo 2</option>
+                <option value={3}>Servo 3</option>
+            </BioSetter>
+            <div className="indicator-subsection horizontal-split">
+                <h2 className="indicator-subsection-label">LSS Direction</h2>
+                <div className="container">
+                    <GradientIndicator scale={1} color="var(--red)" value={bioControl.lss_direction} />
+                </div>
+            </div>
+            <div className="indicator-subsection horizontal-split">
+                <h2 className="indicator-subsection-label">Laser</h2>
+                <input type="checkbox" id="laser" onChange={(e) => setLaserEnabled(e.target.checked)} />
+            </div>
+            <div className="indicator-subsection horizontal-split">
+                <h2 className="indicator-subsection-label">Drill</h2>
+                <div className="horizontal-split">
+                    <input type="number" min={-100} max={100} value={rawDrillDuty} onChange={(e) => { setRawDrillDuty(e.target.value); }} />
+                    <GradientIndicator className="container" scale={100} color="var(--blue)" value={bioControl.drill_duty} />
+                </div>
+            </div>
+            <div className="indicator-subsection horizontal-split">
+                <h2 className="indicator-subsection-label">Vibration</h2>
+                <input type="checkbox" id="vibration" onChange={(e) => setVibrationEnabled(e.target.checked)} />
+            </div>
+            <div className="indicator-subsection horizontal-split">
+                <h2 className="indicator-subsection-label">Drill Shake</h2>
+                <input type="range" min="-1" max="1" value={drillShake} onChange={(e) => setDrillShake(parseInt(e.target.value))} />
+            </div>
+        </div>
+    </>;
+}
