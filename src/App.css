@@ -217,7 +217,7 @@ h2 {
 	font-size: 1.5em;
 }
 
-.homeController {
+.home-controller {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -225,7 +225,7 @@ h2 {
 	left: 25%;
 }
 
-.homeButton {
+.home-button {
 	background-color:transparent;
 	padding-left: 15px;
 	padding-right: 15px;
