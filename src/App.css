@@ -55,6 +55,7 @@ code {
 	text-overflow: clip;
 	background-color: var(--mantle);
 	width: 50%;
+	height: 100vh;
 }
 .feedback {
 	margin: var(--container-margin) calc(var(--container-margin) / 2) var(--container-margin) var(--container-margin);
@@ -172,7 +173,7 @@ input {
 	display: flex;
 	flex-direction: row;
 }
-.horizontal-split > div {
+.horizontal-split > * {
 	flex-grow: 1;
 	width: 50%;
 }
@@ -181,7 +182,7 @@ input {
 	display: flex;
 	flex-direction: column;
 }
-.vertical-split > div {
+.vertical-split > * {
 	flex-grow: 1;
 	height: 50%;
 }
@@ -195,6 +196,7 @@ input {
 	border-radius: 50%;
 	background-color: var(--crust);
 	aspect-ratio: 1;
+	transition: transform 250ms ease;
 }
 .angle-indicator-pointer {
 	width: 50%;

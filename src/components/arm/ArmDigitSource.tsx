@@ -3,8 +3,8 @@ import useWebSocketSetup from "../../lib/webSocket";
 export default function ArmDigitFeedback() {
 	const { digitFeedback } = useWebSocketSetup();
 
-	return (
-		<div>
+	return <>
+		<div className="indicator-subsection container">
 			<h1>Arm Digit</h1>
 			{digitFeedback && (
 				<>
@@ -14,5 +14,5 @@ export default function ArmDigitFeedback() {
 				</>
 			) || <p>No Arm Digit</p>}
 		</div>
-	);
+	</>;
 }

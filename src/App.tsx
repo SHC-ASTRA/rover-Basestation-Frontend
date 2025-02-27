@@ -10,7 +10,7 @@ export default function App() {
 		<GamepadProvider><BioDataProvider>
 			<div className="basestation">
 				<Banner />
-				<div className="display">
+				<div className="display horizontal-split">
 					<ErrorBoundary fallback={<p>Something went wrong! Check the console for more details.</p>}>
 						<Outlet />
 					</ErrorBoundary>

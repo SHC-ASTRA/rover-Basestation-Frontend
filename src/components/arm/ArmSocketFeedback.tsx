@@ -3,6 +3,25 @@ import MotorTempIndicator from "../indicators/MotorTempIndicator";
 import { VoltageIndicator_12, VoltageIndicator_3_3, VoltageIndicator_5, VoltageIndicator_battery } from "../indicators/VoltageIndicator";
 import { BaseCurrentIndicator } from "../indicators/CurrentIndicators";
 import AngleIndicator from "../indicators/AngleIndicator";
+import { SocketFeedbackData } from "src/lib/types";
+
+type AxisData = SocketFeedbackData["data"] & {
+	[key: string]: number;
+};
+
+function AxisFeedback({ axis, data }: { axis: number, data?: AxisData }) {
+	return <div className="container indicator-subsection">
+		<h2 className="indicator-subsection-label">Axis {axis}</h2>
+		<div className="horizontal-split">
+			<div>
+				<MotorTempIndicator temperature={data && data[`axis${axis}_temp`]} />
+				<VoltageIndicator_battery voltage={data && data[`axis${axis}_voltage`]} />
+				<BaseCurrentIndicator current={data && data[`axis${axis}_current`]} />
+			</div>
+			<AngleIndicator label={`Axis${axis}`} current_angle={data && data[`axis${axis}_angle`]} />
+		</div>
+	</div>;
+}
 
 export default function ArmSocketFeedback() {
 	const { socketFeedback } = useWebSocketSetup();
@@ -10,64 +29,30 @@ export default function ArmSocketFeedback() {
 	return <>
 		{/* TO DO: implement a cool wasm rendering goober here instead */}
 		<div className="container indicator-subsection">
-			<h1>Arm Socket</h1>
 			<div>
-				{socketFeedback && (
-					<>
-						<div className="horizontal-split">
-							<AngleIndicator label="Axis0" current_angle={socketFeedback.data.axis0_angle} />
-							<AngleIndicator label="Axis1" current_angle={socketFeedback.data.axis1_angle} />
-							<AngleIndicator label="Axis2" current_angle={socketFeedback.data.axis2_angle} />
-							<AngleIndicator label="Axis3" current_angle={socketFeedback.data.axis3_angle} />
+				<div className="horizontal-split">
+					<AxisFeedback axis={0} data={socketFeedback?.data} />
+					<AxisFeedback axis={1} data={socketFeedback?.data} />
+				</div>
+
+				<div className="horizontal-split">
+					<AxisFeedback axis={2} data={socketFeedback?.data} />
+					<AxisFeedback axis={3} data={socketFeedback?.data} />
+				</div>
+
+				<div className="container indicator-subsection">
+					<h2 className="indicator-subsection-label">System Voltages</h2>
+					<div className="horizontal-split">
+						<div>
+							<VoltageIndicator_battery label="Battery" voltage={socketFeedback?.data.bat_voltage} />
+							<VoltageIndicator_12 label="12V" voltage={socketFeedback?.data.voltage_12} />
 						</div>
-
-						<div className="horizontal-split">
-							<div className="container indicator-subsection">
-								<h2 className="indicator-subsection-label">Axis 0</h2>
-								<MotorTempIndicator temperature={socketFeedback.data.axis0_temp} />
-								<VoltageIndicator_battery voltage={socketFeedback.data.axis0_voltage} />
-								<BaseCurrentIndicator current={socketFeedback.data.axis0_current} />
-							</div>
-
-							<div className="container indicator-subsection">
-								<h2 className="indicator-subsection-label">Axis 1</h2>
-								<MotorTempIndicator temperature={socketFeedback.data.axis1_temp} />
-								<VoltageIndicator_battery voltage={socketFeedback.data.axis1_voltage} />
-								<BaseCurrentIndicator current={socketFeedback.data.axis1_current} />
-							</div>
+						<div>
+							<VoltageIndicator_5 label="5V" voltage={socketFeedback?.data.voltage_5} />
+							<VoltageIndicator_3_3 label="3V" voltage={socketFeedback?.data.voltage_3} />
 						</div>
-
-						<div className="horizontal-split">
-							<div className="container indicator-subsection">
-								<h2 className="indicator-subsection-label">Axis 2</h2>
-								<MotorTempIndicator temperature={socketFeedback.data.axis2_temp} />
-								<VoltageIndicator_battery voltage={socketFeedback.data.axis2_voltage} />
-								<BaseCurrentIndicator current={socketFeedback.data.axis2_current} />
-							</div>
-
-							<div className="container indicator-subsection">
-								<h2 className="indicator-subsection-label">Axis 3</h2>
-								<MotorTempIndicator temperature={socketFeedback.data.axis3_temp} />
-								<VoltageIndicator_battery voltage={socketFeedback.data.axis3_voltage} />
-								<BaseCurrentIndicator current={socketFeedback.data.axis3_current} />
-							</div>
-						</div>
-
-						<div className="container indicator-subsection">
-							<h2 className="indicator-subsection-label">System Voltages</h2>
-							<div className="horizontal-split">
-								<div>
-									<VoltageIndicator_battery label="Battery" voltage={socketFeedback.data.bat_voltage} />
-									<VoltageIndicator_12 label="12V" voltage={socketFeedback.data.voltage_12} />
-								</div>
-								<div>
-									<VoltageIndicator_5 label="5V" voltage={socketFeedback.data.voltage_5} />
-									<VoltageIndicator_3_3 label="3V" voltage={socketFeedback.data.voltage_3} />
-								</div>
-							</div>
-						</div>
-					</>
-				) || <p>No arm socket feedback.</p>}
+					</div>
+				</div>
 			</div>
 		</div>
 	</>;

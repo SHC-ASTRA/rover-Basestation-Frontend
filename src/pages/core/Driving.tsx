@@ -1,12 +1,14 @@
+import CoreDrivingFeedback from '../../components/core/CoreDrivingFeedback';
+import MapComponent from '../../components/Map';
 import CoreDrivingControl from '../../components/core/CoreDrivingControl';
-import CoreFeedbackComponent from './subcomponent/Feedback';
 
 export default function CoreDrivingPage() {
 	return <>
-		<div className="feedback container">
-			<CoreFeedbackComponent />
+		<div className="container feedback">
+			<MapComponent />
+			<CoreDrivingFeedback dev={false} />
 		</div>
-		<div className="control container">
+		<div className="container control">
 			<CoreDrivingControl />
 		</div>
 	</>;

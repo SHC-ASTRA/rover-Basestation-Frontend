@@ -4,12 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import BioDataContext from "./BioDataContext";
 
 export function LuxLineChart() {
-    const plotData = useContext(BioDataContext);
+    const { faerieFeedbackHistory } = useContext(BioDataContext);
 
     return <>
         <div className="graph container indicator-subsection" id="lux-graph">
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={plotData.filter((d) => d.timestamp > Date.now() - 10 * 1000)}>
+                <LineChart data={faerieFeedbackHistory.slice(-10)}>
                     <XAxis dataKey="timestamp" />
                     <YAxis />
                     <CartesianGrid strokeDasharray="3 3" />
@@ -67,13 +67,13 @@ export function LuxHistogram() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
                     <Legend />
-                    <Bar type="monotone" dataKey="lux1" fill="var(--red)" />
-                    <Bar type="monotone" dataKey="lux2" fill="var(--peach)" />
-                    <Bar type="monotone" dataKey="lux3" fill="var(--yellow)" />
-                    <Bar type="monotone" dataKey="lux4" fill="var(--green)" />
-                    <Bar type="monotone" dataKey="lux5" fill="var(--sapphire)" />
-                    <Bar type="monotone" dataKey="lux6" fill="var(--blue)" />
-                    <Bar type="monotone" dataKey="lux7" fill="var(--mauve)" />
+                    <Bar type="monotone" dataKey="lux1" fill="var(--red)" isAnimationActive={false} />
+                    <Bar type="monotone" dataKey="lux2" fill="var(--peach)" isAnimationActive={false} />
+                    <Bar type="monotone" dataKey="lux3" fill="var(--yellow)" isAnimationActive={false} />
+                    <Bar type="monotone" dataKey="lux4" fill="var(--green)" isAnimationActive={false} />
+                    <Bar type="monotone" dataKey="lux5" fill="var(--sapphire)" isAnimationActive={false} />
+                    <Bar type="monotone" dataKey="lux6" fill="var(--blue)" isAnimationActive={false} />
+                    <Bar type="monotone" dataKey="lux7" fill="var(--mauve)" isAnimationActive={false} />
                 </BarChart>
             </ResponsiveContainer>
         </div>
@@ -81,12 +81,12 @@ export function LuxHistogram() {
 }
 
 export function ScabbardLineChart() {
-    const plotData = useContext(BioDataContext);
+    const { faerieFeedbackHistory } = useContext(BioDataContext);
 
     return <>
         <div className="graph container indicator-subsection" id="scabbard-graph">
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={plotData.filter((d) => d.timestamp > Date.now() - 10 * 1000)}>
+                <LineChart data={faerieFeedbackHistory.slice(-10)}>
                     <XAxis dataKey="timestamp" />
                     <YAxis yAxisId="left" />
                     <YAxis yAxisId="right" orientation="right" />

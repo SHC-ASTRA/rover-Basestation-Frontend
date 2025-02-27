@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-export default function ColoredIndicator({ label, bad_value, good_value, current_value, precision, unit }: { label: string, bad_value: number, good_value: number, current_value: number, precision?: number, unit?: string }) {
+export default function ColoredIndicator({ label, bad_value, good_value, current_value, precision, unit }: { label: string, bad_value: number, good_value: number, current_value?: number, precision?: number, unit?: string }) {
     const [color, setColor] = useState('var(--green)');
 
     useEffect(() => {
-        if (!current_value) {
+        if (current_value === undefined) {
             setColor('var(--blue)');
             return;
         }

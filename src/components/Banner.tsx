@@ -24,11 +24,11 @@ function BannerButton(props: { path: string, img: string }) {
 }
 
 export default function Banner() {
-	const [iconAdr, setIconAdr] = useState("../ASTRA_Logo.png");
+	const [iconAdr, setIconAdr] = useState("/favicon.webp");
 
 	return <>
 		<div className="banner">
-			<button onClick={() => setIconAdr(iconAdr == '../ASTRA_Logo.png' ? '../src/assets/serious.png' : '../ASTRA_Logo.png')} className="lImg" >
+			<button onClick={() => setIconAdr(iconAdr == '/favicon.webp' ? '../src/assets/serious.png' : '/favicon.webp')} className="lImg" >
 				<img src={iconAdr} alt="Astra Logo" className="logo" />
 			</button>
 
