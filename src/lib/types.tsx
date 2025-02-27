@@ -197,6 +197,30 @@ export interface FaerieFeedbackData extends WebSocketData {
     };
 }
 
+export interface BioControlData extends WebSocketData {
+    type: '/bio/control';
+    data: {
+        pump_id: number;
+        pump_amount: number;
+
+        fan_id: number;
+        fan_duration: number;
+
+        servo_id: number;
+        servo_position: number;
+
+        lss_direction: number;
+
+        laser: number;
+
+        drill_duty: number;
+
+        vibration_motor: number;
+
+        drill_shake: number;
+    };
+}
+
 export class AllFeedbackData {
     coreFeedback: CoreFeedbackData | null = null;
     autoFeedback: AutoFeedbackData | null = null;
