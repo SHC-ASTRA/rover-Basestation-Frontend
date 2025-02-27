@@ -30,9 +30,9 @@ export default function BioControl() {
     }, [drillShake, laserEnabled, setBioControl, vibrationEnabled]);
 
     useEffect(() => {
-        let parsed = parseInt(rawDrillDuty);
-        if (Math.abs(parsed) > 100) {
-            setRawDrillDuty(Math.min(100, Math.max(parsed, -100)).toString())
+        let parsed = parseFloat(rawDrillDuty);
+        if (Math.abs(parsed) > 1) {
+            setRawDrillDuty(Math.min(1, Math.max(parsed, -1)).toString())
             return;
         }
         if (isNaN(parsed)) {
@@ -202,8 +202,8 @@ export default function BioControl() {
             <div className="indicator-subsection horizontal-split">
                 <h2 className="indicator-subsection-label">Drill</h2>
                 <div className="horizontal-split">
-                    <input type="number" min={-100} max={100} value={rawDrillDuty} onChange={(e) => { setRawDrillDuty(e.target.value); }} />
-                    <GradientIndicator className="container" scale={100} color="var(--blue)" value={bioControl.drill_duty} />
+                    <input type="number" min={-1} max={1} value={rawDrillDuty} onChange={(e) => { setRawDrillDuty(e.target.value); }} />
+                    <GradientIndicator className="container" scale={1} color="var(--blue)" value={bioControl.drill_duty} />
                 </div>
             </div>
             <div className="indicator-subsection horizontal-split">
