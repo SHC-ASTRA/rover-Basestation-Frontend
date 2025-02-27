@@ -4,11 +4,11 @@ export default function Home() {
 	return <>
 		<div className='container feedback'>
 			<div>
-				<button className="homeButton">
+				<button className="home-button">
 					Arm
 				</button>
 			</div>
-			<div className="homeController">
+			<div className="home-controller">
 				<ControllerDisplay />
 			</div>
 		</div>
