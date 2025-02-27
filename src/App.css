@@ -216,3 +216,19 @@ h2 {
 	text-align: center;
 	font-size: 1.5em;
 }
+
+.homeController {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	max-width: 50%;
+	left: 25%;
+}
+
+.homeButton {
+	background-color:transparent;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size:xx-large;
+	color: var(--sapphire);
+}
