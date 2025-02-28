@@ -56,7 +56,7 @@ export default function BioControl() {
             setBioControl((b) => {
                 return {
                     ...b,
-                    lss_direction: (right ? 1 : 0) - (left ? 1 : 0)
+                    lss_direction: (right ? 100 : 0) - (left ? 100 : 0)
                 }
             });
         }
@@ -192,7 +192,7 @@ export default function BioControl() {
             <div className="indicator-subsection horizontal-split">
                 <h2 className="indicator-subsection-label">LSS Direction</h2>
                 <div className="container">
-                    <GradientIndicator scale={1} color="var(--red)" value={bioControl.lss_direction} />
+                    <GradientIndicator scale={100} color="var(--red)" value={bioControl.lss_direction} />
                 </div>
             </div>
             <div className="indicator-subsection horizontal-split">
