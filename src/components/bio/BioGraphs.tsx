@@ -3,6 +3,8 @@ import useWebSocketSetup from "../../lib/webSocket";
 import { useContext, useEffect, useState } from "react";
 import BioDataContext from "./BioDataContext";
 
+const STROKE_WIDTH = 5;
+
 export function LuxLineChart() {
     const { faerieFeedbackHistory } = useContext(BioDataContext);
 
@@ -15,13 +17,13 @@ export function LuxLineChart() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="lux_1" stroke="var(--red)" isAnimationActive={false} />
-                    <Line type="monotone" dataKey="lux_2" stroke="var(--peach)" isAnimationActive={false} />
-                    <Line type="monotone" dataKey="lux_3" stroke="var(--yellow)" isAnimationActive={false} />
-                    <Line type="monotone" dataKey="lux_4" stroke="var(--green)" isAnimationActive={false} />
-                    <Line type="monotone" dataKey="lux_5" stroke="var(--sapphire)" isAnimationActive={false} />
-                    <Line type="monotone" dataKey="lux_6" stroke="var(--blue)" isAnimationActive={false} />
-                    <Line type="monotone" dataKey="lux_7" stroke="var(--mauve)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_1" strokeWidth={STROKE_WIDTH} stroke="var(--red)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_2" strokeWidth={STROKE_WIDTH} stroke="var(--peach)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_3" strokeWidth={STROKE_WIDTH} stroke="var(--yellow)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_4" strokeWidth={STROKE_WIDTH} stroke="var(--green)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_5" strokeWidth={STROKE_WIDTH} stroke="var(--sapphire)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_6" strokeWidth={STROKE_WIDTH} stroke="var(--blue)" isAnimationActive={false} />
+                    <Line type="monotone" dataKey="lux_7" strokeWidth={STROKE_WIDTH} stroke="var(--mauve)" isAnimationActive={false} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
@@ -93,8 +95,8 @@ export function ScabbardLineChart() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
                     <Legend />
-                    <Line yAxisId="left" type="monotone" dataKey="sht_temp" stroke="var(--red)" isAnimationActive={false} />
-                    <Line yAxisId="right" type="monotone" dataKey="sht_humidity" stroke="var(--blue)" isAnimationActive={false} />
+                    <Line yAxisId="left" type="monotone" dataKey="sht_temp" strokeWidth={STROKE_WIDTH} stroke="var(--red)" isAnimationActive={false} />
+                    <Line yAxisId="right" type="monotone" dataKey="sht_humidity" strokeWidth={STROKE_WIDTH} stroke="var(--blue)" isAnimationActive={false} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
