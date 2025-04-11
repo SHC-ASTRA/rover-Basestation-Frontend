@@ -218,11 +218,11 @@ h2 {
 }
 
 .home-controller {
-	position: relative;
 	display: flex;
-	flex-direction: column;
+	flex-direction:column;
 	max-width: 50%;
 	left: 25%;
+	position: relative;
 }
 
 .home-button {
