@@ -26,9 +26,9 @@ createRoot(document.getElementById('root')!).render(
 		<BrowserRouter>
 			<Routes>
 				<Route element={<App />}>
-					<Route path="home" element={<Home />} >
-						<Route index path="arm" element={<ArmOverlay />} />
-						<Route path="core" element={<Home />} />
+					<Route path="/" element={<Home />} >
+						<Route index path="/home/arm" element={<ArmOverlay />} />
+						<Route path="/home/core" element={<Home />} />
 					</Route>
 					<Route path={armBioPath} element={<ArmBioPage />} />
 					<Route path={armDigitPath} element={<ArmDigitPage />} />

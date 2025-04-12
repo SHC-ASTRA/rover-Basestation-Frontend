@@ -1,19 +1,19 @@
 export abstract class Vector {
     abstract get unit(): Vector;
+    abstract get magnitude(): number;
 
-    get magnitude() {
-        return Math.sqrt(this.numbers.reduce((acc, val) => acc + val * val, 0));
-    }
-    numbers: number[];
-
-    constructor(...numbers: number[]) {
-        this.numbers = Object.seal(numbers);
+    static calc_magnitude(...args: number[]): number {
+        return Math.sqrt(args.reduce((sum, x) => sum + x * x, 0));
     }
 }
 
 export class Vector2 extends Vector {
     x: number;
     y: number;
+
+    get magnitude() {
+        return Vector.calc_magnitude(this.x, this.y);
+    }
 
     get angle() {
         return Math.atan2(this.y, this.x);
@@ -28,7 +28,7 @@ export class Vector2 extends Vector {
     }
 
     constructor(x: number, y: number) {
-        super(x, y);
+        super();
         this.x = x;
         this.y = y;
     }
@@ -39,12 +39,16 @@ export class Vector3 extends Vector {
     y: number;
     z: number;
 
+    get magnitude() {
+        return Vector.calc_magnitude(this.x, this.y, this.z);
+    }
+
     get unit() {
         return new Vector3(this.x / this.magnitude, this.y / this.magnitude, this.z / this.magnitude);
     }
 
     constructor(x: number, y: number, z: number) {
-        super(x, y, z);
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -159,6 +163,8 @@ export interface ArmManualData extends WebSocketData {
 export interface ArmIKData extends WebSocketData {
     type: '/arm/control/ik';
     data: {
+        movement_vector: Vector3;
+
         gripper: number;
         linear_actuator: number;
 
@@ -277,8 +283,8 @@ export class GamepadState {
 
         this.a = gamepad.buttons[0].pressed;
         this.b = gamepad.buttons[1].pressed;
-        this.y = gamepad.buttons[2].pressed;
-        this.x = gamepad.buttons[3].pressed;
+        this.x = gamepad.buttons[2].pressed;
+        this.y = gamepad.buttons[3].pressed;
 
         this.left_bumper = gamepad.buttons[4].pressed;
         this.right_bumper = gamepad.buttons[5].pressed;
@@ -289,8 +295,8 @@ export class GamepadState {
         this.select = gamepad.buttons[8].pressed;
         this.start = gamepad.buttons[9].pressed;
 
-        this.left_stick = new ControllerStick(gamepad.axes[0], -gamepad.axes[1], gamepad.buttons[10].pressed);
-        this.right_stick = new ControllerStick(gamepad.axes[2], -gamepad.axes[3], gamepad.buttons[11].pressed);
+        this.left_stick = new ControllerStick(gamepad.axes[0], gamepad.axes[1], gamepad.buttons[10].pressed);
+        this.right_stick = new ControllerStick(gamepad.axes[2], gamepad.axes[3], gamepad.buttons[11].pressed);
 
         this.up = gamepad.buttons[12].pressed;
         this.down = gamepad.buttons[13].pressed;

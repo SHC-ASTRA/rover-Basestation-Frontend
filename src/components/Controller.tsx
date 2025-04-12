@@ -99,7 +99,7 @@ function ControllerDisplay() {
 						cy="23.301"
 						r="3"
 						id="stickRight"
-						style={{ fill: buttonRightPress, fillOpacity: 1, transform: `translate(${stickRight.x}px, ${-stickRight.y}px)` }} />
+						style={{ fill: buttonRightPress, fillOpacity: 1, transform: `translate(${stickRight.x}px, ${stickRight.y}px)` }} />
 					<circle
 						fill={buttonHome}
 						cx="17.9"
@@ -113,7 +113,7 @@ function ControllerDisplay() {
 						cy="23.301"
 						r="3"
 						id="stickLeft"
-						style={{ fill: buttonLeftPress, fillOpacity: 1, transform: `translate(${stickLeft.x}px, ${-stickLeft.y}px)` }} />
+						style={{ fill: buttonLeftPress, fillOpacity: 1, transform: `translate(${stickLeft.x}px, ${stickLeft.y}px)` }} />
 					<ellipse
 						fill={buttonStart}
 						cx="20.9"
