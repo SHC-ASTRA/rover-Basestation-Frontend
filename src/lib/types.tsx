@@ -283,8 +283,8 @@ export class GamepadState {
 
         this.a = gamepad.buttons[0].pressed;
         this.b = gamepad.buttons[1].pressed;
-        this.y = gamepad.buttons[2].pressed;
-        this.x = gamepad.buttons[3].pressed;
+        this.x = gamepad.buttons[2].pressed;
+        this.y = gamepad.buttons[3].pressed;
 
         this.left_bumper = gamepad.buttons[4].pressed;
         this.right_bumper = gamepad.buttons[5].pressed;
@@ -295,8 +295,8 @@ export class GamepadState {
         this.select = gamepad.buttons[8].pressed;
         this.start = gamepad.buttons[9].pressed;
 
-        this.left_stick = new ControllerStick(gamepad.axes[0], -gamepad.axes[1], gamepad.buttons[10].pressed);
-        this.right_stick = new ControllerStick(gamepad.axes[2], -gamepad.axes[3], gamepad.buttons[11].pressed);
+        this.left_stick = new ControllerStick(gamepad.axes[0], gamepad.axes[1], gamepad.buttons[10].pressed);
+        this.right_stick = new ControllerStick(gamepad.axes[2], gamepad.axes[3], gamepad.buttons[11].pressed);
 
         this.up = gamepad.buttons[12].pressed;
         this.down = gamepad.buttons[13].pressed;

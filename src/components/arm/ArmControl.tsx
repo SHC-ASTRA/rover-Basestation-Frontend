@@ -7,11 +7,13 @@ export default function ArmControl() {
 
     return <div className="container indicator-subsection vertical-split">
         <div className="indicator-subsection vertcal-split grow-1">
-            <h2>Arm Control</h2>
+            <h2>
+                {ikMode ? "Arm IK Control" : "Arm Manual Control"}
+            </h2>
             <button className="button" onClick={() => setIkMode(!ikMode)}>
-                {ikMode ? "Switch to IK" : "Switch to Manual"}
+                {ikMode ? "Switch to Manual" : "Switch to IK"}
             </button>
-            {ikMode ? <ArmManualControl /> : <ArmIKControl />}
+            {ikMode ? <ArmIKControl /> : <ArmManualControl />}
         </div>
         <div className="indicator-subsection grow-2">
             <h2>Arm State</h2>
