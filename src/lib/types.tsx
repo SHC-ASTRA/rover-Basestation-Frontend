@@ -1,19 +1,19 @@
 export abstract class Vector {
     abstract get unit(): Vector;
+    abstract get magnitude(): number;
 
-    get magnitude() {
-        return Math.sqrt(this.numbers.reduce((acc, val) => acc + val * val, 0));
-    }
-    numbers: number[];
-
-    constructor(...numbers: number[]) {
-        this.numbers = Object.seal(numbers);
+    static calc_magnitude(...args: number[]): number {
+        return Math.sqrt(args.reduce((sum, x) => sum + x * x, 0));
     }
 }
 
 export class Vector2 extends Vector {
     x: number;
     y: number;
+
+    get magnitude() {
+        return Vector.calc_magnitude(this.x, this.y);
+    }
 
     get angle() {
         return Math.atan2(this.y, this.x);
@@ -28,7 +28,7 @@ export class Vector2 extends Vector {
     }
 
     constructor(x: number, y: number) {
-        super(x, y);
+        super();
         this.x = x;
         this.y = y;
     }
@@ -39,12 +39,16 @@ export class Vector3 extends Vector {
     y: number;
     z: number;
 
+    get magnitude() {
+        return Vector.calc_magnitude(this.x, this.y, this.z);
+    }
+
     get unit() {
         return new Vector3(this.x / this.magnitude, this.y / this.magnitude, this.z / this.magnitude);
     }
 
     constructor(x: number, y: number, z: number) {
-        super(x, y, z);
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -159,6 +163,8 @@ export interface ArmManualData extends WebSocketData {
 export interface ArmIKData extends WebSocketData {
     type: '/arm/control/ik';
     data: {
+        movement_vector: Vector3;
+
         gripper: number;
         linear_actuator: number;
 

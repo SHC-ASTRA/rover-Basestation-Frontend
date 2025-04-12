@@ -34,7 +34,7 @@ export default function Banner() {
 
 			<div style={{ flexGrow: 1 }}></div>
 
-			<BannerButton path="/home/arm" img={"../src/assets/banner_icons/root.webp"} />
+			<BannerButton path="/" img={"../src/assets/banner_icons/root.webp"} />
 			<BannerButton path={coreDrivingPath} img="../src/assets/banner_icons/rover.webp" />
 			<BannerButton path={armBioPath} img="../src/assets/banner_icons/bio.webp" />
 			<BannerButton path={armDigitPath} img="../src/assets/banner_icons/arm.webp" />
