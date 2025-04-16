@@ -1,4 +1,3 @@
-
 import './App.css'
 
 function App() {
@@ -6,15 +5,18 @@ function App() {
 
   return (
     <>
+      <div className="bg-rosewater">
+        <h1>Testing</h1>
+      </div>
 
-      <h1>Base station refactor</h1>
 
-      <p className="Description">
-        This is the basestation homepage.
-      </p>
-      <button className="Test">This is a button</button>
+
+
     </>
+
   )
+
 }
+
 
 export default App

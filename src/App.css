@@ -1,3 +1,45 @@
+@import "tailwindcss";
+
+/* This defines the theme colors for the entire application */
+@theme {
+  --font-display: 'Source Sans Pro', system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+  --p-px: 1px; /* TODO: Determine if we want to adjust this value */
+  --spaceing: 1px; /* TODO: Determine if we want to adjust this value */
+  
+  /* These colors are referenced from the following: https://catppuccin.com/palette/.
+  We are using the Latte color pallete in order to increase vibrancy */
+  --color-rosewater: #dc8a78;
+  --color-flamingo: #dd7878;
+  --color-pink: #ea76cb;
+  --color-mauve: #8839ef;
+  --color-red: #d20f39;
+  --color-maroon: #e64553;
+  --color-peach: #fe640b;
+  --color-yellow: #df8e1d;
+  --color-green: #40a02b;
+  --color-teal: #179299;
+  --color-sky: #04a5e5;
+  --color-sapphire: #209fb5;
+  --color-blue: #1e66f5;
+  --color-lavendar: #7287fd;
+  --color-text: #4c4f69;
+  --color-subtext1: #5c5f77;
+  --color-subtext0: #6c6f85;
+  --color-overlay2: #7c7f93;
+  --color-overlay1: #8c8fa1;
+  --color-overlay0: #9ca0b0;
+  --color-surface2: #acb0be;
+  --color-surface1: #bcc0cc;
+  --color-surface0: #ccd0da;
+  --color-base: #eff1f5;
+  --color-mantle: #e6e9ef;
+  --color-crust: #dce0e8;
+
+
+
+}
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,23 +47,11 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
