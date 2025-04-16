@@ -4,17 +4,16 @@ function App() {
 
 
   return (
-    <>
-      <div className="bg-rosewater">
-        <h1>Testing</h1>
-      </div>
 
 
+    <div>
+      <body className="min-h-screen bg-black">
+      </body>
+
+    </div>
 
 
-    </>
-
-  )
+  );
 
 }
 

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* This defines the theme colors for the entire application */
-@theme {
+@theme{
   --font-display: 'Source Sans Pro', system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
   --p-px: 1px; /* TODO: Determine if we want to adjust this value */
   --spaceing: 1px; /* TODO: Determine if we want to adjust this value */
@@ -21,7 +21,7 @@
   --color-sky: #04a5e5;
   --color-sapphire: #209fb5;
   --color-blue: #1e66f5;
-  --color-lavendar: #7287fd;
+  --color-lavender: #7287fd;
   --color-text: #4c4f69;
   --color-subtext1: #5c5f77;
   --color-subtext0: #6c6f85;
@@ -57,11 +57,7 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+
 
 .card {
   padding: 2em;
