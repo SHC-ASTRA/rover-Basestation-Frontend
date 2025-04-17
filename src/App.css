@@ -1,13 +1,16 @@
 @import "tailwindcss";
+/* TODO:Figure out why the catpuccin pacakge was not happy */
+@custom-variant theme-midnight (&:where([data-theme="midnight"] *));
+
+
 
 /* This defines the theme colors for the entire application */
 @theme{
   --font-display: 'Source Sans Pro', system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
   --p-px: 1px; /* TODO: Determine if we want to adjust this value */
-  --spaceing: 1px; /* TODO: Determine if we want to adjust this value */
-  
-  /* These colors are referenced from the following: https://catppuccin.com/palette/.
-  We are using the Latte color pallete in order to increase vibrancy */
+  --spacing: 1px; /* TODO: Determine if we want to adjust this value */
+  /* Added from the catpuccin website */
+
   --color-rosewater: #dc8a78;
   --color-flamingo: #dd7878;
   --color-pink: #ea76cb;
@@ -37,6 +40,16 @@
 
 
 
+
+
+}
+@custom-variant dark-theme{
+  &:where([data-theme="dark-theme"] *) {
+    --color-rosewater: var(--ctp-mocha-rosewater);
+
+
+    @slot;
+  }
 }
 
 

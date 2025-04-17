@@ -6,9 +6,10 @@ function App() {
   return (
 
 
-    <div>
-      <body className="min-h-screen bg-black">
-      </body>
+    <div className="min-h-screen bg-black">
+
+
+
 
     </div>
 
