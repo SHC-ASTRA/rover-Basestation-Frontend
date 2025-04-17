@@ -7,8 +7,8 @@
 /* This defines the theme colors for the entire application */
 @theme{
   --font-display: 'Source Sans Pro', system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
-  --p-px: 1px; /* TODO: Determine if we want to adjust this value */
-  --spacing: 1px; /* TODO: Determine if we want to adjust this value */
+  /* --p-px: 1px; /* TODO: Determine if we want to adjust this value */
+  /* --spacing: 1px; TODO: Determine if we want to adjust this value */
   /* Added from the catpuccin website */
 
   --color-rosewater: #dc8a78;
@@ -52,30 +52,3 @@
   }
 }
 
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
