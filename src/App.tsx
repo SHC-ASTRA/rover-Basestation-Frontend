@@ -18,7 +18,7 @@ function App() {
         <p className="text-white ">ASTRA Basestation</p>
         //TODO: not sure that this forwards to the page
         <a href="../pages/arm.tsx">
-          <button className='text-white'>This is a button</button>
+          <button className='text-white bg-overlay2 margin-auto'>This is a button</button>
         </a>
 
       </aside>
