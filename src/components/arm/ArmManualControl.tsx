@@ -68,7 +68,7 @@ export default function ArmManualControl() {
 		setArmManualControl(data.data);
 
 		// only send data at the polling rate
-		if (Date.now() - lastUpdate.current < 40) {
+		if (Date.now() - lastUpdate.current < 15) {
 			return;
 		}
 
