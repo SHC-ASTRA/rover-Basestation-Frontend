@@ -1,4 +1,3 @@
-import { LuxHistogram, LuxLineChart, ScabbardLineChart } from '../../components/bio/BioGraphs';
 import ArmSocketFeedback from '../../components/arm/ArmSocketFeedback';
 import FaerieVoltages from '../../components/bio/FaerieVoltages';
 import BioControl from '../../components/bio/BioControl';
@@ -9,14 +8,11 @@ export default function ArmBioPage() {
 	return <>
 		<ControlContainer >
 			<ArmSocketFeedback />
-			<ArmControl />
+			<FaerieVoltages />
 			<BioControl />
 		</ControlContainer>
 		<FeedbackContainer>
-			<FaerieVoltages />
-			<LuxLineChart />
-			<LuxHistogram />
-			<ScabbardLineChart />
+			<ArmControl />
 		</FeedbackContainer>
 	</>
 }

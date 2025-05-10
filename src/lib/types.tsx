@@ -239,7 +239,14 @@ export class ControllerStick extends Vector2 {
     pressed: boolean;
 
     constructor(x: number, y: number, pressed: boolean) {
-        super(x, y);
+        function applyDeadzone(value: number): number {
+            if (Math.abs(value) < 0.1) {
+                return 0;
+            }
+            return value;
+        }
+
+        super(applyDeadzone(x), applyDeadzone(y));
         this.pressed = pressed;
     }
 };
@@ -295,8 +302,8 @@ export class GamepadState {
         this.select = gamepad.buttons[8].pressed;
         this.start = gamepad.buttons[9].pressed;
 
-        this.left_stick = new ControllerStick(gamepad.axes[0], gamepad.axes[1], gamepad.buttons[10].pressed);
-        this.right_stick = new ControllerStick(gamepad.axes[2], gamepad.axes[3], gamepad.buttons[11].pressed);
+        this.left_stick = new ControllerStick(gamepad.axes[0], -gamepad.axes[1], gamepad.buttons[10].pressed);
+        this.right_stick = new ControllerStick(gamepad.axes[2], -gamepad.axes[3], gamepad.buttons[11].pressed);
 
         this.up = gamepad.buttons[12].pressed;
         this.down = gamepad.buttons[13].pressed;
