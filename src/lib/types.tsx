@@ -212,18 +212,16 @@ export interface BioControlData extends WebSocketData {
         fan_id: number;
         fan_duration: number;
 
-        servo_id: number;
         servo_position: number;
 
-        lss_direction: number;
+        bio_arm: number;
 
         laser: number;
 
-        drill_duty: number;
+        drill: number;
+        drill_arm: number;
 
         vibration_motor: number;
-
-        drill_shake: number;
     };
 }
 
