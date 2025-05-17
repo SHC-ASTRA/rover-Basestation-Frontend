@@ -16,7 +16,6 @@ export default function BioControl() {
     const drillDuty = useRef(0);
     const [laserEnabled, setLaserEnabled] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(false);
-    const [drillShake, setDrillShake] = useState(0);
 
     useEffect(() => {
         setBioControl((b) => {
@@ -24,10 +23,9 @@ export default function BioControl() {
                 ...b,
                 laser: laserEnabled ? 1 : 0,
                 vibration_motor: vibrationEnabled ? 1 : 0,
-                drill_shake: drillShake
             }
         });
-    }, [drillShake, laserEnabled, setBioControl, vibrationEnabled]);
+    }, [laserEnabled, setBioControl, vibrationEnabled]);
 
     useEffect(() => {
         let parsed = parseFloat(rawDrillDuty);
@@ -56,7 +54,7 @@ export default function BioControl() {
             setBioControl((b) => {
                 return {
                     ...b,
-                    lss_direction: (right ? 100 : 0) - (left ? 100 : 0)
+                    bio_arm: (right ? 100 : 0) - (left ? 100 : 0)
                 }
             });
         }
@@ -82,7 +80,7 @@ export default function BioControl() {
                     setBioControl((b) => {
                         return {
                             ...b,
-                            drill_duty: drillDuty.current
+                            drill: drillDuty.current
                         }
                     });
                 }
@@ -109,7 +107,7 @@ export default function BioControl() {
                     setBioControl((b) => {
                         return {
                             ...b,
-                            drill_duty: 0
+                            drill: 0
                         }
                     });
                 }
@@ -139,11 +137,10 @@ export default function BioControl() {
         bioControl.pump_amount = 0;
         bioControl.fan_id = 0;
         bioControl.fan_duration = 0;
-        bioControl.servo_id = 0;
         bioControl.servo_position = 0;
-        bioControl.lss_direction = 0;
-        bioControl.drill_duty = 0;
-        bioControl.drill_shake = 0;
+        // bioControl.bio_arm = 0;
+        // bioControl.drill = 0;
+        // bioControl.drill_arm = 0;
     }, [bioControl, sendMessage]);
 
     return <>
@@ -176,23 +173,20 @@ export default function BioControl() {
                 <option value={2}>Fan 2</option>
                 <option value={3}>Fan 3</option>
             </BioSetter>
-            <BioSetter label="Servos" max={360} min={0} placeholder="angle" onSubmission={(id, value) => {
+            <BioSetter label="Servos" max={360} min={0} placeholder="angle" onSubmission={(_, value) => {
                 setBioControl((b) => {
                     return {
                         ...b,
-                        servo_id: id,
                         servo_position: value
                     }
                 });
             }}>
                 <option value={1}>Servo 1</option>
-                <option value={2}>Servo 2</option>
-                <option value={3}>Servo 3</option>
             </BioSetter>
             <div className="indicator-subsection horizontal-split">
                 <h2 className="indicator-subsection-label">LSS Direction</h2>
                 <div className="container">
-                    <GradientIndicator scale={100} color="var(--red)" value={bioControl.lss_direction} />
+                    <GradientIndicator scale={100} color="var(--red)" value={bioControl.bio_arm} />
                 </div>
             </div>
             <div className="indicator-subsection horizontal-split">
@@ -203,16 +197,8 @@ export default function BioControl() {
                 <h2 className="indicator-subsection-label">Drill</h2>
                 <div className="horizontal-split">
                     <input type="number" min={-1} max={1} value={rawDrillDuty} onChange={(e) => { setRawDrillDuty(e.target.value); }} />
-                    <GradientIndicator className="container" scale={1} color="var(--blue)" value={bioControl.drill_duty} />
+                    <GradientIndicator className="container" scale={1} color="var(--blue)" value={bioControl.drill} />
                 </div>
-            </div>
-            <div className="indicator-subsection horizontal-split">
-                <h2 className="indicator-subsection-label">Vibration</h2>
-                <input type="checkbox" id="vibration" onChange={(e) => setVibrationEnabled(e.target.checked)} />
-            </div>
-            <div className="indicator-subsection horizontal-split">
-                <h2 className="indicator-subsection-label">Drill Shake</h2>
-                <input type="range" min="-1" max="1" value={drillShake} onChange={(e) => setDrillShake(parseInt(e.target.value))} />
             </div>
         </div>
     </>;

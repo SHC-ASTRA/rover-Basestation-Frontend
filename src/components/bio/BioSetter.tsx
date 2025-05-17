@@ -3,13 +3,23 @@ import SubmitButton from "../indicators/SubmitButton";
 
 export function BioSetter(props: PropsWithChildren<{ label: string, max: number, min: number, placeholder: string, onSubmission: (id: number, value: number) => void }>) {
     const [inputValue, setInputValue] = useState("");
-    const selectedOption = parseInt(inputValue);
+    const [selectedOption, setSelectedOption] = useState(NaN);
     const [disabled, setDisabled] = useState(true);
     const [id, setId] = useState<number>(0);
 
     useEffect(() => {
-        setDisabled(isNaN(selectedOption) || selectedOption < props.min || selectedOption > props.max || isNaN(id) || id <= 0);
-    }, [id, props.max, props.min, selectedOption])
+        setSelectedOption(parseInt(inputValue))
+    }, [inputValue]);
+
+    useEffect(() => {
+        setDisabled(
+            isNaN(selectedOption)
+            || selectedOption < props.min
+            || selectedOption > props.max
+            || isNaN(id)
+            || id <= 0
+        );
+    }, [id, props.max, props.min, selectedOption, selectedOption])
 
     function onSelect(event: ChangeEvent<HTMLSelectElement>) {
         setId(parseInt(event.target.value));
