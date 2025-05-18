@@ -8,7 +8,7 @@ export default defineConfig({
 		host: true,
 		port: 8090,
 		strictPort: true,
-		open: '/home/arm',
+		open: '/redirect',
 	},
 	build: {
 		outDir: './dist',

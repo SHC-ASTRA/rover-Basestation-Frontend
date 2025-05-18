@@ -10,6 +10,7 @@ import CoreAutonomyPage from './pages/core/Autonomy.tsx';
 import BSDooM from './components/BSDooM.tsx';
 import Home from './pages/home/Home.tsx';
 import ArmOverlay from './pages/home/ArmOverlay.tsx';
+import { Redirect } from './pages/Redirect.tsx';
 
 export const coreDrivingPath = "/core/driving";
 export const coreFeedbackPath = "/core/feedback";
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
 						<Route index path="/home/arm" element={<ArmOverlay />} />
 						<Route path="/home/core" element={<Home />} />
 					</Route>
+					<Route path="/redirect" element={<Redirect to="http://localhost:8080" />} />
 					<Route path={armBioPath} element={<ArmBioPage />} />
 					<Route path={armDigitPath} element={<ArmDigitPage />} />
 					<Route path={coreDrivingPath} element={<CoreDrivingPage />} />

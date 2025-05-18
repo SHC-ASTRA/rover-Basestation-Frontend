@@ -4,10 +4,15 @@ import { ArmManualData } from "../../lib/types";
 import useWebSocketSetup from "../../lib/webSocket";
 import GradientIndicator from "../indicators/GradientIndicator";
 
-function AxisControl(props: { label: string, value: number }) {
+function AxisControl(props: { label: string, value: number, direction?: string }) {
+	let direction = props.direction;
+	if (!direction) {
+		direction = "to top";
+	}
+
 	return <div className="horizontal-split container indicator-subsection">
 		<h1 className="subsection-indicator-label">{props.label}</h1>
-		<GradientIndicator value={props.value} scale={1} direction="to top" color="var(--green)" />
+		<GradientIndicator value={props.value} scale={1} direction={direction} color="var(--green)" />
 	</div>;
 
 }
@@ -29,9 +34,10 @@ export default function ArmManualControl() {
 	});
 	const gamepadState = useContext(GamepadContext);
 
+	const deadzone = 0.4;
 	function applyDeadzone(value: number) {
 		const a = Math.abs(value);
-		return a > 0.5 ? Math.round(value / a) : 0;
+		return a > deadzone ? Math.round(value / a) : 0;
 	}
 
 	useEffect(() => {
@@ -54,7 +60,7 @@ export default function ArmManualControl() {
 					effector_roll: applyDeadzone(gamepadState.right_stick.x),
 					effector_yaw: applyDeadzone(gamepadState.left_stick.x),
 				}),
-				gripper: Math.round(gamepadState.right_trigger) - Math.round(gamepadState.left_trigger),
+				gripper: Math.round(gamepadState.right_trigger - gamepadState.left_trigger),
 				linear_actuator: (gamepadState.x ? -1 : 0) + (gamepadState.y ? 1 : 0),
 				laser: laserEnabled
 			}
@@ -63,7 +69,7 @@ export default function ArmManualControl() {
 		setArmManualControl(data.data);
 
 		// only send data at the polling rate
-		if (Date.now() - lastUpdate.current < 40) {
+		if (Date.now() - lastUpdate.current < 15) {
 			return;
 		}
 
@@ -74,17 +80,17 @@ export default function ArmManualControl() {
 	return <>
 		<div className="horizontal-split">
 			{!gamepadState.right_bumper ? <>
-				<AxisControl label={"axis0"} value={armManualControl.axis0} />
-				<AxisControl label={"axis1"} value={armManualControl.axis1} />
+				<AxisControl label={"axis0"} value={armManualControl.axis0} direction={"to right"} />
+				<AxisControl label={"axis1"} value={armManualControl.axis1} direction={"to right"} />
 				<AxisControl label={"axis2"} value={armManualControl.axis2} />
 				<AxisControl label={"axis3"} value={armManualControl.axis3} />
 			</> : <>
-				<AxisControl label={"roll"} value={armManualControl.effector_yaw} />
-				<AxisControl label={"yaw"} value={armManualControl.effector_roll} />
+				<AxisControl label={"roll"} value={armManualControl.effector_yaw} direction={"to right"} />
+				<AxisControl label={"yaw"} value={armManualControl.effector_roll} direction={"to right"} />
 			</>}
 		</div>
 		<div className="horizontal-split">
-			<AxisControl label={"gripper"} value={armManualControl.gripper} />
+			<AxisControl label={"gripper"} value={armManualControl.gripper} direction={"to right"} />
 			<AxisControl label={"actuator"} value={armManualControl.linear_actuator} />
 			<div className="horizontal-split container indicator-subsection">
 				<h1 className="subsection-indicator-label">laser</h1>

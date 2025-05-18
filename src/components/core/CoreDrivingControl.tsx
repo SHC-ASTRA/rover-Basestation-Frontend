@@ -5,9 +5,8 @@ import { CoreControlData } from "../../lib/types";
 import GradientIndicator from "../indicators/GradientIndicator";
 
 const POLLING_RATE = 40;
-const DEADZONE = 0.025;
 const POLLING_INTERVAL = Math.round(1000 / POLLING_RATE);
-const INITIAL_BASE_SPEED = 50;
+const INITIAL_BASE_SPEED = 40;
 
 export default function CoreDrivingControl() {
 	const { sendMessage } = useWebSocketSetup();
@@ -23,10 +22,6 @@ export default function CoreDrivingControl() {
 
 	const [baseSpeed, setBaseSpeed] = useState(INITIAL_BASE_SPEED);
 
-	function applyDeadzone(value: number) {
-		return Math.abs(value) > DEADZONE ? value : 0;
-	}
-
 	useEffect(() => {
 		const data: CoreControlData = {
 			type: "/core/control",
@@ -34,8 +29,8 @@ export default function CoreDrivingControl() {
 			data: {
 				max_speed: Math.min(100, Math.round(baseSpeed + (gamepadState.left_trigger * (100 - baseSpeed)))),
 				brake: gamepadState.b,
-				left_stick: gamepadState.right_trigger < 0.5 ? applyDeadzone(gamepadState.left_stick.y) : applyDeadzone(gamepadState.right_stick.y),
-				right_stick: applyDeadzone(gamepadState.right_stick.y)
+				left_stick: gamepadState.right_trigger < 0.5 ? gamepadState.left_stick.y : gamepadState.right_stick.y,
+				right_stick: gamepadState.right_stick.y
 			}
 		};
 
