@@ -15,17 +15,15 @@ export default function BioControl() {
     const [rawDrillDuty, setRawDrillDuty] = useState("0");
     const drillDuty = useRef(0);
     const [laserEnabled, setLaserEnabled] = useState(false);
-    const [vibrationEnabled, setVibrationEnabled] = useState(false);
 
     useEffect(() => {
         setBioControl((b) => {
             return {
                 ...b,
                 laser: laserEnabled ? 1 : 0,
-                vibration_motor: vibrationEnabled ? 1 : 0,
             }
         });
-    }, [laserEnabled, setBioControl, vibrationEnabled]);
+    }, [laserEnabled, setBioControl]);
 
     useEffect(() => {
         let parsed = parseFloat(rawDrillDuty);
