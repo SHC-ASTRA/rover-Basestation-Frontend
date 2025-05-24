@@ -45,21 +45,6 @@ export default function CoreDrivingFeedback({ dev }: { dev: boolean }) {
 				<p>Voltage 12: {coreFeedback.data.voltage_12}</p>
 				<p>Voltage 5: {coreFeedback.data.voltage_5}</p>
 				<p>Voltage 3: {coreFeedback.data.voltage_3}</p>
-
-
-				<div className="graph" id="core-feedback-graph">
-					<LineChart width={400} height={400} data={plotData}>
-						<XAxis dataKey="timestamp" />
-						<YAxis />
-						<Line type="monotone" dataKey="orientation" stroke="var(--mauve)" animationDuration={100} />
-						<Line type="monotone" dataKey="temperature" stroke="var(--mauve)" animationDuration={100} />
-						<Line type="monotone" dataKey="altitude" stroke="var(--mauve)" animationDuration={100} />
-						<Line type="monotone" dataKey="voltage_bat" stroke="var(--mauve)" animationDuration={100} />
-						<Line type="monotone" dataKey="voltage12" stroke="var(--mauve)" animationDuration={100} />
-						<Line type="monotone" dataKey="voltage5" stroke="var(--mauve)" animationDuration={100} />
-						<Line type="monotone" dataKey="voltage3" stroke="var(--mauve)" animationDuration={100} />
-					</LineChart>
-				</div>
 			</> || <p>No core feedback</p>
 			)}
 		</div>

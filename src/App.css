@@ -122,11 +122,6 @@ code {
 #map {
 	flex-grow: 1;
 }
-@media (prefers-color-scheme: dark) {
-	#map {
-		filter: invert(1);
-	}
-}
 
 .stick-slider {
 	aspect-ratio: 0.5;
