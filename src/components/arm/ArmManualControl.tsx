@@ -34,9 +34,10 @@ export default function ArmManualControl() {
 	});
 	const gamepadState = useContext(GamepadContext);
 
+	const deadzone = 0.4;
 	function applyDeadzone(value: number) {
 		const a = Math.abs(value);
-		return a > 0.4 ? Math.round(value / a) : 0;
+		return a > deadzone ? Math.round(value / a) : 0;
 	}
 
 	useEffect(() => {
@@ -80,7 +81,7 @@ export default function ArmManualControl() {
 		<div className="horizontal-split">
 			{!gamepadState.right_bumper ? <>
 				<AxisControl label={"axis0"} value={armManualControl.axis0} direction={"to right"} />
-				< AxisControl label={"axis1"} value={armManualControl.axis1} direction={"to right"} />
+				<AxisControl label={"axis1"} value={armManualControl.axis1} direction={"to right"} />
 				<AxisControl label={"axis2"} value={armManualControl.axis2} />
 				<AxisControl label={"axis3"} value={armManualControl.axis3} />
 			</> : <>
