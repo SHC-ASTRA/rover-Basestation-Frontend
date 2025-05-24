@@ -8,8 +8,8 @@ export default function CoreAutoFeedback() {
 		{autoFeedback && (
 			<>
 				<p>Mission: {autoFeedback.data.mission_type}</p>
-				<p>Target latitude: {autoFeedback.data.target_latitude}</p>
-				<p>Target longitude: {autoFeedback.data.target_longitude}</p>
+				<p>Target latitude: {autoFeedback.data.target_lat}</p>
+				<p>Target longitude: {autoFeedback.data.target_long}</p>
 				<p>Remaining distance: {autoFeedback.data.remaining_distance}</p>
 				<p>Update: {autoFeedback.data.update}</p>
 				<p>Current Job: {autoFeedback.data.current_job}</p>

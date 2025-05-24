@@ -102,8 +102,8 @@ export interface AutoFeedbackData extends WebSocketData {
     data: {
         mission_type: number
 
-        target_latitude: number;
-        target_longitude: number;
+        target_lat: number;
+        target_long: number;
 
         remaining_distance: number;
 
