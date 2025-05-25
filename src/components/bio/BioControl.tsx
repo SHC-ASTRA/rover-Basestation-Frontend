@@ -136,9 +136,6 @@ export default function BioControl() {
         bioControl.fan_id = 0;
         bioControl.fan_duration = 0;
         bioControl.servo_position = 0;
-        // bioControl.bio_arm = 0;
-        // bioControl.drill = 0;
-        // bioControl.drill_arm = 0;
     }, [bioControl, sendMessage]);
 
     return <>

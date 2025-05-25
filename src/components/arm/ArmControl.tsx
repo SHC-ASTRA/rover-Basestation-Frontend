@@ -15,10 +15,5 @@ export default function ArmControl() {
             </button>
             {ikMode ? <ArmIKControl /> : <ArmManualControl />}
         </div>
-        <div className="indicator-subsection grow-2">
-            <h2>Arm State</h2>
-            <div className="horizontal-split">
-            </div>
-        </div>
     </div>;
 }

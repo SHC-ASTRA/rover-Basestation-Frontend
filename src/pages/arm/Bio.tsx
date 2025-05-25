@@ -1,11 +1,11 @@
-import FaerieVoltages from '../../components/bio/FaerieVoltages';
+import CitadelVoltages from '../../components/bio/CitadelVoltages';
 import BioControl from '../../components/bio/BioControl';
 import { ControlContainer, FeedbackContainer } from '../../components/MainContainers';
 
 export default function ArmBioPage() {
 	return <>
 		<ControlContainer >
-			<FaerieVoltages />
+			<CitadelVoltages />
 			<BioControl />
 		</ControlContainer>
 		<FeedbackContainer>
