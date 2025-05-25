@@ -7,6 +7,7 @@ import GradientIndicator from "../indicators/GradientIndicator";
 const POLLING_RATE = 40;
 const POLLING_INTERVAL = Math.round(1000 / POLLING_RATE);
 const INITIAL_BASE_SPEED = 40;
+const SPEED_ADJUSTMENT = 10; // 10% adjustment
 
 export default function CoreDrivingControl() {
 	const { sendMessage } = useWebSocketSetup();
@@ -14,7 +15,10 @@ export default function CoreDrivingControl() {
 		left_stick: 0,
 		right_stick: 0,
 		max_speed: 0,
-		brake: false
+		brake: false,
+		turn_to_enable: false,
+		turn_to: 0,
+		turn_to_timeout: 0,
 	});
 	const lastUpdate = useRef(Date.now());
 
@@ -22,16 +26,38 @@ export default function CoreDrivingControl() {
 
 	const [baseSpeed, setBaseSpeed] = useState(INITIAL_BASE_SPEED);
 
+	// Handle D-pad speed adjustments
+	useEffect(() => {
+		if (gamepadState.left_trigger) return;
+
+		if (gamepadState.dpad.up) {
+			setBaseSpeed((prev) => Math.min(100, prev + SPEED_ADJUSTMENT));
+		} else if (gamepadState.dpad.down) {
+			setBaseSpeed((prev) => Math.max(0, prev - SPEED_ADJUSTMENT));
+		}
+	}, [gamepadState.dpad.up, gamepadState.dpad.down]);
+
 	useEffect(() => {
 		const data: CoreControlData = {
 			type: "/core/control",
 			timestamp: Date.now(),
 			data: {
-				max_speed: Math.min(100, Math.round(baseSpeed + (gamepadState.left_trigger * (100 - baseSpeed)))),
+				max_speed: Math.min(
+					100,
+					Math.round(
+						baseSpeed + gamepadState.left_trigger * (100 - baseSpeed)
+					)
+				),
 				brake: gamepadState.b,
-				left_stick: gamepadState.right_trigger < 0.5 ? gamepadState.left_stick.y : gamepadState.right_stick.y,
-				right_stick: gamepadState.right_stick.y
-			}
+				left_stick:
+					gamepadState.right_trigger < 0.5
+						? gamepadState.left_stick.y
+						: gamepadState.right_stick.y,
+				right_stick: gamepadState.right_stick.y,
+				turn_to_enable: false,
+				turn_to: 0,
+				turn_to_timeout: 0,
+			},
 		};
 
 		setCoreControl(data.data);
@@ -45,46 +71,49 @@ export default function CoreDrivingControl() {
 		sendMessage(JSON.stringify(data));
 	}, [baseSpeed, gamepadState, sendMessage]);
 
+	const col = coreControl.brake ? { borderColor: "var(--red)" } : {};
 
-	return <>
-		<div>
-			<h1>Core Driving</h1>
-			{coreControl && (
-				<>
-					<div className="horizontal-split indicator-subsection">
-						<div />
-						<div className="container indicator-subsection stick-slider">
-							<GradientIndicator scale={1} value={coreControl.left_stick} color="var(--sapphire)" direction="to top" />
-						</div>
-						<div className="container indicator-subsection stick-slider">
-							<GradientIndicator scale={1} value={coreControl.right_stick} color="var(--sapphire)" direction="to top" />
-						</div>
-						<div />
+	return (
+		<>
+			<div>
+				<h1>Core Driving</h1>
+				<div className="horizontal-split indicator-subsection">
+					<div />
+					<div
+						className="container indicator-subsection stick-slider"
+						style={col}
+					>
+						<GradientIndicator
+							scale={1}
+							value={coreControl.left_stick}
+							color="var(--sapphire)"
+							direction="to top"
+						/>
 					</div>
-					<div>
-						<div style={{
-							width: "100%",
-							height: "20px",
-							background:
-								`linear-gradient(to right, var(--sapphire), var(--sapphire) ${coreControl.max_speed}%, transparent ${coreControl.max_speed}%, transparent 100%)`
-						}}>
-							<input type="range" min="0" max="100" value={baseSpeed} list="values" onChange={e => setBaseSpeed(parseInt(e.currentTarget.value))} />
-						</div>
-
-						<datalist id="values" style={{ writingMode: "vertical-lr", display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%" }}>
-							<option value="0" label="0" />
-							<option value="25" label="25" />
-							<option value="50" label="50" />
-							<option value="75" label="75" />
-							<option value="100" label="100" />
-						</datalist>
+					<div
+						className="container indicator-subsection stick-slider"
+						style={col}
+					>
+						<GradientIndicator
+							scale={1}
+							value={coreControl.right_stick}
+							color="var(--sapphire)"
+							direction="to top"
+						/>
 					</div>
-					<p>Max Speed: {coreControl.max_speed}</p>
-					<p>Brake: {coreControl.brake ? "true" : "false"}</p>
-					<p>Left Stick: {coreControl.left_stick.toFixed(2)}</p>
-					<p>Right Stick: {coreControl.right_stick.toFixed(2)}</p>
-				</>
-			) || <p>No core driving</p>}
-		</div >
-	</>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							fontSize: "2rem",
+							color: (gamepadState.left_trigger) ? "var(--sapphire)" : undefined,
+						}}
+					>
+						{Math.round(baseSpeed + gamepadState.left_trigger * (100 - baseSpeed))}%
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }

@@ -1,3 +1,5 @@
+import { STICK_DEAD_ZONE, STICK_DIGITAL_THRESHOLD } from "../config";
+
 export abstract class Vector {
     abstract get unit(): Vector;
     abstract get magnitude(): number;
@@ -74,6 +76,7 @@ export interface CoreFeedbackData extends WebSocketData {
         bno_accel: Vector3;
 
         orientation: number;
+        imu_calib: number;
 
         bmp_temp: number;
         bmp_alt: number;
@@ -95,6 +98,10 @@ export interface CoreControlData extends WebSocketData {
         max_speed: number;
 
         brake: boolean;
+
+        turn_to_enable: boolean;
+        turn_to: number;
+        turn_to_timeout: number;
     };
 }
 export interface AutoFeedbackData extends WebSocketData {
@@ -184,22 +191,15 @@ export interface DigitFeedbackData extends WebSocketData {
         voltage_5: number;
     };
 }
-export interface FaerieFeedbackData extends WebSocketData {
-    type: '/arm/feedback/faerie';
+export interface BioFeedbackData extends WebSocketData {
+    type: '/bio/feedback';
     data: {
         bat_voltage: number;
         voltage_12: number;
         voltage_5: number;
 
-        sht_temp: number;
-        sht_humidity: number;
-        lux_1: number;
-        lux_2: number;
-        lux_3: number;
-        lux_4: number;
-        lux_5: number;
-        lux_6: number;
-        lux_7: number;
+        drill_temp: number;
+        drill_humidity: number;
     };
 }
 
@@ -229,16 +229,24 @@ export class AllFeedbackData {
     coreFeedback: CoreFeedbackData | null = null;
     autoFeedback: AutoFeedbackData | null = null;
     digitFeedback: DigitFeedbackData | null = null;
-    faerieFeedback: FaerieFeedbackData | null = null;
+    bioFeedback: BioFeedbackData | null = null;
     socketFeedback: SocketFeedbackData | null = null;
 }
 
 export class ControllerStick extends Vector2 {
     pressed: boolean;
 
+    up: boolean;
+    down: boolean;
+    left: boolean;
+    right: boolean;
+
+    xDigital: number;
+    yDigital: number;
+
     constructor(x: number, y: number, pressed: boolean) {
         function applyDeadzone(value: number): number {
-            if (Math.abs(value) < 0.1) {
+            if (Math.abs(value) < STICK_DEAD_ZONE) {
                 return 0;
             }
             return value;
@@ -246,6 +254,14 @@ export class ControllerStick extends Vector2 {
 
         super(applyDeadzone(x), applyDeadzone(y));
         this.pressed = pressed;
+
+        this.up = y > STICK_DIGITAL_THRESHOLD;
+        this.down = y < -STICK_DIGITAL_THRESHOLD;
+        this.right = x > STICK_DIGITAL_THRESHOLD;
+        this.left = x < -STICK_DIGITAL_THRESHOLD;
+
+        this.xDigital = (this.right ? 1 : 0) - (this.left ? 1 : 0);
+        this.yDigital = (this.up ? 1 : 0) - (this.down ? 1 : 0);
     }
 };
 
@@ -268,11 +284,6 @@ export class GamepadState {
 
     left_stick: ControllerStick = new ControllerStick(0, 0, false);
     right_stick: ControllerStick = new ControllerStick(0, 0, false);
-
-    up: boolean = false;
-    down: boolean = false;
-    left: boolean = false;
-    right: boolean = false;
 
     /**
      * D-Pad as a stick. x is left/right, y is up/down.
@@ -303,14 +314,14 @@ export class GamepadState {
         this.left_stick = new ControllerStick(gamepad.axes[0], -gamepad.axes[1], gamepad.buttons[10].pressed);
         this.right_stick = new ControllerStick(gamepad.axes[2], -gamepad.axes[3], gamepad.buttons[11].pressed);
 
-        this.up = gamepad.buttons[12].pressed;
-        this.down = gamepad.buttons[13].pressed;
-        this.left = gamepad.buttons[14].pressed;
-        this.right = gamepad.buttons[15].pressed;
+        const up = gamepad.buttons[12].pressed;
+        const down = gamepad.buttons[13].pressed;
+        const left = gamepad.buttons[14].pressed;
+        const right = gamepad.buttons[15].pressed;
 
         this.dpad = new ControllerStick(
-            (this.left ? -1 : 0) + (this.right ? 1 : 0),
-            (this.up ? -1 : 0) + (this.down ? 1 : 0),
+            (right ? 1 : 0) - (left ? 1 : 0),
+            (up ? 1 : 0) - (down ? 1 : 0),
             false
         );
     }

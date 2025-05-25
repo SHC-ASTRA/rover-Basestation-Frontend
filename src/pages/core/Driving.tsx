@@ -6,10 +6,10 @@ export default function CoreDrivingPage() {
 	return <>
 		<div className="container feedback">
 			<MapComponent />
-			<CoreDrivingFeedback dev={false} />
 		</div>
 		<div className="container control">
 			<CoreDrivingControl />
+			<CoreDrivingFeedback dev={false} />
 		</div>
 	</>;
 }

@@ -3,6 +3,7 @@ import GradientIndicator from "../indicators/GradientIndicator";
 import GamepadContext from "../../lib/gamepadContext";
 import useWebSocketSetup from "../../lib/webSocket";
 import { ArmIKData, Vector3 } from "../../lib/types";
+import { ARM_POLLING_INTERVAL } from "../../config";
 
 function AxisControl(props: { label: string, value: number }) {
     return <div className="horizontal-split container indicator-subsection">
@@ -14,7 +15,7 @@ function AxisControl(props: { label: string, value: number }) {
 export default function ArmIKControl() {
     const lastUpdate = useRef(Date.now());
     const { sendMessage } = useWebSocketSetup();
-    const [laserEnabled, setLaserEnabled] = useState(0);
+    const [laserEnabled, setLaserEnabled] = useState(false);
     const [armManualControl, setArmManualControl] = useState<ArmIKData["data"]>({
         movement_vector: new Vector3(0, 0, 0), // Assuming Vector3 has x, y, z properties
         gripper: 0,
@@ -25,33 +26,34 @@ export default function ArmIKControl() {
     });
     const gamepadState = useContext(GamepadContext);
 
-    function applyDeadzone(value: number) {
-        const a = Math.abs(value);
-        return a > 0.5 ? Math.round(value / a) : 0;
-    }
-
     useEffect(() => {
         const data: ArmIKData = {
             type: "/arm/control/ik",
             timestamp: Date.now(),
             data: {
-                movement_vector: new Vector3(
-                    applyDeadzone(gamepadState.left_stick.x),
-                    applyDeadzone(gamepadState.left_stick.y),
-                    applyDeadzone(gamepadState.right_stick.y)
-                ),
+                ...(!gamepadState.right_bumper ? { // regular mode
+                    movement_vector: new Vector3(
+                        gamepadState.left_stick.xDigital,
+                        gamepadState.left_stick.yDigital,
+                        gamepadState.right_stick.yDigital,
+                    ),
+                    effector_roll: 0,
+                    effector_yaw: 0,
+                } : { // right bumper mode
+                    movement_vector: new Vector3(0, 0, 0),
+                    effector_roll: gamepadState.right_stick.xDigital,
+                    effector_yaw: gamepadState.left_stick.xDigital,
+                }),
                 gripper: Math.round(gamepadState.right_trigger) - Math.round(gamepadState.left_trigger),
                 linear_actuator: (gamepadState.x ? -1 : 0) + (gamepadState.y ? 1 : 0),
-                laser: laserEnabled,
-                effector_roll: gamepadState.dpad.x,
-                effector_yaw: gamepadState.dpad.y,
+                laser: laserEnabled ? 1 : 0,
             }
         };
 
         setArmManualControl(data.data);
 
         // only send data at the polling rate
-        if (Date.now() - lastUpdate.current < 40) {
+        if (Date.now() - lastUpdate.current < ARM_POLLING_INTERVAL) {
             return;
         }
 
@@ -69,11 +71,7 @@ export default function ArmIKControl() {
             <AxisControl label={"actuator"} value={armManualControl.linear_actuator} />
             <div className="horizontal-split container indicator-subsection">
                 <h1 className="subsection-indicator-label">laser</h1>
-                <input type="range"
-                    max={1} min={0} step={0}
-                    style={{ width: "75px" }}
-                    value={laserEnabled}
-                    onChange={e => setLaserEnabled(parseInt(e.currentTarget.value))} />
+                <input type="checkbox" onChange={e => setLaserEnabled(e.target.checked)} />
             </div>
         </div>
     </>;

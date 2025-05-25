@@ -1,12 +1,12 @@
 import { createContext } from "react";
-import { BioControlData, FaerieFeedbackData } from "../../lib/types";
+import { BioControlData, BioFeedbackData } from "../../lib/types";
 
 const BioDataContext = createContext<{
-    faerieFeedbackHistory: (FaerieFeedbackData["data"] & { timestamp: number })[],
+    bioFeedbackHistory: (BioFeedbackData["data"] & { timestamp: number })[],
     bioControl: BioControlData["data"],
     setBioControl: React.Dispatch<React.SetStateAction<BioControlData["data"]>>,
 }>({
-    faerieFeedbackHistory: [], bioControl: {
+    bioFeedbackHistory: [], bioControl: {
         pump_id: 0,
         pump_amount: 0,
         fan_id: 0,

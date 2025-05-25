@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useWebSocketSetup from "../../lib/webSocket";
-import { Line, LineChart, XAxis, YAxis } from "recharts";
 
 export default function CoreDrivingFeedback({ dev }: { dev: boolean }) {
 	const { coreFeedback } = useWebSocketSetup();
