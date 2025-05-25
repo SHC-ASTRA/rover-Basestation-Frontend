@@ -2,6 +2,7 @@ import "../App.css"
 import { useState } from 'react';
 import { useLocation, useNavigate } from "react-router";
 import { coreDrivingPath, armBioPath, armDigitPath, autonomyPath, debugPath, doomGamePath } from '../main.tsx';
+import useWebSocketSetup from "../lib/webSocket.tsx";
 
 function ImageBannerButton(props: { path: string, img: string, additionalClasses?: string }) {
 	const navigate = useNavigate();
@@ -12,19 +13,20 @@ function ImageBannerButton(props: { path: string, img: string, additionalClasses
 	</button>
 }
 
-function BannerButton(props: { path: string, img: string }) {
+function BannerButton(props: { path: string, img: string, color?: string }) {
 	const navigate = useNavigate();
 	const currentLocation = useLocation();
 
 	return <button onClick={() => navigate(props.path)} className={`banner-button ${(currentLocation.pathname == props.path) && "banner-button-active"}`}>
 		<div style={{ maskImage: `url(${props.img})`, maskComposite: "subtract", maskRepeat: "no-repeat", maskSize: "100%" }}>
-			<div className="banner-button-image" />
+			<div className="banner-button-image" style={{ backgroundColor: props.color }} />
 		</div>
 	</button >
 }
 
 export default function Banner() {
 	const [iconAdr, setIconAdr] = useState("/favicon.webp");
+	const { readyState } = useWebSocketSetup();
 
 	return <>
 		<div className="banner">
@@ -34,7 +36,7 @@ export default function Banner() {
 
 			<div style={{ flexGrow: 1 }}></div>
 
-			<BannerButton path="/" img={"../src/assets/banner_icons/root.webp"} />
+			<BannerButton path="/" img={"../src/assets/banner_icons/root.webp"} color={readyState === 1 ? undefined : "var(--red)"} />
 			<BannerButton path={coreDrivingPath} img="../src/assets/banner_icons/rover.webp" />
 			<BannerButton path={armBioPath} img="../src/assets/banner_icons/bio.webp" />
 			<BannerButton path={armDigitPath} img="../src/assets/banner_icons/arm.webp" />

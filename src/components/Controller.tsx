@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import GamepadContext from "../lib/gamepadContext";
 import { Vector2 } from "../lib/types";
 
-function ControllerDisplay() {
+function ControllerDisplay({ className, style }: { className?: string, style?: React.CSSProperties }) {
 	const gamepad = useContext(GamepadContext);
 
 	const base_color = "var(--text)";
@@ -33,10 +33,10 @@ function ControllerDisplay() {
 		setButtonX(gamepad.x ? "var(--blue)" : default_color);
 		setButtonY(gamepad.y ? "var(--yellow)" : default_color);
 
-		setDpadUp(gamepad.up ? default_pressed_color : default_color);
-		setDpadDown(gamepad.down ? default_pressed_color : default_color);
-		setDpadLeft(gamepad.left ? default_pressed_color : default_color);
-		setDpadRight(gamepad.right ? default_pressed_color : default_color);
+		setDpadUp(gamepad.dpad.up ? default_pressed_color : default_color);
+		setDpadDown(gamepad.dpad.down ? default_pressed_color : default_color);
+		setDpadLeft(gamepad.dpad.left ? default_pressed_color : default_color);
+		setDpadRight(gamepad.dpad.right ? default_pressed_color : default_color);
 
 		setButtonSelect(gamepad.select ? default_pressed_color : default_color);
 		setButtonStart(gamepad.start ? default_pressed_color : default_color);
@@ -51,7 +51,7 @@ function ControllerDisplay() {
 	// TODO: add indicators for buttons and triggers :)
 
 	return (
-		<div>
+		<div style={style} className={className}>
 			{
 				<svg
 					viewBox="0 0 36 36"

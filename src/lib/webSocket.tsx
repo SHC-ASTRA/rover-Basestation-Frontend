@@ -15,6 +15,7 @@ export default function useWebSocketSetup() {
     const [digitFeedback, setDigitFeedback] = useState<null | DigitFeedbackData>(null);
     const [bioFeedback, setBioFeedback] = useState<null | BioFeedbackData>(null);
     const [socketFeedback, setSocketFeedback] = useState<null | SocketFeedbackData>(null);
+    const [lastUpdate, setLastUpdate] = useState<null | number>(null);
 
     // determine the websocket url based on the current url
     const host = window.location.host;
@@ -30,6 +31,7 @@ export default function useWebSocketSetup() {
         if (lastMessage !== null) {
             // parse the data from the message
             const data = JSON.parse(lastMessage.data);
+            setLastUpdate(data.timestamp);
 
             // put the data in the right place based on the type
             switch (data.type) {
@@ -62,5 +64,6 @@ export default function useWebSocketSetup() {
         digitFeedback,
         bioFeedback,
         socketFeedback,
+        lastUpdate,
     };
 }

@@ -19,6 +19,16 @@
 	background-color: var(--base);
 }
 
+button:disabled {
+	color: var(--overlay-0);
+	cursor: not-allowed;
+}
+button {
+	color: var(--text-color);
+	background-color: var(--crust);
+	cursor: pointer;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -27,6 +37,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 	monospace;
+}
+
+.submit-button {
+	font-size: 1.5rem;
 }
 
 .container {
@@ -104,6 +118,8 @@ code {
 .logo {
 	border: 0;
 	padding: 0;
+	background-color: white;
+	border-radius: 5%;
 }
 
 .clucky {
@@ -179,7 +195,7 @@ input {
 }
 .vertical-split > * {
 	flex-grow: 1;
-	height: 50%;
+	/* height: 50%; */
 }
 
 .hidden {
