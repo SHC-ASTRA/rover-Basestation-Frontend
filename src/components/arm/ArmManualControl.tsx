@@ -4,6 +4,7 @@ import { ArmManualData } from "../../lib/types";
 import useWebSocketSetup from "../../lib/webSocket";
 import GradientIndicator from "../indicators/GradientIndicator";
 import { ARM_POLLING_INTERVAL } from "../../config";
+import ResetLSS from "../anchor/ResetLSS";
 
 function AxisControl(props: { label: string, value: number, direction?: string }) {
 	let direction = props.direction;
@@ -92,5 +93,6 @@ export default function ArmManualControl() {
 				<input type="checkbox" onChange={e => setLaserEnabled(e.target.checked)} />
 			</div>
 		</div>
+		<ResetLSS label="Reset Wrist" />
 	</>;
 }

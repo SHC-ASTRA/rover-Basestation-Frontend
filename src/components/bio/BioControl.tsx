@@ -1,153 +1,80 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import useWebSocketSetup from "../../lib/webSocket";
-import { BioSetter } from "./BioSetter";
-import BioDataContext from "./BioDataContext";
+import { BioSelector, BioSetter } from "./BioComponents";
+import ResetLSS from "../anchor/ResetLSS";
+import GamepadContext from "../../lib/gamepadContext";
 import GradientIndicator from "../indicators/GradientIndicator";
+import { CORE_POLLING_INTERVAL } from "../../config";
+import { BioControlData } from "src/lib/types";
+
+const SPEED_ADJUSTMENT = 5;
+const INITIAL_DRILL_SPEED = 50;
 
 export default function BioControl() {
     const { sendMessage } = useWebSocketSetup();
-    const { bioControl, setBioControl } = useContext(BioDataContext)
-    const lssDirection = useRef<{ left: boolean, right: boolean }>({
-        left: false,
-        right: false
-    });
-    const drillRunning = useRef(false);
-    const [rawDrillDuty, setRawDrillDuty] = useState("0");
-    const drillDuty = useRef(0);
+    const gamepadState = useContext(GamepadContext);
     const [laserEnabled, setLaserEnabled] = useState(false);
+    const [drillSpeed, setDrillSpeed] = useState(INITIAL_DRILL_SPEED);
+    const lastUpdate = useRef(Date.now());
+
+    // id-value pairs
+    const [pumpId, setPumpId] = useState(0);
+    const [pumpAmount, setPumpAmount] = useState(0);
+    const [fanId, setFanId] = useState(0);
+    const [fanDuration, setFanDuration] = useState(0);
+    const servoId = useRef(0);
 
     useEffect(() => {
-        setBioControl((b) => {
-            return {
-                ...b,
-                laser: laserEnabled ? 1 : 0,
-            }
-        });
-    }, [laserEnabled, setBioControl]);
+        if (gamepadState.b) setLaserEnabled((b) => !b);
 
+        if (gamepadState.dpad.up) {
+            setDrillSpeed((prev) => Math.min(100, prev + SPEED_ADJUSTMENT));
+        } else if (gamepadState.dpad.down) {
+            setDrillSpeed((prev) => Math.max(0, prev - SPEED_ADJUSTMENT));
+        }
+    }, [gamepadState.b, gamepadState.dpad.up, gamepadState.dpad.down])
+
+    // Update servo and drill based on gamepad sticks
     useEffect(() => {
-        let parsed = parseFloat(rawDrillDuty);
-        if (Math.abs(parsed) > 1) {
-            setRawDrillDuty(Math.min(1, Math.max(parsed, -1)).toString())
+        // Only update at polling rate
+        if (Date.now() - lastUpdate.current < CORE_POLLING_INTERVAL) {
             return;
         }
-        if (isNaN(parsed)) {
-            parsed = 0;
-        }
-        drillDuty.current = parsed;
-    }, [rawDrillDuty])
 
+        lastUpdate.current = Date.now();
 
-    // listen for left and right on the keyboard
-    useEffect(() => {
-        function updateLssDirection(left?: boolean, right?: boolean) {
-            // if left or right is undefined, use the current value
-            left = left ?? lssDirection.current.left;
-            right = right ?? lssDirection.current.right;
-
-            // if nothing changed, return
-            if (left === lssDirection.current.left && right === lssDirection.current.right) return;
-
-            lssDirection.current = { left, right };
-            setBioControl((b) => {
-                return {
-                    ...b,
-                    bio_arm: (right ? 100 : 0) - (left ? 100 : 0)
-                }
-            });
-        }
-
-        function onKeyDown(e: KeyboardEvent) {
-            let left: boolean | undefined = undefined;
-            let right: boolean | undefined = undefined;
-
-            if (e.key === "ArrowLeft") {
-                e.preventDefault();
-                left = true;
-            }
-            if (e.key === "ArrowRight") {
-                e.preventDefault();
-                right = true;
-            }
-            updateLssDirection(left, right);
-
-            if (e.key === " ") {
-                e.preventDefault();
-                if (!drillRunning.current) {
-                    drillRunning.current = true;
-                    setBioControl((b) => {
-                        return {
-                            ...b,
-                            drill: drillDuty.current
-                        }
-                    });
-                }
-            }
-        }
-        function onKeyUp(e: KeyboardEvent) {
-            let left: boolean | undefined = undefined;
-            let right: boolean | undefined = undefined;
-
-            if (e.key === "ArrowLeft") {
-                e.preventDefault();
-                left = false;
-            }
-            if (e.key === "ArrowRight") {
-                e.preventDefault();
-                right = false;
-            }
-            updateLssDirection(left, right);
-
-            if (e.key === " ") {
-                e.preventDefault();
-                if (drillRunning.current) {
-                    drillRunning.current = false;
-                    setBioControl((b) => {
-                        return {
-                            ...b,
-                            drill: 0
-                        }
-                    });
-                }
-            }
-        }
-
-        window.addEventListener("keydown", onKeyDown);
-        window.addEventListener("keyup", onKeyUp);
-
-        return () => {
-            window.removeEventListener("keydown", onKeyDown);
-            window.removeEventListener("keyup", onKeyUp);
-        }
-    }, [setBioControl]);
-
-    useEffect(() => {
-        const data = {
+        const data: BioControlData = {
             type: "/bio/control",
-            timestamp: Date.now(),
-            data: bioControl
+            timestamp: lastUpdate.current,
+            data: {
+                bio_arm: Math.round(gamepadState.left_stick.yDigital * 100),
+                drill_arm: Math.round(gamepadState.right_stick.yDigital * 100),
+                drill: ((gamepadState.right_bumper ? 1 : 0) - (gamepadState.left_bumper ? 1 : 0)) * drillSpeed,
+                vibration_motor: gamepadState.a ? 1 : 0,
+                laser: laserEnabled ? 1 : 0,
+                pump_id: pumpId,
+                pump_amount: pumpAmount,
+                fan_id: fanId,
+                fan_duration: fanDuration,
+                servo_id: servoId.current,
+                servo_state: gamepadState.x,
+            }
         };
 
         sendMessage(JSON.stringify(data));
 
-        // reset bioControl without updating state
-        bioControl.pump_id = 0;
-        bioControl.pump_amount = 0;
-        bioControl.fan_id = 0;
-        bioControl.fan_duration = 0;
-        bioControl.servo_position = 0;
-    }, [bioControl, sendMessage]);
+        // reset controls
+        if (pumpId) setPumpId(() => 0);
+        if (pumpAmount) setPumpAmount(() => 0);
+        if (fanId) setFanId(() => 0);
+        if (fanDuration) setFanDuration(() => 0);
+    }, [gamepadState, drillSpeed]);
 
     return <>
-        <div className="container indicator-subsection vertical-split">
+        <div className="container vertical-split">
             <BioSetter label="Pumps" min={0} max={Infinity} placeholder="amount (mL)" onSubmission={(id, value) => {
-                setBioControl((b) => {
-                    return {
-                        ...b,
-                        pump_id: id,
-                        pump_amount: value
-                    }
-                });
+                setPumpId(id);
+                setPumpAmount(value);
             }}>
                 <option value={1}>Pump 1</option>
                 <option value={2}>Pump 2</option>
@@ -155,45 +82,77 @@ export default function BioControl() {
                 <option value={4}>Pump 4</option>
             </BioSetter>
             <BioSetter label="Fans" min={0} max={Infinity} placeholder="duration (ms)" onSubmission={(id, value) => {
-                setBioControl((b) => {
-                    return {
-                        ...b,
-                        fan_id: id,
-                        fan_duration: value
-                    }
-                }
-                );
+                setFanId(id);
+                setFanDuration(value);
             }}>
                 <option value={1}>Fan 1</option>
                 <option value={2}>Fan 2</option>
                 <option value={3}>Fan 3</option>
             </BioSetter>
-            <BioSetter label="Servos" max={360} min={0} placeholder="angle" onSubmission={(_, value) => {
-                setBioControl((b) => {
-                    return {
-                        ...b,
-                        servo_position: value
-                    }
-                });
-            }}>
-                <option value={1}>Servo 1</option>
-            </BioSetter>
-            <div className="indicator-subsection horizontal-split">
-                <h2 className="indicator-subsection-label">LSS Direction</h2>
-                <div className="container">
-                    <GradientIndicator scale={100} color="var(--red)" value={bioControl.bio_arm} />
+
+            <div className="horizontal-split container">
+                <BioSelector label="Target Servo" onChange={(e) => {
+                    servoId.current = parseInt(e.target.value);
+                }}>
+                    <option value={1}>Servo 1</option>
+                    <option value={2}>Servo 2</option>
+                    <option value={3}>Servo 3</option>
+                </BioSelector>
+                {/* show whether the x button is pressed */}
+                <h2 style={{ justifyContent: "center", alignContent: "center" }}>
+                    Servo State: <span style={{ color: gamepadState.x ? "var(--green)" : "var(--red)" }}>
+                        {(gamepadState.x && servoId.current) ? "on" : "off"}
+                    </span>
+                </h2>
+            </div>
+
+            {/* laser and drill spin indicators */}
+            <div className="horizontal-split indicator-subsection">
+                <div className="horizontal-split container">
+                    <h2 style={{ justifyContent: "center", alignContent: "center" }}>
+                        Laser Status: <span style={{ color: laserEnabled ? "var(--green)" : "var(--red)" }}>{laserEnabled ? "on" : "off"}</span>
+                    </h2>
+                </div>
+                <div className="horizontal-split container">
+                    <h2 style={{ justifyContent: "center", alignContent: "center" }}>Drill ({drillSpeed}%)</h2>
+                    <GradientIndicator
+                        scale={1}
+                        value={(gamepadState.right_bumper ? 1 : 0) - (gamepadState.left_bumper ? 1 : 0)}
+                        color="var(--sapphire)"
+                        direction="to right"
+                    />
                 </div>
             </div>
-            <div className="indicator-subsection horizontal-split">
-                <h2 className="indicator-subsection-label">Laser</h2>
-                <input type="checkbox" id="laser" onChange={(e) => setLaserEnabled(e.target.checked)} />
-            </div>
-            <div className="indicator-subsection horizontal-split">
-                <h2 className="indicator-subsection-label">Drill</h2>
-                <div className="horizontal-split">
-                    <input type="number" min={-1} max={1} value={rawDrillDuty} onChange={(e) => { setRawDrillDuty(e.target.value); }} />
-                    <GradientIndicator className="container" scale={1} color="var(--blue)" value={bioControl.drill} />
+
+            {/* Gamepad control indicators */}
+            <div className="horizontal-split indicator-subsection" style={{ flexGrow: 4 }}>
+                <div style={{ display: "flex", flexDirection: "column" }} className="container">
+                    <h3 style={{ textAlign: "center" }}>
+                        Vacuum Arm{gamepadState.a ? " (vibrating)" : ""}
+                    </h3>
+                    <div className="indicator-subsection" style={{ flexGrow: 1 }}>
+                        <GradientIndicator
+                            scale={1}
+                            value={gamepadState.left_stick.yDigital}
+                            color="var(--sapphire)"
+                            direction="to top"
+                        />
+                    </div>
                 </div>
+                <div style={{ display: "flex", flexDirection: "column" }} className="container">
+                    <h3 style={{ textAlign: "center" }}>Drill Arm</h3>
+                    <div className="indicator-subsection" style={{ flexGrow: 1 }}>
+                        <GradientIndicator
+                            scale={1}
+                            value={gamepadState.right_stick.yDigital}
+                            color="var(--sapphire)"
+                            direction="to top"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div style={{ flexGrow: 0, height: "auto" }}>
+                <ResetLSS label="Reset Vacuum Arm" />
             </div>
         </div>
     </>;

@@ -1,4 +1,4 @@
-import { ChangeEvent, PropsWithChildren, useEffect, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, PropsWithChildren, useEffect, useState } from "react";
 import SubmitButton from "../indicators/SubmitButton";
 
 export function BioSetter(props: PropsWithChildren<{ label: string, max: number, min: number, placeholder: string, onSubmission: (id: number, value: number) => void }>) {
@@ -44,4 +44,25 @@ export function BioSetter(props: PropsWithChildren<{ label: string, max: number,
         </select>
         <input type="number" value={inputValue} placeholder={props.placeholder} onChange={onChange} />
     </SubmitButton>
+}
+
+export function BioSwitch({ label, onChange, disabled }: { label: string; onChange: ChangeEventHandler<HTMLInputElement>, disabled?: boolean }) {
+    return (
+        <div className="indicator-subsection horizontal-split">
+            <h2 style={{ justifyContent: "center", alignContent: "center" }}>{label}</h2>
+            <input type="checkbox" onChange={onChange} disabled={disabled} />
+        </div>
+    );
+}
+
+export function BioSelector({ label, onChange, children }: { label: string; onChange: ChangeEventHandler<HTMLSelectElement>, disabled?: boolean, children: React.ReactNode }) {
+    return (
+        <div className="indicator-subsection horizontal-split">
+            <h2 style={{ justifyContent: "center", alignContent: "center" }}>{label}</h2>
+            <select onChange={onChange}>
+                <option value={0}>Select...</option>
+                {children}
+            </select>
+        </div>
+    );
 }

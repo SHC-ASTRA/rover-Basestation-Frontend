@@ -3,9 +3,8 @@ import useWebSocketSetup from "../../lib/webSocket";
 import GamepadContext from "../../lib/gamepadContext";
 import { CoreControlData } from "../../lib/types";
 import GradientIndicator from "../indicators/GradientIndicator";
+import { CORE_POLLING_INTERVAL } from "../../config";
 
-const POLLING_RATE = 40;
-const POLLING_INTERVAL = Math.round(1000 / POLLING_RATE);
 const INITIAL_BASE_SPEED = 40;
 const SPEED_ADJUSTMENT = 10; // 10% adjustment
 
@@ -45,7 +44,7 @@ export default function CoreDrivingControl() {
 				max_speed: Math.min(
 					100,
 					Math.round(
-						baseSpeed + gamepadState.left_trigger * (100 - baseSpeed)
+						gamepadState.left_trigger * baseSpeed
 					)
 				),
 				brake: gamepadState.b,
@@ -63,7 +62,7 @@ export default function CoreDrivingControl() {
 		setCoreControl(data.data);
 
 		// only send data at the polling rate
-		if (Date.now() - lastUpdate.current < POLLING_INTERVAL) {
+		if (Date.now() - lastUpdate.current < CORE_POLLING_INTERVAL) {
 			return;
 		}
 

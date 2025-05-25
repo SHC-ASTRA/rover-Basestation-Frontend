@@ -212,7 +212,8 @@ export interface BioControlData extends WebSocketData {
         fan_id: number;
         fan_duration: number;
 
-        servo_position: number;
+        servo_id: number;
+        servo_state: boolean;
 
         bio_arm: number;
 
@@ -223,6 +224,13 @@ export interface BioControlData extends WebSocketData {
 
         vibration_motor: number;
     };
+}
+
+export interface AnchorRelayData extends WebSocketData {
+    type: '/anchor/relay',
+    data: {
+        data: string
+    }
 }
 
 export class AllFeedbackData {
