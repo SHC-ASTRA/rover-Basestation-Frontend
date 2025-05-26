@@ -44,7 +44,7 @@ function ControllerDisplay({ className, style }: { className?: string, style?: R
 		setButtonLeftPress(gamepad.left_stick.pressed ? default_pressed_color : default_color);
 		setButtonRightPress(gamepad.right_stick.pressed ? default_pressed_color : default_color);
 
-		setStickLeft((gamepad.left_stick));
+		setStickLeft(gamepad.left_stick);
 		setStickRight(gamepad.right_stick);
 	}, [gamepad]);
 
