@@ -19,6 +19,16 @@
 	background-color: var(--base);
 }
 
+table {
+	width: 100%;
+}
+
+td {
+	font-weight: bold;
+	text-align: center;
+	justify-content: center;
+}
+
 button:disabled {
 	color: var(--overlay-0);
 	cursor: not-allowed;
