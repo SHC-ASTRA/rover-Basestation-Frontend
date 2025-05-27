@@ -164,7 +164,7 @@ function GPSInfoUpdater() {
             }
 
             if (satElement) {
-                satElement.innerHTML = `Satellites: ${coreFeedback.data.gps_sats || '--'}`;
+                satElement.innerHTML = `Satellites: ${coreFeedback.data.gps_sats}`;
             }
         }
     }, [coreFeedback?.data]);

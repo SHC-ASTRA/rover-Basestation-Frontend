@@ -47,7 +47,7 @@ export default function BioControl() {
             type: "/bio/control",
             timestamp: lastUpdate.current,
             data: {
-                bio_arm: Math.round(gamepadState.left_stick.yDigital * 100),
+                bio_arm: Math.round(gamepadState.left_stick.y * 100),
                 drill_arm: Math.round(gamepadState.right_stick.yDigital * 100),
                 drill: ((gamepadState.right_bumper ? 1 : 0) - (gamepadState.left_bumper ? 1 : 0)) * drillSpeed,
                 vibration_motor: gamepadState.a ? 1 : 0,
@@ -133,7 +133,7 @@ export default function BioControl() {
                     <div className="indicator-subsection" style={{ flexGrow: 1 }}>
                         <GradientIndicator
                             scale={1}
-                            value={gamepadState.left_stick.yDigital}
+                            value={gamepadState.left_stick.y}
                             color="var(--sapphire)"
                             direction="to top"
                         />
@@ -144,7 +144,7 @@ export default function BioControl() {
                     <div className="indicator-subsection" style={{ flexGrow: 1 }}>
                         <GradientIndicator
                             scale={1}
-                            value={gamepadState.right_stick.y * 100}
+                            value={gamepadState.right_stick.yDigital * 100}
                             color="var(--sapphire)"
                             direction="to top"
                         />
