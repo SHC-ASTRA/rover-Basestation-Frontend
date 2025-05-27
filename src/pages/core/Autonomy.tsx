@@ -5,11 +5,11 @@ import CoreAutoFeedback from '../../components/core/CoreAutoFeedback';
 export default function CoreAutonomyPage() {
 	return <>
 		<div className="container feedback">
-			<MapComponent />
-			<CoreDrivingFeedback dev={false} />
+			<CoreAutoFeedback />
+			<CoreDrivingFeedback />
 		</div>
 		<div className="container autonomy">
-			<CoreAutoFeedback />
+			<MapComponent />
 		</div>
 	</>
 }

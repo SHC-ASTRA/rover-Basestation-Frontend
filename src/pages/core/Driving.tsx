@@ -5,11 +5,11 @@ import CoreDrivingControl from '../../components/core/CoreDrivingControl';
 export default function CoreDrivingPage() {
 	return <>
 		<div className="container feedback">
-			<MapComponent />
-			<CoreDrivingFeedback dev={false} />
+			<CoreDrivingControl />
+			<CoreDrivingFeedback />
 		</div>
 		<div className="container control">
-			<CoreDrivingControl />
+			<MapComponent />
 		</div>
 	</>;
 }

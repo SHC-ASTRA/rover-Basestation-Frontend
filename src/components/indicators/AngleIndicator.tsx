@@ -14,6 +14,10 @@ export default function AngleIndicator({ current_angle }: { label: string, curre
                     <div className="angle-indicator-pointer" />
                 </div>
                 <div />
+                <p style={{ fontSize: "1.5rem" }}>
+                    {current_angle ? Math.round(current_angle) : 0}&deg;
+                </p>
+                <div />
             </div>
             <div />
         </div>

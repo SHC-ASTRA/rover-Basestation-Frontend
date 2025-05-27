@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
-import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, FaerieFeedbackData, SocketFeedbackData } from "./types";
+import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, BioFeedbackData, SocketFeedbackData } from "./types";
 
 /**
  * Custom hook to setup the websocket connection and handle incoming messages. Doing it this way makes
@@ -13,8 +13,9 @@ export default function useWebSocketSetup() {
     const [autoFeedback, setAutoFeedback] = useState<null | AutoFeedbackData>(null);
     const [coreFeedback, setCoreFeedback] = useState<null | CoreFeedbackData>(null);
     const [digitFeedback, setDigitFeedback] = useState<null | DigitFeedbackData>(null);
-    const [faerieFeedback, setFaerieFeedback] = useState<null | FaerieFeedbackData>(null);
+    const [bioFeedback, setBioFeedback] = useState<null | BioFeedbackData>(null);
     const [socketFeedback, setSocketFeedback] = useState<null | SocketFeedbackData>(null);
+    const [lastUpdate, setLastUpdate] = useState<null | number>(null);
 
     // determine the websocket url based on the current url
     const host = window.location.host;
@@ -30,20 +31,21 @@ export default function useWebSocketSetup() {
         if (lastMessage !== null) {
             // parse the data from the message
             const data = JSON.parse(lastMessage.data);
+            setLastUpdate(data.timestamp);
 
             // put the data in the right place based on the type
             switch (data.type) {
-                case '/core/auto':
+                case '/auto/feedback':
                     setAutoFeedback(data);
                     break;
                 case '/core/feedback':
                     setCoreFeedback(data);
                     break;
+                case '/bio/feedback':
+                    setBioFeedback(data);
+                    break;
                 case '/arm/feedback/digit':
                     setDigitFeedback(data);
-                    break;
-                case '/arm/feedback/faerie':
-                    setFaerieFeedback(data);
                     break;
                 case '/arm/feedback/socket':
                     setSocketFeedback(data);
@@ -60,7 +62,8 @@ export default function useWebSocketSetup() {
         autoFeedback,
         coreFeedback,
         digitFeedback,
-        faerieFeedback,
+        bioFeedback,
         socketFeedback,
+        lastUpdate,
     };
 }

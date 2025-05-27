@@ -3,6 +3,8 @@ import GamepadContext from "../../lib/gamepadContext";
 import { ArmManualData } from "../../lib/types";
 import useWebSocketSetup from "../../lib/webSocket";
 import GradientIndicator from "../indicators/GradientIndicator";
+import { ARM_POLLING_INTERVAL } from "../../config";
+import ResetLSS from "../anchor/ResetLSS";
 
 function AxisControl(props: { label: string, value: number, direction?: string }) {
 	let direction = props.direction;
@@ -20,7 +22,7 @@ function AxisControl(props: { label: string, value: number, direction?: string }
 export default function ArmManualControl() {
 	const lastUpdate = useRef(Date.now());
 	const { sendMessage } = useWebSocketSetup();
-	const [laserEnabled, setLaserEnabled] = useState(0);
+	const [laserEnabled, setLaserEnabled] = useState(false);
 	const [armManualControl, setArmManualControl] = useState<ArmManualData["data"]>({
 		axis0: 0,
 		axis1: 0,
@@ -34,22 +36,16 @@ export default function ArmManualControl() {
 	});
 	const gamepadState = useContext(GamepadContext);
 
-	const deadzone = 0.4;
-	function applyDeadzone(value: number) {
-		const a = Math.abs(value);
-		return a > deadzone ? Math.round(value / a) : 0;
-	}
-
 	useEffect(() => {
 		const data: ArmManualData = {
 			type: "/arm/control/manual",
 			timestamp: Date.now(),
 			data: {
 				...(!gamepadState.right_bumper ? { // regular mode
-					axis0: gamepadState.dpad.x,
-					axis1: applyDeadzone(gamepadState.left_stick.x),
-					axis2: applyDeadzone(gamepadState.left_stick.y),
-					axis3: applyDeadzone(gamepadState.right_stick.y),
+					axis0: gamepadState.dpad.xDigital,
+					axis1: gamepadState.left_stick.xDigital,
+					axis2: gamepadState.left_stick.yDigital,
+					axis3: gamepadState.right_stick.yDigital,
 					effector_roll: 0,
 					effector_yaw: 0,
 				} : { // right bumper mode
@@ -57,23 +53,23 @@ export default function ArmManualControl() {
 					axis1: 0,
 					axis2: 0,
 					axis3: 0,
-					effector_roll: applyDeadzone(gamepadState.right_stick.x),
-					effector_yaw: applyDeadzone(gamepadState.left_stick.x),
+					effector_roll: gamepadState.right_stick.xDigital,
+					effector_yaw: gamepadState.left_stick.xDigital,
 				}),
 				gripper: Math.round(gamepadState.right_trigger - gamepadState.left_trigger),
 				linear_actuator: (gamepadState.x ? -1 : 0) + (gamepadState.y ? 1 : 0),
-				laser: laserEnabled
+				laser: laserEnabled ? 1 : 0,
 			}
 		};
 
 		setArmManualControl(data.data);
 
 		// only send data at the polling rate
-		if (Date.now() - lastUpdate.current < 15) {
+		if (Date.now() - lastUpdate.current < ARM_POLLING_INTERVAL) {
 			return;
 		}
-
 		lastUpdate.current = Date.now();
+
 		sendMessage(JSON.stringify(data));
 	}, [gamepadState, laserEnabled, sendMessage]);
 
@@ -94,12 +90,9 @@ export default function ArmManualControl() {
 			<AxisControl label={"actuator"} value={armManualControl.linear_actuator} />
 			<div className="horizontal-split container indicator-subsection">
 				<h1 className="subsection-indicator-label">laser</h1>
-				<input type="range"
-					max={1} min={0} step={0}
-					style={{ width: "75px" }}
-					value={laserEnabled}
-					onChange={e => setLaserEnabled(parseInt(e.currentTarget.value))} />
+				<input type="checkbox" onChange={e => setLaserEnabled(e.target.checked)} />
 			</div>
 		</div>
+		<ResetLSS label="Reset Wrist" />
 	</>;
 }

@@ -4,6 +4,7 @@ import { VoltageIndicator_12, VoltageIndicator_3_3, VoltageIndicator_5, VoltageI
 import { BaseCurrentIndicator } from "../indicators/CurrentIndicators";
 import AngleIndicator from "../indicators/AngleIndicator";
 import { SocketFeedbackData } from "src/lib/types";
+import ArmDigitFeedback from "./ArmDigitFeedback";
 
 type AxisData = SocketFeedbackData["data"] & {
 	[key: string]: number;
@@ -27,8 +28,8 @@ export default function ArmSocketFeedback() {
 	const { socketFeedback } = useWebSocketSetup();
 
 	return <>
-		{/* TO DO: implement a cool wasm rendering goober here instead */}
 		<div className="container indicator-subsection">
+			<h2>Arm Feedback</h2>
 			<div>
 				<div className="horizontal-split">
 					<AxisFeedback axis={0} data={socketFeedback?.data} />
@@ -40,16 +41,19 @@ export default function ArmSocketFeedback() {
 					<AxisFeedback axis={3} data={socketFeedback?.data} />
 				</div>
 
-				<div className="container indicator-subsection">
-					<h2 className="indicator-subsection-label">System Voltages</h2>
-					<div className="horizontal-split">
-						<div>
-							<VoltageIndicator_battery label="Battery" voltage={socketFeedback?.data.bat_voltage} />
-							<VoltageIndicator_12 label="12V" voltage={socketFeedback?.data.voltage_12} />
-						</div>
-						<div>
-							<VoltageIndicator_5 label="5V" voltage={socketFeedback?.data.voltage_5} />
-							<VoltageIndicator_3_3 label="3V" voltage={socketFeedback?.data.voltage_3} />
+				<div className="horizontal-split">
+					<ArmDigitFeedback />
+					<div className="container indicator-subsection">
+						<h2 className="indicator-subsection-label">System Voltages</h2>
+						<div className="horizontal-split">
+							<div>
+								<VoltageIndicator_battery label="Battery" voltage={socketFeedback?.data.bat_voltage} />
+								<VoltageIndicator_12 label="12V" voltage={socketFeedback?.data.voltage_12} />
+							</div>
+							<div>
+								<VoltageIndicator_5 label="5V" voltage={socketFeedback?.data.voltage_5} />
+								<VoltageIndicator_3_3 label="3V" voltage={socketFeedback?.data.voltage_3} />
+							</div>
 						</div>
 					</div>
 				</div>

@@ -1,18 +1,16 @@
-import ArmSocketFeedback from '../../components/arm/ArmSocketFeedback';
-import FaerieVoltages from '../../components/bio/FaerieVoltages';
+import CitadelVoltages from '../../components/bio/CitadelVoltages';
 import BioControl from '../../components/bio/BioControl';
-import ArmControl from '../../components/arm/ArmControl';
+import BioGimbal from '../../components/bio/BioGimbal';
 import { ControlContainer, FeedbackContainer } from '../../components/MainContainers';
 
 export default function ArmBioPage() {
 	return <>
 		<ControlContainer >
-			<ArmSocketFeedback />
-			<FaerieVoltages />
+			<CitadelVoltages />
 			<BioControl />
 		</ControlContainer>
 		<FeedbackContainer>
-			<ArmControl />
+			<BioGimbal />
 		</FeedbackContainer>
 	</>
 }

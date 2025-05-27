@@ -1,5 +1,5 @@
 import { MapContainer, WMSTileLayer, useMap, Marker, Popup } from 'react-leaflet';
-import L, { LatLngTuple, Icon } from 'leaflet';
+import L, { LatLngTuple, Icon, ControlOptions } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useWebSocketSetup from "../lib/webSocket";
 import { useEffect } from 'react';
@@ -25,15 +25,16 @@ const defaultIcon = new Icon({
 L.Marker.prototype.options.icon = defaultIcon;
 
 // Create a custom control for the follow rover toggle
-const FollowControl = L.Control.extend({
-    options: {
+class FollowControl extends L.Control {
+    options: ControlOptions = {
         position: 'bottomright'
-    },
+    }
 
-    onAdd: function () {
+    onAdd() {
         const container = L.DomUtil.create('div', 'leaflet-control leaflet-control-custom');
         container.style.padding = '5px';
-        container.style.backgroundColor = 'white';
+        container.style.backgroundColor = 'var(--crust)';
+        container.style.color = 'var(--text)';
         container.style.borderRadius = '4px';
         container.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
         container.style.marginBottom = '10px';
@@ -63,28 +64,29 @@ const FollowControl = L.Control.extend({
 
         return container;
     }
-});
+}
 
 // Create a custom control for the center button
-const CenterControl = L.Control.extend({
-    options: {
+class CenterControl extends L.Control {
+    options: ControlOptions = {
         position: 'bottomright'
-    },
+    }
 
-    onAdd: function (map: { flyTo: (arg0: L.LatLngTuple) => void; }) {
+    onAdd(map: { flyTo: (arg0: L.LatLngTuple) => void; }) {
         const container = L.DomUtil.create('div', 'leaflet-control leaflet-control-custom');
         container.style.padding = '5px';
-        container.style.backgroundColor = 'white';
+        container.style.backgroundColor = 'var(--crust)';
         container.style.borderRadius = '4px';
         container.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
+        container.style.color = 'var(--text)';
 
         const button = L.DomUtil.create('button', 'center-button', container);
-        button.innerHTML = 'Center Map';
+        button.innerHTML = 'Center';
         button.style.padding = '6px 10px';
         button.style.cursor = 'pointer';
         button.style.border = 'none';
-        button.style.backgroundColor = '#0078ff';
-        button.style.color = 'white';
+        button.style.backgroundColor = 'var(--surface-1)';
+        button.style.color = 'var(--text)';
         button.style.borderRadius = '3px';
         button.style.fontWeight = 'bold';
 
@@ -95,11 +97,80 @@ const CenterControl = L.Control.extend({
 
         return container;
     }
-});
+}
+
+// Create a custom control for GPS information display
+class GPSInfoControl extends L.Control {
+    options: ControlOptions = {
+        position: 'topright'
+    }
+
+    onAdd() {
+        const container = L.DomUtil.create('div', 'leaflet-control leaflet-control-custom gps-info');
+        container.style.padding = '10px';
+        container.style.backgroundColor = 'var(--crust)';
+        container.style.borderRadius = '4px';
+        container.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
+        container.style.minWidth = '200px';
+        container.style.fontSize = '12px';
+        container.style.fontFamily = 'monospace';
+        container.style.color = 'var(--text)';
+        container.id = 'gps-info-container';
+
+        const title = L.DomUtil.create('div', 'gps-info-title', container);
+        title.innerHTML = '<strong>GPS Information</strong>';
+        title.style.marginBottom = '5px';
+
+        const latDiv = L.DomUtil.create('div', 'gps-info-lat', container);
+        latDiv.id = 'gps-info-lat';
+        latDiv.innerHTML = 'Latitude: ---.-------';
+
+        const lngDiv = L.DomUtil.create('div', 'gps-info-lng', container);
+        lngDiv.id = 'gps-info-lng';
+        lngDiv.innerHTML = 'Longitude: ---.-------';
+
+        const satDiv = L.DomUtil.create('div', 'gps-info-sats', container);
+        satDiv.id = 'gps-info-sats';
+        satDiv.innerHTML = 'Satellites: --';
+
+        // Prevent map click events when interacting with the control
+        L.DomEvent.disableClickPropagation(container);
+
+        return container;
+    }
+}
 
 // Create a react-leaflet wrapper for our custom controls
 const CenterButton = createControlComponent(props => new CenterControl(props));
 const FollowSwitch = createControlComponent(props => new FollowControl(props));
+const GPSInfo = createControlComponent(props => new GPSInfoControl(props));
+
+// Component to update the GPS info display
+function GPSInfoUpdater() {
+    const { coreFeedback } = useWebSocketSetup();
+
+    useEffect(() => {
+        if (coreFeedback?.data?.gps_lat && coreFeedback?.data?.gps_long) {
+            const latElement = document.getElementById('gps-info-lat');
+            const lngElement = document.getElementById('gps-info-lng');
+            const satElement = document.getElementById('gps-info-sats');
+
+            if (latElement) {
+                latElement.innerHTML = `Latitude: ${coreFeedback.data.gps_lat.toFixed(7)}`;
+            }
+
+            if (lngElement) {
+                lngElement.innerHTML = `Longitude: ${coreFeedback.data.gps_long.toFixed(7)}`;
+            }
+
+            if (satElement) {
+                satElement.innerHTML = `Satellites: ${coreFeedback.data.gps_sats}`;
+            }
+        }
+    }, [coreFeedback?.data]);
+
+    return null;
+}
 
 // Create a component for rover location marker that uses the websocket data
 function RoverLocationMarker() {
@@ -210,6 +281,8 @@ export default function MapComponent() {
                 />
 
                 <RoverLocationMarker />
+                <GPSInfoUpdater />
+                <GPSInfo position="topright" />
                 <FollowSwitch position="bottomright" />
                 <CenterButton position="bottomright" />
             </MapContainer>
