@@ -1,6 +1,6 @@
 import CitadelVoltages from '../../components/bio/CitadelVoltages';
 import BioControl from '../../components/bio/BioControl';
-import BioFeedback from '../../components/bio/BioFeedback';
+import BioGimbal from '../../components/bio/BioGimbal';
 import { ControlContainer, FeedbackContainer } from '../../components/MainContainers';
 
 export default function ArmBioPage() {
@@ -10,7 +10,7 @@ export default function ArmBioPage() {
 			<BioControl />
 		</ControlContainer>
 		<FeedbackContainer>
-			<BioFeedback />
+			<BioGimbal />
 		</FeedbackContainer>
 	</>
 }

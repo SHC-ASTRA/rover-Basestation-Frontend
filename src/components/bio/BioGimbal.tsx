@@ -10,6 +10,7 @@ const emptyPtzControlData: PtzControlData["data"] = {
     pitch: 0,
     axis_id: 0,
     angle: 0,
+    zoom_level: 0,
     stream_type: 0,
     stream_freq: 0,
     reset: false,
@@ -134,6 +135,7 @@ function PTZControls() {
             <br />
             <button className="control-button" onClick={() => {
                 setTargetPosition({ yaw: 0, pitch: 0 });
+                setTargetZoom({ zoom_level: 0 });
                 const data: PtzControlData = {
                     type: '/ptz/control',
                     timestamp: Date.now(),
@@ -148,7 +150,7 @@ function PTZControls() {
     </>
 }
 
-export default function BioFeedback() {
+export default function BioGimbal() {
 
     return <>
         {/* put the gnss & the altitude */}

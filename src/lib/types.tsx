@@ -243,6 +243,7 @@ export interface PtzControlData extends WebSocketData {
         pitch: number,
         axis_id: number,
         angle: number,
+        zoom_level: number,
         stream_type: number,
         stream_freq: number,
         reset: boolean,
