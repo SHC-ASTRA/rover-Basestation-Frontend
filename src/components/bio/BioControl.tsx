@@ -8,7 +8,7 @@ import { CORE_POLLING_INTERVAL } from "../../config";
 import { BioControlData } from "src/lib/types";
 
 const SPEED_ADJUSTMENT = 5;
-const INITIAL_DRILL_SPEED = 50;
+const INITIAL_DRILL_SPEED = 25;
 
 export default function BioControl() {
     const { sendMessage } = useWebSocketSetup();
@@ -144,7 +144,7 @@ export default function BioControl() {
                     <div className="indicator-subsection" style={{ flexGrow: 1 }}>
                         <GradientIndicator
                             scale={1}
-                            value={gamepadState.right_stick.yDigital}
+                            value={gamepadState.right_stick.y * 100}
                             color="var(--sapphire)"
                             direction="to top"
                         />

@@ -233,6 +233,22 @@ export interface AnchorRelayData extends WebSocketData {
     }
 }
 
+export interface PtzControlData extends WebSocketData {
+    type: '/ptz/control';
+    data: {
+        control_mode: number,
+        turn_yaw: number,
+        turn_pitch: number,
+        yaw: number,
+        pitch: number,
+        axis_id: number,
+        angle: number,
+        stream_type: number,
+        stream_freq: number,
+        reset: boolean,
+    };
+}
+
 export class AllFeedbackData {
     coreFeedback: CoreFeedbackData | null = null;
     autoFeedback: AutoFeedbackData | null = null;

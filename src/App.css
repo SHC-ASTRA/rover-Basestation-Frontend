@@ -29,6 +29,13 @@ td {
 	justify-content: center;
 }
 
+.control-button {
+	font-size: 2em;
+}
+.control-button:disabled {
+	cursor: default;
+}
+
 button:disabled {
 	color: var(--overlay-0);
 	cursor: not-allowed;
