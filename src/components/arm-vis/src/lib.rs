@@ -473,31 +473,36 @@ pub struct ArmVis {
 #[wasm_bindgen]
 impl ArmVis {
 
-    pub fn new(canvas_id: String) -> Self {
+    pub fn new(canvas_ctx: WebGl2RenderingContext) -> Self {
         //Handel to the canvas
-        let canvas = web_sys::window()
-                .unwrap()
-                .document()
-                .unwrap()
+        //let canvas = web_sys::window()
+        //        .expect("1")
+        //        .document()
+        //        .expect("2")
                 //.get_elements_by_class_name(canvas_id.as_str())
-                .get_element_by_id(canvas_id.as_str())
+        //        .get_element_by_id(canvas_ctx.as_str())
                 //.unwrap()
                 //.item(0)
-                .unwrap()
-                .dyn_into::<web_sys::HtmlCanvasElement>()
-                .unwrap();
+        //        .expect("3")
+        //        .dyn_into::<web_sys::HtmlCanvasElement>()
+        //        .expect("4");
 
+        
+
+        //log("Here");
         //Set the canvas width and height
-        canvas.set_width(WIDTH);
-        canvas.set_height(HIEGHT);
-
+        //canvas.set_width(WIDTH);
+        //canvas.set_height(HIEGHT);
+        
         //Get the WebGL context
-        let gl = &Arc::new(glow::Context::from_webgl2_context(canvas
-            .get_context("webgl2")
-            .unwrap()
-            .unwrap()
-            .dyn_into::<web_sys::WebGl2RenderingContext>()
-            .unwrap()));
+        let gl = &Arc::new(glow::Context::from_webgl2_context(canvas_ctx));
+
+        //let gl = &Arc::new(glow::Context::from_webgl2_context(canvas
+        //    .get_context("webgl2")
+        //    .unwrap()
+        //    .unwrap()
+        //    .dyn_into::<web_sys::WebGl2RenderingContext>()
+        //    .unwrap()));
         Self { 
             gl              : gl.clone(),
             //app_time        : Time::new(), 
@@ -518,6 +523,8 @@ impl ArmVis {
     }
 
     pub fn load_shaders(&mut self, vert_shader: String, frag_shader: String) -> () {
+        //log("TEST2");
+        //log(vert_shader.clone().as_str());
         self.vert_shader = vert_shader;
         self.frag_shader = frag_shader;
     }
@@ -677,7 +684,10 @@ impl ArmVis {
 
             //     }"#,
             // );
+            //log("TEST");
             
+            //log(self.vert_shader.clone().as_str());
+
             let shader_sources = [
                 (glow::VERTEX_SHADER, self.vert_shader.clone()),
                 (glow::FRAGMENT_SHADER, self.frag_shader.clone()),
@@ -692,7 +702,7 @@ impl ArmVis {
                 self.gl.shader_source(shader, &format!("{}\n{}", shader_version, shader_source));
                 self.gl.compile_shader(shader);
                 if !self.gl.get_shader_compile_status(shader) {
-                    panic!("{}", self.gl.get_shader_info_log(shader));
+                   panic!("{}", self.gl.get_shader_info_log(shader));
                 }
                 self.gl.attach_shader(self.program.unwrap(), shader);
                 shaders.push(shader);

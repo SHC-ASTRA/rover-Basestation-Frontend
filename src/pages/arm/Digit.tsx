@@ -1,5 +1,6 @@
 import ArmSocketFeedback from '../../components/arm/ArmSocketFeedback';
 import ArmControl from '../../components/arm/ArmControl';
+import ArmVisCanvas from '../../../src/components/arm-vis/ArmVisCanvas';
 
 export default function ArmDigitPage() {
 	return <>
@@ -8,6 +9,7 @@ export default function ArmDigitPage() {
 			<ArmSocketFeedback />
 		</div>
 		<div className="container control">
+			<ArmVisCanvas />
 		</div>
 	</>
 } 
