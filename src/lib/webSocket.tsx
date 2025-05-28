@@ -23,7 +23,13 @@ export default function useWebSocketSetup() {
     const url = `${protocol}//${host}/api/ws`;
 
     // use the react-use-websocket hook to handle the websocket connection
-    const { sendMessage, lastMessage, readyState } = useWebSocket(url);
+    const { sendMessage, lastMessage, readyState } = useWebSocket(
+        url, {
+        shouldReconnect: (closeEvent) => {
+            console.log("websocket closed: ", closeEvent.reason);
+            return true;
+        }
+    });
 
     // do a thing when lastMessage changes (when we get a websocket message)
     useEffect(() => {

@@ -71,6 +71,7 @@ export interface CoreFeedbackData extends WebSocketData {
         gps_lat: number;
         gps_long: number;
         gps_sats: number;
+        gps_alt: number;
 
         bno_gyro: Vector3;
         bno_accel: Vector3;

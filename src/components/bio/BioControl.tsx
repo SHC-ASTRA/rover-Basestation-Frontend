@@ -68,35 +68,35 @@ export default function BioControl() {
         if (pumpAmount) setPumpAmount(() => 0);
         if (fanId) setFanId(() => 0);
         if (fanDuration) setFanDuration(() => 0);
-    }, [gamepadState, drillSpeed, laserEnabled, pumpId, pumpAmount, fanId, fanDuration]);
+    }, [gamepadState, drillSpeed, laserEnabled, pumpId, pumpAmount, fanId, fanDuration, sendMessage]);
 
     return <>
         <div className="container vertical-split">
-            <BioSetter label="Pumps" min={0} max={Infinity} placeholder="amount (mL)" onSubmission={(id, value) => {
+            <BioSetter label="Pumps" min={-Infinity} step={0.01} precise={true} max={Infinity} placeholder="amount (mL)" onSubmission={(id, value) => {
                 setPumpId(id);
                 setPumpAmount(value);
             }}>
-                <option value={1}>Water</option>
-                <option value={2}>BCA</option>
-                <option value={3}>Acetic</option>
-                <option value={4} style={{ color: "var(--blue)" }}>Meth</option>
+                <option value={1}>(1) Water</option>
+                <option value={2}>(2) BCA</option>
+                <option value={3}>(3) Acetic</option>
+                <option value={4} style={{ color: "var(--blue)" }}>(4) Meth</option>
             </BioSetter>
             <BioSetter label="Fans" min={0} max={Infinity} placeholder="duration (ms)" onSubmission={(id, value) => {
                 setFanId(id);
                 setFanDuration(value);
             }}>
-                <option value={1}>Fan 1</option>
-                <option value={2}>Fan 2</option>
-                <option value={3}>Fan 3</option>
+                <option value={1}>(1) Right Fan</option>
+                <option value={2}>(2) Center Fan</option>
+                <option value={3}>(3) Left Fan</option>
             </BioSetter>
 
             <div className="horizontal-split container">
                 <BioSelector label="Target Servo" onChange={(e) => {
                     servoId.current = parseInt(e.target.value);
                 }}>
-                    <option value={1}>Servo 1</option>
-                    <option value={2}>Servo 2</option>
-                    <option value={3}>Servo 3</option>
+                    <option value={2}>(2) Left Servo</option>
+                    <option value={1}>(1) Center Servo</option>
+                    <option value={3}>(3) Right Servo</option>
                 </BioSelector>
                 {/* show whether the x button is pressed */}
                 <h2 style={{ justifyContent: "center", alignContent: "center" }}>

@@ -60,7 +60,7 @@ export default function CoreDrivingControl() {
 
 	return (
 		<>
-			<div>
+			<div style={{ flexGrow: 2 }}>
 				<h1>Core Driving</h1>
 				<div className="horizontal-split indicator-subsection">
 					<div />

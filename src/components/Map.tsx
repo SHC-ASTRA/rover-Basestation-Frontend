@@ -133,6 +133,10 @@ class GPSInfoControl extends L.Control {
         satDiv.id = 'gps-info-sats';
         satDiv.innerHTML = 'Satellites: --';
 
+        const altDiv = L.DomUtil.create('div', 'gps-info-alt', container);
+        altDiv.id = 'gps-info-alt';
+        altDiv.innerHTML = 'Altitude: --';
+
         // Prevent map click events when interacting with the control
         L.DomEvent.disableClickPropagation(container);
 
@@ -154,6 +158,7 @@ function GPSInfoUpdater() {
             const latElement = document.getElementById('gps-info-lat');
             const lngElement = document.getElementById('gps-info-lng');
             const satElement = document.getElementById('gps-info-sats');
+            const altElement = document.getElementById('gps-info-alt');
 
             if (latElement) {
                 latElement.innerHTML = `Latitude: ${coreFeedback.data.gps_lat.toFixed(7)}`;
@@ -165,6 +170,10 @@ function GPSInfoUpdater() {
 
             if (satElement) {
                 satElement.innerHTML = `Satellites: ${coreFeedback.data.gps_sats}`;
+            }
+
+            if (altElement) {
+                altElement.innerHTML = `Altitude: ${Math.round(coreFeedback.data.gps_alt)} m`;
             }
         }
     }, [coreFeedback?.data]);
