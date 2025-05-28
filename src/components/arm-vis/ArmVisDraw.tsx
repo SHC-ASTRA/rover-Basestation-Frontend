@@ -11,15 +11,19 @@ import vert from "../../assets/shaders/vert.glsl?raw"
 import frag from "../../assets/shaders/frag.glsl?raw"
 import { useEffect, useState } from "react";
 
-
-class ArmVisClasss {
+export class ArmVisClasss {
     static vis: ArmVis;
-    static made = false;
+    static constructed = false;
+    static angle_data = [0.0, 0.0, 0.0, 0.0, 0.0];
 
     static new(ctx: WebGL2RenderingContext): void {
-        if (!this.made) {
+        if (!this.constructed) {
             this.vis = ArmVis.new(ctx);
         }
+    }
+
+    static update(encoder_data: number[]): void {
+        this.angle_data = encoder_data;
     }
 }
 //import ArmVis from "./pkg/rust_wasm_vis"
@@ -31,21 +35,17 @@ export default function ArmVisDraw(props: { canvasCtx: WebGL2RenderingContext })
     useEffect(() => {
 
         ArmVisClasss.new(props.canvasCtx);
-        let r = ArmVisClasss.vis;
+        const ArmVisual = ArmVisClasss.vis;
 
         function push_sources() {
             if (!sourcesPushed) {
-                console.log("RAN");
-
-                //r.load_shaders(vert, frag);
-                r.push_model_sources(turret)
-                r.push_model_sources(axis0);
-                r.push_model_sources(axis1);
-                r.push_model_sources(axis2);
-                r.push_model_sources(axis3);
-                r.push_model_sources(axis4);
-                //r.push_model_sources(endEffector);
-                r.push_urdf_source(urdf);
+                ArmVisual.push_model_sources(turret)
+                ArmVisual.push_model_sources(axis0);
+                ArmVisual.push_model_sources(axis1);
+                ArmVisual.push_model_sources(axis2);
+                ArmVisual.push_model_sources(axis3);
+                ArmVisual.push_model_sources(axis4);
+                ArmVisual.push_urdf_source(urdf);
                 setSourcesPueshed(true);
 
             } else {
@@ -56,14 +56,16 @@ export default function ArmVisDraw(props: { canvasCtx: WebGL2RenderingContext })
         push_sources();
 
         if (!visInit) {
-            r.init();
-            r.load_shaders(vert, frag);
+            ArmVisual.init();
+            ArmVisual.load_shaders(vert, frag);
             setVisInit(true);
         } else {
             ;
         }
 
-        r.main();
+        const pass = new Float32Array(ArmVisClasss.angle_data);
+        ArmVisual.update_joint_angles(pass)
+        ArmVisual.main();
 
     }, []);
 

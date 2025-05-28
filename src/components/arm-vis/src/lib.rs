@@ -25,8 +25,8 @@ extern "C" {
     fn log(s: &str);
 }
 
-const WIDTH: u32    = 1920;
-const HIEGHT: u32   = 1080;
+const WIDTH: u32    = 800;
+const HIEGHT: u32   = 900;
 
 
 
@@ -83,9 +83,9 @@ impl ArmModel {
         });
     }
 
-    fn translate(&mut self, gl: &glow::Context, x: f32, y: f32, z: f32) -> () {
+    fn translate(&mut self, gl: &glow::Context, x: f32, orientation: f32, z: f32) -> () {
         self.model_objects.iter_mut().for_each(|obj| {
-            obj.mesh.translate(gl, x, y, z);
+            obj.mesh.translate(gl, x, orientation, z);
         });
     }
 
@@ -157,11 +157,7 @@ impl ArmObject {
     }
     
     fn set_revolute_axis(&mut self) -> () {
-        //log("Test".as_ref());
         self.rotation_quaternion = glm::quat_angle_axis(0.000001, &glm::vec3(self.urdf_data.1.0 as f32, self.urdf_data.1.1 as f32, self.urdf_data.1.2 as f32));
-        //log(self.geo_data.1.0.to_string().as_str());
-        //log(self.geo_data.1.1.to_string().as_str());
-        //log(self.geo_data.1.2.to_string().as_str());
         self.mesh.set_quaternion_axis(self.urdf_data.1.0 as f32, self.urdf_data.1.1 as f32, self.urdf_data.1.2 as f32);
     }
 
@@ -175,11 +171,10 @@ impl ArmObject {
 
     fn gen_rotation_quaternion(&self, angle: f32, quat: &glm::Quat) -> glm::Quat {
         let axis = glm::vec3(self.urdf_data.1.0 as f32, self.urdf_data.1.1 as f32, self.urdf_data.1.2 as f32);
-        //let y = glm::quat_rotate(&glm::quat_inverse(&quat), angle.to_radians(), &axis).normalize();
-        let y = glm::quat_rotate(&quat, angle.to_radians(), &axis).normalize();
+        let orientation = glm::quat_rotate(&quat, angle.to_radians(), &axis).normalize();
         
         UnitQuaternion::new(glm::vec3(0.0, 0.0, 0.0)).into_inner();
-        return y;
+        return orientation;
     }
 
     fn set_color(&mut self, gl: &glow::Context) -> () {
@@ -530,14 +525,14 @@ impl ArmVis {
     }
 
     //Offset the Arm model
-    pub fn translate(&mut self, x: f32, y: f32, z: f32) -> () {
-        self.arm_models.translate(&self.gl, x, y, z);
+    pub fn translate(&mut self, x: f32, orientation: f32, z: f32) -> () {
+        self.arm_models.translate(&self.gl, x, orientation, z);
     }
 
     //Rotate a specific joint 
-    pub fn rotate(&mut self, x: f32, y: u32) -> () {
-        //self.arm_models.rotate_nth(&self.gl, x, y);
-        self.arm_models.rotate_nth_joint(&self.gl, x, y);
+    pub fn rotate(&mut self, x: f32, orientation: u32) -> () {
+        //self.arm_models.rotate_nth(&self.gl, x, orientation);
+        self.arm_models.rotate_nth_joint(&self.gl, x, orientation);
     }
 
     //Update the angles for all the joints
@@ -545,14 +540,8 @@ impl ArmVis {
         self.arm_models.rotate_joints(&self.gl, angles);
     }
 
-
-    pub fn test(&mut self) -> () {
-
-    }
-
-
-    pub fn translate_camera(&mut self, x: f32, y: f32, z: f32) -> () {
-        self.camera.translate_orbit(x, y, z);
+    pub fn translate_camera(&mut self, x: f32, orientation: f32, z: f32) -> () {
+        self.camera.translate_orbit(x, orientation, z);
         self.camera.update_view_matrix();
     }
     
@@ -604,90 +593,7 @@ impl ArmVis {
             
             //OpenGL shader program
             self.program = Some(self.gl.create_program().expect("Cannot create program"));
-            // TODO load shaders from dedicated shader files
-
-            //Vertex and Fragment shaders 
-            // let (vertex_shader_source, fragment_shader_source) = (
-            //     r#"
-            //     layout (location = 0) in vec3 verts;
-            //     layout (location = 1) in vec4 normals;
-            //     layout (location = 2) in vec3 objColor;
             
-            //     precision mediump float;
-
-            //     out vec3 normal;
-            //     out vec3 fragment;
-            //     out vec3 oColor;
-            
-            //     uniform mat4 transform;
-            //     uniform mat4 model;
-            //     uniform mat4 view;
-            //     uniform mat4 projection;
-            //     uniform mat4 noraml_matrix;
-            
-            //     void main() {
-            //         oColor = objColor;
-            //         normal = ( noraml_matrix * normals).xyz;
-            //         fragment = vec3(model * vec4(verts, 1.0));
-            //         gl_Position = projection * view * model * vec4(verts, 1.0);
-
-            //     }"#,
-            //     r#"
-            //     precision mediump float;
-                
-                
-                
-            //     in vec3 normal;
-            //     in vec3 fragment;
-            //     in vec3 oColor;
-            //     out vec4 color;
-                
-            //     uniform vec3 light_position;
-            //     uniform vec3 light_color;
-
-
-
-            //     // Ambient lighting
-            //     const vec3 ambientLightColor = vec3(1.0, 1.0, 1.0);
-            //     const float ambientIntensity = 0.79;
-
-            //     // Diffuse lighting
-
-            //     //const vec3 lightDirection = normalize(vec3(-3.9, 4.3, 1.7));
-
-            //     void main() {
-
-
-            //         vec3 viewPos = vec3(0.0, 2.0, 5.0);
-
-            //         vec3 diffuseLightColor = light_color * oColor;
-            //         vec3 lightDirection = normalize(light_position - fragment);
-
-
-            //         float diffuseIntensity = max(dot(normalize(normal), lightDirection), 0.0);
-            //         vec3 diffuse = diffuseLightColor * diffuseIntensity * 0.75;
-
-
-            //         vec3 ambient = ambientLightColor * ambientIntensity * 0.4;
-
-            //         float specularStrength = 0.72;
-
-            //         vec3 viewDir = normalize(viewPos - fragment);
-            //         vec3 reflectDir = reflect(-lightDirection, normalize(normal));
-
-            //         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
-            //         vec3 specular = specularStrength * spec * light_color;
-
-
-
-            //         color = vec4((ambient * (diffuse + specular)) * 1.0, 1.0);
-
-            //     }"#,
-            // );
-            //log("TEST");
-            
-            //log(self.vert_shader.clone().as_str());
-
             let shader_sources = [
                 (glow::VERTEX_SHADER, self.vert_shader.clone()),
                 (glow::FRAGMENT_SHADER, self.frag_shader.clone()),
@@ -810,8 +716,8 @@ impl ObjMesh {
         //}
     }
 
-    fn set_quaternion_axis(&mut self, x: f32, y: f32, z: f32) -> () {
-        self.quaternion = glm::quat_angle_axis(0.0, &glm::vec3(x, y, z));
+    fn set_quaternion_axis(&mut self, x: f32, orientation: f32, z: f32) -> () {
+        self.quaternion = glm::quat_angle_axis(0.0, &glm::vec3(x, orientation, z));
     }
 
     fn read_in_stl(&mut self, source: &String, gl: &glow::Context) -> () {
@@ -852,11 +758,11 @@ impl ObjMesh {
         return mesh;
     }
 
-    fn translate(&mut self, gl: &glow::Context, x: f32, y: f32, z: f32) -> () {
+    fn translate(&mut self, gl: &glow::Context, x: f32, orientation: f32, z: f32) -> () {
         let mut i = 0;
         while i < self.verts_copy.len() {
             self.verts_copy[i] += x;
-            self.verts_copy[i + 1] += y;
+            self.verts_copy[i + 1] += orientation;
             self.verts_copy[i + 2] += z;
             i += 3;
         }
