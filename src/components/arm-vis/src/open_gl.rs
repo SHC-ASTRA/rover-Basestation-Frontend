@@ -88,6 +88,7 @@ impl GlUniforms {
     }
 }
 
+// TODO Fix Camera Struct
 pub struct Camera {
     camera_pos          : glm::Vec3,
     camera_target       : nalg::Matrix<f32, nalg::Const<3>, nalg::Const<1>, nalg::ArrayStorage<f32, 3, 1>>,
@@ -122,7 +123,6 @@ impl Camera {
     }
 
     pub fn translate_orbit(&mut self, x: f32, y: f32, z: f32) -> () {
-        //log(format!("{}, {}, {}", x, y, z).as_str());
         self.angle += x/20.0;
 
         //self.camera_pos.x = self.angle.cos()*self.distance; //self.angle.sin() * 20.0;

@@ -1,9 +1,7 @@
 import ArmVisCanvas from "./ArmVisCanvas";
 
-export default function i() {
-
-
-    return <div className="arm-vis-class">
+export default function ArmVis() {
+    return <div className="arm-vis">
         <ArmVisCanvas />
     </div>
 }
