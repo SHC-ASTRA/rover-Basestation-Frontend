@@ -250,6 +250,11 @@ export interface PtzControlData extends WebSocketData {
     };
 }
 
+export interface AntennaResetData extends WebSocketData {
+    type: 'reset_antenna',
+    data: object
+}
+
 export class AllFeedbackData {
     coreFeedback: CoreFeedbackData | null = null;
     autoFeedback: AutoFeedbackData | null = null;

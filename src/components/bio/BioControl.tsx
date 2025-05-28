@@ -8,7 +8,7 @@ import { CORE_POLLING_INTERVAL } from "../../config";
 import { BioControlData } from "src/lib/types";
 
 const SPEED_ADJUSTMENT = 5;
-const INITIAL_DRILL_SPEED = 25;
+const INITIAL_DRILL_SPEED = 10;
 
 export default function BioControl() {
     const { sendMessage } = useWebSocketSetup();
@@ -68,7 +68,7 @@ export default function BioControl() {
         if (pumpAmount) setPumpAmount(() => 0);
         if (fanId) setFanId(() => 0);
         if (fanDuration) setFanDuration(() => 0);
-    }, [gamepadState, drillSpeed]);
+    }, [gamepadState, drillSpeed, laserEnabled, pumpId, pumpAmount, fanId, fanDuration]);
 
     return <>
         <div className="container vertical-split">
@@ -76,10 +76,10 @@ export default function BioControl() {
                 setPumpId(id);
                 setPumpAmount(value);
             }}>
-                <option value={1}>Pump 1</option>
-                <option value={2}>Pump 2</option>
-                <option value={3}>Pump 3</option>
-                <option value={4}>Pump 4</option>
+                <option value={1}>Water</option>
+                <option value={2}>BCA</option>
+                <option value={3}>Acetic</option>
+                <option value={4} style={{ color: "var(--blue)" }}>Meth</option>
             </BioSetter>
             <BioSetter label="Fans" min={0} max={Infinity} placeholder="duration (ms)" onSubmission={(id, value) => {
                 setFanId(id);

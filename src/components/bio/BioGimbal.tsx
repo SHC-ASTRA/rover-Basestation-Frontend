@@ -54,7 +54,7 @@ function Readouts() {
     </>
 }
 
-function PTZControls() {
+export function PTZControls() {
     const { sendMessage } = useWebSocketSetup();
     const [targetPosition, _setTargetPosition] = useState({ yaw: 0, pitch: 0 });
     const [targetZoom, _setTargetZoom] = useState({ zoom_level: 0 });

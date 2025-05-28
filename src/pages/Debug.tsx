@@ -1,6 +1,7 @@
-import { WebSocketData } from "src/lib/types";
+import { WebSocketData } from "../lib/types";
 import ControllerDisplay from "../components/Controller";
 import useWebSocketSetup from "../lib/webSocket";
+import ResetAntenna from "../components/anchor/ResetAntenna";
 
 /**
  * Function to format WebSocket data into a YAML-like string.
@@ -53,7 +54,7 @@ export default function DebugPage() {
 					<div className="horizontal-split">
 						<div />
 						<ControllerDisplay />
-						<div />
+						<ResetAntenna />
 					</div>
 				</div>
 			</div>
