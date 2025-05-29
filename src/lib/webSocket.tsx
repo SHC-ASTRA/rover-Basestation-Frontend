@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
-import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, BioFeedbackData, SocketFeedbackData } from "./types";
+import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, BioFeedbackData, SocketFeedbackData, WebSocketData } from "./types";
 
 /**
  * Custom hook to setup the websocket connection and handle incoming messages. Doing it this way makes
@@ -36,7 +36,14 @@ export default function useWebSocketSetup() {
         // make sure we actually have a message
         if (lastMessage !== null) {
             // parse the data from the message
-            const data = JSON.parse(lastMessage.data);
+            let data: WebSocketData;
+            try {
+                data = JSON.parse(lastMessage.data);
+            } catch (e: unknown) {
+                console.error(e);
+                console.log(lastMessage.data)
+                return;
+            }
             setLastUpdate(data.timestamp);
 
             // put the data in the right place based on the type
