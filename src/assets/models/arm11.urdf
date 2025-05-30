@@ -10,22 +10,22 @@
   <!-- frame28 + singleaxismount + 5girder + singleaxismount + base + MX28: 0.0907185 + 0.00737088 + 0.0368544 + 0.00737088 + ? + 0.077 -->
   <!-- frame28 + singleaxismount + 2.5girder + singleaxismount + tip: 0.0907185 + 0.00737088 + 0.0226796 + 0.00737088 + ? -->
   <material name="omni/Blue">
-    <color rgba="0 0 0.8 1"/>
+    <color rgba="0 0 0.5 1"/>
   </material>
   <material name="omni/Red">
-    <color rgba="1 0 0 1"/>
+    <color rgba="0.5 0 0 1"/>
   </material>
   <material name="omni/Green">
-    <color rgba="0 1 0 1"/>
+    <color rgba="0 0.5 0 1"/>
   </material>
   <material name="omni/Yellow">
-    <color rgba="1 1 0 1"/>
+    <color rgba="0.5 0.5 0 1"/>
   </material>
   <material name="omni/LightGrey">
-    <color rgba="0.6 0.6 0.6 1"/>
+    <color rgba="0 0.5 0.5 1"/>
   </material>
   <material name="omni/DarkGrey">
-    <color rgba="0.4 0.4 0.4 1"/>
+    <color rgba="0.5 0 0.5 1"/>
   </material>
   <!-- Now we can start using the macros xacro:included above to define the actual omnipointer -->
   <!-- The first use of a macro.  This one was defined in youbot_base/base.urdf.xacro above.
@@ -155,7 +155,7 @@
     </collision>
     <inertial>
       <!-- CENTER OF MASS -->
-      <origin rpy="0 0 0" xyz="0 0 0.1885"/>
+      <origin rpy="0 0 0" xyz="0 0 0.1985"/>
       <mass value="0.21931466"/>
       <!-- box inertia: 1/12*m(y^2+z^2), ... -->
       <inertia ixx="0.000791433503053" ixy="0" ixz="0" iyy="0.000768905501178" iyz="0" izz="6.88531064581e-05"/>
@@ -185,7 +185,7 @@
     </collision>
     <inertial>
       <!-- CENTER OF MASS -->
-      <origin rpy="0 0 0" xyz="0 0 0.066"/>
+      <origin rpy="0 0 0" xyz="0 0 0.076"/>
       <mass value="0.15813986"/>
       <!-- box inertia: 1/12*m(y^2+z^2), ... -->
       <inertia ixx="0.00037242266488" ixy="0" ixz="0" iyy="0.000356178538461" iyz="0" izz="4.96474819141e-05"/>
