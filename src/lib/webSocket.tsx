@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
-import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, BioFeedbackData, SocketFeedbackData, WebSocketData } from "./types";
+import { AutoFeedbackData, CoreFeedbackData, DigitFeedbackData, BioFeedbackData, SocketFeedbackData, WebSocketData, AntennaFeedbackData } from "./types";
 
 /**
  * Custom hook to setup the websocket connection and handle incoming messages. Doing it this way makes
@@ -15,6 +15,7 @@ export default function useWebSocketSetup() {
     const [digitFeedback, setDigitFeedback] = useState<null | DigitFeedbackData>(null);
     const [bioFeedback, setBioFeedback] = useState<null | BioFeedbackData>(null);
     const [socketFeedback, setSocketFeedback] = useState<null | SocketFeedbackData>(null);
+    const [antennaFeedback, setAntennaFeedback] = useState<null | AntennaFeedbackData>(null);
     const [lastUpdate, setLastUpdate] = useState<null | number>(null);
 
     // determine the websocket url based on the current url
@@ -63,6 +64,8 @@ export default function useWebSocketSetup() {
                 case '/arm/feedback/socket':
                     setSocketFeedback(data as SocketFeedbackData);
                     break;
+                case 'antenna/feedback':
+                    setAntennaFeedback(data as AntennaFeedbackData);
             }
         }
     }, [lastMessage]);
@@ -77,6 +80,7 @@ export default function useWebSocketSetup() {
         digitFeedback,
         bioFeedback,
         socketFeedback,
+        antennaFeedback,
         lastUpdate,
     };
 }

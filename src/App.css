@@ -19,6 +19,10 @@
 	background-color: var(--base);
 }
 
+pre {
+	overflow: scroll;
+}
+
 table {
 	width: 100%;
 }

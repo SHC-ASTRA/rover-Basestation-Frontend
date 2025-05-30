@@ -278,6 +278,17 @@ export interface AntennaControlData extends WebSocketData {
     }
 }
 
+export interface AntennaFeedbackData extends WebSocketData {
+    type: 'antenna/feedback',
+    data: {
+        lat: number,
+        lon: number,
+        sat: number,
+        heading: number,
+        calib: number,
+    }
+}
+
 export class AllFeedbackData {
     coreFeedback: CoreFeedbackData | null = null;
     autoFeedback: AutoFeedbackData | null = null;

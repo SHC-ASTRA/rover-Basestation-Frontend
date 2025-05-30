@@ -1,5 +1,4 @@
 import { WebSocketData } from "../lib/types";
-import ControllerDisplay from "../components/Controller";
 import useWebSocketSetup from "../lib/webSocket";
 import ResetAntenna from "../components/anchor/Antenna";
 
@@ -37,7 +36,7 @@ function FeedbackSection({ title, data }: { title: string, data: WebSocketData |
 }
 
 export default function DebugPage() {
-	const { autoFeedback, coreFeedback, digitFeedback, bioFeedback, socketFeedback } = useWebSocketSetup();
+	const { autoFeedback, coreFeedback, digitFeedback, bioFeedback, socketFeedback, antennaFeedback } = useWebSocketSetup();
 
 	return <>
 		<div className="vertical-split">
@@ -50,12 +49,8 @@ export default function DebugPage() {
 				<FeedbackSection title="Bio Feedback" data={bioFeedback} />
 				<FeedbackSection title="Socket Feedback" data={socketFeedback} />
 				<div className="container">
-					<h2>Controller</h2>
-					<div className="horizontal-split">
-						<div />
-						<ControllerDisplay />
-						<ResetAntenna />
-					</div>
+					<FeedbackSection title="Antenna Feedback" data={antennaFeedback} />
+					<ResetAntenna />
 				</div>
 			</div>
 		</div>
