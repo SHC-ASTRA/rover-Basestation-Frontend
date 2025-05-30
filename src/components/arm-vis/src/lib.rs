@@ -59,10 +59,10 @@ impl ArmModel {
 
                     prev_orientation = Some(obj.rot_following(gl, angles[axis_number], &prev_orientation.unwrap(), &mut obj_origin));
                 }
-                log("Rotation axis");
-                log(obj.urdf_data.1.0.to_string().as_str());
-                log(obj.urdf_data.1.1.to_string().as_str());
-                log(obj.urdf_data.1.2.to_string().as_str());
+                //log("Rotation axis");
+                //log(obj.urdf_data.1.0.to_string().as_str());
+                //log(obj.urdf_data.1.1.to_string().as_str());
+                //log(obj.urdf_data.1.2.to_string().as_str());
                 axis_number += 1;
             }
         }
@@ -106,9 +106,9 @@ impl ArmModel {
                     log(obj.name.as_str());
                     prev_orientation = Some(obj.rot_first(gl, angle, &mut obj_origin));
                     log("Rotation axis");
-                    log(obj.urdf_data.1.0.to_string().as_str());
-                    log(obj.urdf_data.1.1.to_string().as_str());
-                    log(obj.urdf_data.1.2.to_string().as_str());
+                    //log(obj.urdf_data.1.0.to_string().as_str());
+                    //log(obj.urdf_data.1.1.to_string().as_str());
+                    //log(obj.urdf_data.1.2.to_string().as_str());
                 } else {
                     //panic!();
                 }
@@ -116,9 +116,9 @@ impl ArmModel {
                 log(obj.name.as_str());
                 Some(obj.rot_after(gl, angle, &prev_orientation.unwrap(), &mut obj_origin));
                 log("Rotation axis");
-                log(obj.urdf_data.1.0.to_string().as_str());
-                log(obj.urdf_data.1.1.to_string().as_str());
-                log(obj.urdf_data.1.2.to_string().as_str());
+                //log(obj.urdf_data.1.0.to_string().as_str());
+                //log(obj.urdf_data.1.1.to_string().as_str());
+                //log(obj.urdf_data.1.2.to_string().as_str());
             }
         }
     }
@@ -139,10 +139,10 @@ impl ArmObject {
         let c = [color[0] as f32, color[1] as f32, color[2] as f32];
         let color_data = (c[0], c[1], c[2]);
         let mut mesh = mesh;
-        log(" ");
-        log(color_data.0.to_string().as_str());
-        log(color_data.1.to_string().as_str());
-        log(color_data.2.to_string().as_str());
+        //log(" ");
+        //log(color_data.0.to_string().as_str());
+        //log(color_data.1.to_string().as_str());
+        //log(color_data.2.to_string().as_str());
         
     
         Self {
@@ -254,11 +254,7 @@ impl ArmObject {
 
         let diff = (urdf_data.0.0 - temp.0, urdf_data.0.1 - temp.1, urdf_data.0.2 - temp.2);
         *origin = diff;
-        if self.name == "Segment_3".to_string() {
-            log("Angle: ");
-            log(angle.to_string().as_str());
-
-        }
+        
         let mut orientation = self.gen_rotation_quaternion(0.0, &prev_orientation);
         //glm::quat_cross();
         self.mesh.rotate_lead2(gl, &orientation, &mut urdf_data.0);
@@ -312,10 +308,10 @@ impl URDF {
                 JointType::Spherical => {}
             }
             
-            log(&robot.links[i-1].inertial.origin.xyz.0[0].to_string());
-            log(&robot.links[i-1].inertial.origin.xyz.0[1].to_string());
-            log(&robot.links[i-1].inertial.origin.xyz.0[2].to_string());
-            log(" ");
+            //log(&robot.links[i-1].inertial.origin.xyz.0[0].to_string());
+            //log(&robot.links[i-1].inertial.origin.xyz.0[1].to_string());
+            //log(&robot.links[i-1].inertial.origin.xyz.0[2].to_string());
+            //log(" ");
             
             let joint_tpye = robot.joints[i-1].joint_type.clone();
             let r = robot.materials[i-1].clone().color.unwrap().rgba.0;
@@ -337,9 +333,9 @@ impl URDF {
     fn debug_print(&mut self) -> () {
         self.segment_data.iter_mut().for_each(|x| {
             //log(x.clone().)
-            log(x.clone().0.0.to_string().as_str());
-            log(x.clone().1.1.to_string().as_str());
-            log(x.clone().1.2.to_string().as_str());
+            //log(x.clone().0.0.to_string().as_str());
+            //log(x.clone().1.1.to_string().as_str());
+            //log(x.clone().1.2.to_string().as_str());
         })
     }
 }
@@ -381,10 +377,10 @@ impl URDF2 {
                 JointType::Spherical => {}
             }
             
-            log(&robot.links[i-1].inertial.origin.xyz.0[0].to_string());
-            log(&robot.links[i-1].inertial.origin.xyz.0[1].to_string());
-            log(&robot.links[i-1].inertial.origin.xyz.0[2].to_string());
-            log(" ");
+            //log(&robot.links[i-1].inertial.origin.xyz.0[0].to_string());
+            //log(&robot.links[i-1].inertial.origin.xyz.0[1].to_string());
+            //log(&robot.links[i-1].inertial.origin.xyz.0[2].to_string());
+            //log(" ");
             
             let joint_tpye = robot.joints[i-1].joint_type.clone();
             //let r =  robot.materials[i-1].color.unwrap().rgba.0;
@@ -655,7 +651,7 @@ impl ArmVis {
             let light_color = glm::vec3(1.0, 1.0, 1.0);
             self.gl.uniform_3_f32_slice(self.uniforms.set_get_light_color(&self.gl, self.program.unwrap(), "light_color").as_ref(), light_color.as_slice());
 
-            let light_position = glm::vec3(1.0, 3.4, 1.2);
+            let light_position = glm::vec3(1.0, 3.4, 5.2);
             self.gl.uniform_3_f32_slice(self.uniforms.set_get_light_position(&self.gl, self.program.unwrap(), "light_position").as_ref(), light_position.as_slice());
                 
             self.gl.clear(glow::COLOR_BUFFER_BIT| glow::DEPTH_BUFFER_BIT);
@@ -842,10 +838,10 @@ impl ObjMesh {
     fn gen_color_buffer(&mut self) -> Vec<f32> {
         let mut color_vec = Vec::<f32>::new();
         let mut i = 0;
-        log("Gen");
-        log(self.color.0.to_string().as_str());
-        log(self.color.1.to_string().as_str());
-        log(self.color.2.to_string().as_str());
+        //log("Gen");
+        //log(self.color.0.to_string().as_str());
+        //log(self.color.1.to_string().as_str());
+        //log(self.color.2.to_string().as_str());
         
         while i < self.verts.len() {
             color_vec.push(3.0 * self.color.0);
