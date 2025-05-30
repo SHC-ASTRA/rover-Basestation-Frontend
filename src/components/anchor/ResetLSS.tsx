@@ -8,7 +8,7 @@ export default function ResetLSS({ label }: { label?: string }) {
             type: '/anchor/relay',
             timestamp: Date.now(),
             data: {
-                data: "can_relay_tovic,broadcast,29"
+                data: "can_relay_tovic,broadcast,29,1\n"
             }
         }));
     }

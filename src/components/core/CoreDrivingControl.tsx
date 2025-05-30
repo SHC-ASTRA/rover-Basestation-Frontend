@@ -33,7 +33,7 @@ export default function CoreDrivingControl() {
 			timestamp: Date.now(),
 			data: {
 				max_speed: Math.max(0, Math.min(100, Math.round(
-					baseSpeed + gamepadState.left_trigger * (100 - baseSpeed)
+					baseSpeed + gamepadState.left_trigger * Math.max(0, 80 - baseSpeed)
 				))),
 				brake: gamepadState.b,
 				left_stick:
@@ -95,7 +95,7 @@ export default function CoreDrivingControl() {
 							color: (gamepadState.left_trigger) ? "var(--sapphire)" : undefined,
 						}}
 					>
-						{Math.round(baseSpeed + gamepadState.left_trigger * (100 - baseSpeed))}%
+						{Math.round(baseSpeed + gamepadState.left_trigger * Math.max(0, 80 - baseSpeed))}%
 					</div>
 				</div>
 			</div>
