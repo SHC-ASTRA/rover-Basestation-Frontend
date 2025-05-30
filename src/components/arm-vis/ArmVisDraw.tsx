@@ -102,11 +102,11 @@ export default function ArmVisDraw(props: { canvasCtx: WebGL2RenderingContext })
         }
         const socket = socketFeedback?.data;
         const digit = digitFeedback?.data;
-        const angle_data = [socket?.axis0_angle ?? 0,
-        socket?.axis1_angle ?? 0,
-        socket?.axis2_angle ?? 0,
-        socket?.axis3_angle ?? 0,
-        digit?.wrist_angle ?? 0]
+        const angle_data = [0,
+            socket?.axis1_angle ?? 0,
+            socket?.axis2_angle ?? 0,
+            socket?.axis3_angle ?? 0,
+            digit?.wrist_angle ?? 0]
         ArmVisClass.update(angle_data)
         const pass = new Float32Array(ArmVisClass.angle_data);
         ArmVisClass.vis.update_joint_angles(pass)

@@ -651,7 +651,7 @@ impl ArmVis {
             let light_color = glm::vec3(1.0, 1.0, 1.0);
             self.gl.uniform_3_f32_slice(self.uniforms.set_get_light_color(&self.gl, self.program.unwrap(), "light_color").as_ref(), light_color.as_slice());
 
-            let light_position = glm::vec3(1.0, 3.4, 5.2);
+            let light_position = glm::vec3(0.2, 2.4, 7.2);
             self.gl.uniform_3_f32_slice(self.uniforms.set_get_light_position(&self.gl, self.program.unwrap(), "light_position").as_ref(), light_position.as_slice());
                 
             self.gl.clear(glow::COLOR_BUFFER_BIT| glow::DEPTH_BUFFER_BIT);

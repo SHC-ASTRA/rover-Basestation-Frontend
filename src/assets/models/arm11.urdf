@@ -16,16 +16,16 @@
     <color rgba="1 0 0 1"/>
   </material>
   <material name="omni/Green">
-    <color rgba="0 1 0 1"/>
+    <color rgba="0 0.2 0 0.2"/>
   </material>
   <material name="omni/Yellow">
     <color rgba="1 1 0 1"/>
   </material>
-  <material name="omni/LightGrey">
-    <color rgba="0.6 0.5 0.6 1"/>
+  <material name="omni/Magenta">
+    <color rgba="0.6 0.0 0.6 1"/>
   </material>
-  <material name="omni/DarkGrey">
-    <color rgba="0.1 0.8 0.7 1"/>
+  <material name="omni/Teal">
+    <color rgba="0.0 0.7 0.5 1"/>
   </material>
   <!-- Now we can start using the macros xacro:included above to define the actual omnipointer -->
   <!-- The first use of a macro.  This one was defined in youbot_base/base.urdf.xacro above.
