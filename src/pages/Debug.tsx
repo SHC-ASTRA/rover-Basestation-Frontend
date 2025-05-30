@@ -1,7 +1,7 @@
 import { WebSocketData } from "../lib/types";
 import ControllerDisplay from "../components/Controller";
 import useWebSocketSetup from "../lib/webSocket";
-import ResetAntenna from "../components/anchor/ResetAntenna";
+import ResetAntenna from "../components/anchor/Antenna";
 
 /**
  * Function to format WebSocket data into a YAML-like string.
