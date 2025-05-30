@@ -8,6 +8,9 @@ import ArmVisTest from "./ArmVisTest";
 export default function ArmVisCanvas() {
 
     const vis_canvas = useRef<HTMLCanvasElement>(null)
+    if (vis_canvas.current == null) {
+        ArmVisClass.isInit = false;
+    }
 
     const [contextInit, setContextInit] = useState(false);
 
