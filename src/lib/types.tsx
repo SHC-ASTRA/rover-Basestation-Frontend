@@ -66,7 +66,7 @@ export interface WebSocketData {
 }
 
 export interface CoreFeedbackData extends WebSocketData {
-    type: 'feedback:core';
+    type: '/core/feedback';
     data: {
         gps_lat: number;
         gps_long: number;
