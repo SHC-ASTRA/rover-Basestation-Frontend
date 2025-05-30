@@ -87,26 +87,6 @@ export interface CoreFeedbackData extends WebSocketData {
         voltage_12: number;
         voltage_5: number;
         voltage_3: number;
-
-        // REV motor feedback - front left
-        fl_temp: number;
-        fl_voltage: number;
-        fl_current: number;
-
-        // REV motor feedback - back left
-        bl_temp: number;
-        bl_voltage: number;
-        bl_current: number;
-
-        // REV motor feedback - front right
-        fr_temp: number;
-        fr_voltage: number;
-        fr_current: number;
-
-        // REV motor feedback - back right
-        br_temp: number;
-        br_voltage: number;
-        br_current: number;
     };
 }
 
