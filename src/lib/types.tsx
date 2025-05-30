@@ -251,9 +251,11 @@ export interface PtzControlData extends WebSocketData {
     };
 }
 
-export interface AntennaResetData extends WebSocketData {
-    type: 'reset_antenna',
-    data: object
+export interface AntennaControlData extends WebSocketData {
+    type: 'antenna',
+    data: {
+        message: string;
+    }
 }
 
 export class AllFeedbackData {

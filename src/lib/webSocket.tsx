@@ -49,19 +49,19 @@ export default function useWebSocketSetup() {
             // put the data in the right place based on the type
             switch (data.type) {
                 case '/auto/feedback':
-                    setAutoFeedback(data);
+                    setAutoFeedback(data as AutoFeedbackData);
                     break;
                 case '/core/feedback':
-                    setCoreFeedback(data);
+                    setCoreFeedback(data as CoreFeedbackData);
                     break;
                 case '/bio/feedback':
-                    setBioFeedback(data);
+                    setBioFeedback(data as BioFeedbackData);
                     break;
                 case '/arm/feedback/digit':
-                    setDigitFeedback(data);
+                    setDigitFeedback(data as DigitFeedbackData);
                     break;
                 case '/arm/feedback/socket':
-                    setSocketFeedback(data);
+                    setSocketFeedback(data as SocketFeedbackData);
                     break;
             }
         }

@@ -5,9 +5,11 @@ export default function ResetAntenna() {
 
     function resetAntenna() {
         sendMessage(JSON.stringify({
-            type: 'reset_antenna',
+            type: 'antenna',
             timestamp: Date.now(),
-            data: {}
+            data: {
+                message: "reset"
+            }
         }));
     }
 
