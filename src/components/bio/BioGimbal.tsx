@@ -20,7 +20,7 @@ function Readouts() {
             </div>
             <div className="vertical-split container">
                 <h2>Altitude</h2>
-                <h3>{coreFeedback ? coreFeedback.data.bmp_alt : "no data"}&nbsp;m</h3>
+                <h3>{coreFeedback ? coreFeedback.data.gps_alt : "no data"}&nbsp;m</h3>
             </div>
         </div>
         <div className="horizontal-split">
