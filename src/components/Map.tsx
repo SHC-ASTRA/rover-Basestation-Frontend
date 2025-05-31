@@ -1,6 +1,3 @@
-import { MapContainer, WMSTileLayer, useMap, Marker, Popup } from 'react-leaflet';
-import L, { LatLngTuple, Icon, ControlOptions } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import {
     MapContainer,
     WMSTileLayer,
