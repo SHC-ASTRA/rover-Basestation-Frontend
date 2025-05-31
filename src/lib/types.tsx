@@ -186,6 +186,8 @@ export interface ArmManualData extends WebSocketData {
         axis2: number;
         axis3: number;
 
+        brake: boolean;
+
         effector_roll: number;
         effector_yaw: number;
 
