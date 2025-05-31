@@ -10,15 +10,6 @@ const SPEED_ADJUSTMENT = 10; // 10% adjustment
 
 export default function CoreDrivingControl() {
 	const { sendMessage } = useWebSocketSetup();
-	const [coreControl, setCoreControl] = useState<CoreControlData["data"]>({
-		left_stick: 0,
-		right_stick: 0,
-		max_speed: 0,
-		brake: false,
-		turn_to_enable: false,
-		turn_to: 0,
-		turn_to_timeout: 0,
-	});
 	const lastUpdate = useRef(Date.now());
 
 	const gamepadState = useContext(GamepadContext);
@@ -34,19 +25,16 @@ export default function CoreDrivingControl() {
 		} else if (gamepadState.dpad.down) {
 			setBaseSpeed((prev) => Math.max(0, prev - SPEED_ADJUSTMENT));
 		}
-	}, [gamepadState.dpad.up, gamepadState.dpad.down]);
+	}, [gamepadState.dpad.up, gamepadState.dpad.down, gamepadState.left_trigger]);
 
 	useEffect(() => {
 		const data: CoreControlData = {
 			type: "/core/control",
 			timestamp: Date.now(),
 			data: {
-				max_speed: Math.min(
-					100,
-					Math.round(
-						gamepadState.left_trigger * baseSpeed
-					)
-				),
+				max_speed: Math.max(0, Math.min(100, Math.round(
+					baseSpeed + gamepadState.left_trigger * Math.max(0, 80 - baseSpeed)
+				))),
 				brake: gamepadState.b,
 				left_stick:
 					gamepadState.right_trigger < 0.5
@@ -59,8 +47,6 @@ export default function CoreDrivingControl() {
 			},
 		};
 
-		setCoreControl(data.data);
-
 		// only send data at the polling rate
 		if (Date.now() - lastUpdate.current < CORE_POLLING_INTERVAL) {
 			return;
@@ -70,11 +56,11 @@ export default function CoreDrivingControl() {
 		sendMessage(JSON.stringify(data));
 	}, [baseSpeed, gamepadState, sendMessage]);
 
-	const col = coreControl.brake ? { borderColor: "var(--red)" } : {};
+	const col = gamepadState.b ? { borderColor: "var(--red)" } : {};
 
 	return (
 		<>
-			<div>
+			<div style={{ flexGrow: 2 }}>
 				<h1>Core Driving</h1>
 				<div className="horizontal-split indicator-subsection">
 					<div />
@@ -84,7 +70,7 @@ export default function CoreDrivingControl() {
 					>
 						<GradientIndicator
 							scale={1}
-							value={coreControl.left_stick}
+							value={gamepadState.left_stick.y}
 							color="var(--sapphire)"
 							direction="to top"
 						/>
@@ -95,7 +81,7 @@ export default function CoreDrivingControl() {
 					>
 						<GradientIndicator
 							scale={1}
-							value={coreControl.right_stick}
+							value={gamepadState.right_stick.y}
 							color="var(--sapphire)"
 							direction="to top"
 						/>
@@ -109,7 +95,7 @@ export default function CoreDrivingControl() {
 							color: (gamepadState.left_trigger) ? "var(--sapphire)" : undefined,
 						}}
 					>
-						{Math.round(baseSpeed + gamepadState.left_trigger * (100 - baseSpeed))}%
+						{Math.round(baseSpeed + gamepadState.left_trigger * Math.max(0, 80 - baseSpeed))}%
 					</div>
 				</div>
 			</div>

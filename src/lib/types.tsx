@@ -66,26 +66,54 @@ export interface WebSocketData {
 }
 
 export interface CoreFeedbackData extends WebSocketData {
-    type: 'feedback:core';
+    type: '/core/feedback';
     data: {
+        // GPS Data
         gps_lat: number;
         gps_long: number;
         gps_sats: number;
+        gps_alt: number;
 
+        // BNO055 Sensor Data
         bno_gyro: Vector3;
         bno_accel: Vector3;
 
+        // Rover Orientation
         orientation: number;
         imu_calib: number;
 
+        // BMP Sensor Data
         bmp_temp: number;
         bmp_alt: number;
         bmp_pres: number;
 
+        // Voltage Readings
         bat_voltage: number;
         voltage_12: number;
         voltage_5: number;
         voltage_3: number;
+
+        // REV Motor Feedback
+
+        /// Front Left (1)
+        fl_temp: number;
+        fl_voltage: number;
+        fl_current: number;
+
+        /// Back Left (2)
+        bl_temp: number;
+        bl_voltage: number;
+        bl_current: number;
+
+        /// Front Right (3)
+        fr_temp: number;
+        fr_voltage: number;
+        fr_current: number;
+
+        /// Back Right (4)
+        br_temp: number;
+        br_voltage: number;
+        br_current: number;
     };
 }
 
@@ -157,6 +185,8 @@ export interface ArmManualData extends WebSocketData {
         axis1: number;
         axis2: number;
         axis3: number;
+
+        brake: boolean;
 
         effector_roll: number;
         effector_yaw: number;
@@ -230,6 +260,41 @@ export interface AnchorRelayData extends WebSocketData {
     type: '/anchor/relay',
     data: {
         data: string
+    }
+}
+
+export interface PtzControlData extends WebSocketData {
+    type: '/ptz/control';
+    data: {
+        control_mode: number,
+        turn_yaw: number,
+        turn_pitch: number,
+        yaw: number,
+        pitch: number,
+        axis_id: number,
+        angle: number,
+        zoom_level: number,
+        stream_type: number,
+        stream_freq: number,
+        reset: boolean,
+    };
+}
+
+export interface AntennaControlData extends WebSocketData {
+    type: 'antenna',
+    data: {
+        message: string;
+    }
+}
+
+export interface AntennaFeedbackData extends WebSocketData {
+    type: 'antenna/feedback',
+    data: {
+        lat: number,
+        lon: number,
+        sat: number,
+        heading: number,
+        calib: number,
     }
 }
 
