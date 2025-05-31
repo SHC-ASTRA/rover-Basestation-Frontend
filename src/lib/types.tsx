@@ -68,25 +68,52 @@ export interface WebSocketData {
 export interface CoreFeedbackData extends WebSocketData {
     type: '/core/feedback';
     data: {
+        // GPS Data
         gps_lat: number;
         gps_long: number;
         gps_sats: number;
         gps_alt: number;
 
+        // BNO055 Sensor Data
         bno_gyro: Vector3;
         bno_accel: Vector3;
 
+        // Rover Orientation
         orientation: number;
         imu_calib: number;
 
+        // BMP Sensor Data
         bmp_temp: number;
         bmp_alt: number;
         bmp_pres: number;
 
+        // Voltage Readings
         bat_voltage: number;
         voltage_12: number;
         voltage_5: number;
         voltage_3: number;
+
+        // REV Motor Feedback
+
+        /// Front Left (1)
+        fl_temp: number;
+        fl_voltage: number;
+        fl_current: number;
+
+        /// Back Left (2)
+        bl_temp: number;
+        bl_voltage: number;
+        bl_current: number;
+
+        /// Front Right (3)
+        fr_temp: number;
+        fr_voltage: number;
+        fr_current: number;
+
+        /// Back Right (4)
+        br_temp: number;
+        br_voltage: number;
+        br_current: number;
     };
 }
 
