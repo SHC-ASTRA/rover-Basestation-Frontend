@@ -9,16 +9,13 @@ import endEffector from "../../assets/models/_END_EFFECTOR.stl?raw"
 import urdf from "../../assets/models/arm11.urdf?raw"
 import vert from "../../assets/shaders/vert.glsl?raw"
 import frag from "../../assets/shaders/frag.glsl?raw"
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useWebSocketSetup from "../../../src/lib/webSocket"
 import React from "react"
-import ArmVisualContext from "./ArmVisualContext"
-
 
 class ArmVisState extends React.Component {
     static myVis: ArmVis;
     static init = false;
-
 
     push_sources() {
         ArmVisState.myVis.load_shaders(vert, frag);
@@ -71,17 +68,6 @@ export class ArmVisClass {
         else { return false }
     }
 }
-
-let testVar = 14;
-
-export function testVarInc() {
-    testVar += 6
-    console.log("INC")
-}
-
-
-//import ArmVis from "./pkg/rust_wasm_vis"
-
 
 export default function ArmVisDraw(props: { canvasCtx: WebGL2RenderingContext }) {
     //console.log(frag);

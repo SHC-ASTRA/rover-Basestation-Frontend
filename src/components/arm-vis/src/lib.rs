@@ -1,4 +1,6 @@
 mod open_gl;
+mod camera;
+use camera::*;
 mod types;
 use types::*;
 use open_gl::*;
@@ -450,6 +452,8 @@ pub struct ArmVis {
     model_sources   : Vec<String>,
     urdf            : URDF,
     arm_models      : ArmModel,
+    point_lights    : PointLights,
+    directional_lights: DirectionalLights,
 }
  
 // TODO Refactor and create init method
@@ -495,21 +499,23 @@ impl ArmVis {
         //    .dyn_into::<web_sys::WebGl2RenderingContext>()
         //    .unwrap()));
         Self { 
-            gl              : gl.clone(),
+            gl                  : gl.clone(),
             //app_time        : Time::new(), 
             //geometry        : ObjMesh::new(gl),
-            colors          : VisColors::new(), 
+            colors              : VisColors::new(),
             //light_source    : ObjMesh::new(gl),
-            vert_shader     : String::new(),
-            frag_shader     : String::new(),
-            camera          : Camera::new(),
-            program         : None,
-            uniforms        : GlUniforms::new(), 
-            stl             : "".to_owned(),
-            model_sources   : Vec::<String>::new(),
-            urdf            : URDF::new(),
-            arm_models      : ArmModel::new(),
+            vert_shader         : String::new(),
+            frag_shader         : String::new(),
+            camera              : Camera::new(),
+            program             : None,
+            uniforms            : GlUniforms::new(),
+            stl                 : "".to_owned(),
+            model_sources       : Vec::<String>::new(),
+            urdf                : URDF::new(),
+            arm_models          : ArmModel::new(),
             //frame_count     : 0,
+            point_lights        : PointLights::new(),
+            directional_lights  : DirectionalLights::new(),
         }
     }
 
@@ -638,8 +644,6 @@ impl ArmVis {
             view  = self.camera.get_view_matrix();
             self.gl.uniform_matrix_4_f32_slice(self.uniforms.set_get_view(&self.gl, self.program.unwrap(),"view").as_ref(), false, view.as_slice());
                 
-      
-                
             let mut transform = glm::translate(&glm::Mat4::identity(), &glm::vec3(0.0, 0.0, 0.0));
             transform = glm::rotate(&transform, 0.0 as f32, &glm::vec3(0.0, 0.0, 0.0));
             self.gl.uniform_matrix_4_f32_slice(self.uniforms.set_get_transform(&self.gl, self.program.unwrap(),"transform").as_ref(), false, transform.as_slice());
@@ -651,9 +655,11 @@ impl ArmVis {
             let light_color = glm::vec3(1.0, 1.0, 1.0);
             self.gl.uniform_3_f32_slice(self.uniforms.set_get_light_color(&self.gl, self.program.unwrap(), "light_color").as_ref(), light_color.as_slice());
 
-            let light_position = glm::vec3(0.2, 2.4, 7.2);
+            let light_position = glm::vec3(0.5, 6.4, 1.0);
             self.gl.uniform_3_f32_slice(self.uniforms.set_get_light_position(&self.gl, self.program.unwrap(), "light_position").as_ref(), light_position.as_slice());
-                
+
+
+            
             self.gl.clear(glow::COLOR_BUFFER_BIT| glow::DEPTH_BUFFER_BIT);
             self.gl.line_width(2.0);
 
@@ -665,7 +671,6 @@ impl ArmVis {
             self.gl.delete_program(self.program.unwrap());
             //self.gl.delete_vertex_array(self.geometry.vao.get_vao_handle());
             //self.gl.delete_vertex_array(self.axis0.vao_position.array_handle);
-
         }
     }
 }
@@ -744,13 +749,11 @@ impl ObjMesh {
             normals.push(0.0);
         }
         self.new_bind(verts, indexes, &gl);
-
     }
 
     fn creator(gl: &glow::Context, source: &String) -> ObjMesh {
         let mut mesh = Self::new(gl);
         mesh.read_in_stl(source, &gl);
-
         return mesh;
     }
 

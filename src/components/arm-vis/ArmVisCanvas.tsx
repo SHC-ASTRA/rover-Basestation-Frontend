@@ -1,9 +1,5 @@
-import React, { createContext, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import ArmVisDraw, { ArmVisClass } from "./ArmVisDraw"
-import ArmVisRoverFeedback from "./ArmVisRoverFeedback";
-import ArmVisTest from "./ArmVisTest";
-
-
 
 export default function ArmVisCanvas() {
 
@@ -13,7 +9,6 @@ export default function ArmVisCanvas() {
     }
 
     const [contextInit, setContextInit] = useState(false);
-
     useEffect(() => {
         const cas = vis_canvas.current
         setContextInit(true);

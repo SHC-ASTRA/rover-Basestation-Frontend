@@ -106,3 +106,56 @@ impl ArmSeg {
 }
 
 pub type VisObject = (ArmSegment);
+
+#[derive(Clone)]
+pub struct PointLights {
+    position    : glm::Vec3,
+    constant    : f32,
+    linear      : f32,
+    quadratic   : f32,
+    ambient     : glm::Vec3,
+    diffuse     : glm::Vec3,
+    specular    : glm::Vec3,
+}
+
+
+impl PointLights {
+    pub fn new() -> Self {
+        Self {
+            position    : Default::default(),
+            constant    : 0.0,
+            linear      : 0.0,
+            quadratic   : 0.0,
+            ambient     : Default::default(),
+            diffuse     : Default::default(),
+            specular    : Default::default(),
+        }
+    }
+    
+    pub fn get(self) -> PointLights {
+        return self.clone();
+    }
+}
+
+#[derive(Clone)]
+pub struct DirectionalLights {
+    direction   : f32,
+    ambient     : glm::Vec3,
+    diffuse     : glm::Vec3,
+    specular    : glm::Vec3,
+}
+
+impl DirectionalLights {
+    pub fn new() -> Self {
+        Self {
+            direction: 0.0,
+            ambient: Default::default(),
+            diffuse: Default::default(),
+            specular: Default::default(),
+        }
+    }
+
+    pub fn get(self) -> DirectionalLights {
+        return self.clone();
+    }
+}

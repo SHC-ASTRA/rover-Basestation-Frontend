@@ -13,7 +13,7 @@
     <color rgba="0 0 0.8 1"/>
   </material>
   <material name="omni/Red">
-    <color rgba="1 0 0 1"/>
+    <color rgba="1 0 0 0"/>
   </material>
   <material name="omni/Green">
     <color rgba="0 0.2 0 0.2"/>

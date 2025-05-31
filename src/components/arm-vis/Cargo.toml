@@ -41,7 +41,7 @@ opt-level = 3
 debug = true
 debug-assertions = true
 # Link Time Optimizations
-lto = 'fat'
+lto = false
 
 [profile.release]
 
