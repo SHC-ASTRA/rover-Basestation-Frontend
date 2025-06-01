@@ -12,7 +12,7 @@ export default function ArmDigitPage() {
 		</div>
 		<div className="container control">
 			<ErrorBoundary fallback={<p>arm vis no workey</p>}>
-				<ArmVisCanvas />
+				{/* <ArmVisCanvas /> */}
 			</ErrorBoundary>
 		</div>
 	</>

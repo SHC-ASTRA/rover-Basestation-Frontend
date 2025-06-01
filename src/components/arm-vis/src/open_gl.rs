@@ -103,7 +103,7 @@ pub struct Camera {
 
 impl Camera {
     pub fn new() -> Self {
-        let camera_pos = glm::vec3(0.0, 2.0, 5.0);
+        let camera_pos = glm::vec3(2.0, 1.0, 5.0);
         let camera_target = glm::vec3(0.0, 0.0, 0.0);
         let camera_up = glm::vec3(0.0, 1.0, 0.0);
         let camera_anti_normal = glm::normalize(&(camera_pos - camera_target));

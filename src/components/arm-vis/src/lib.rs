@@ -50,7 +50,7 @@ impl ArmModel {
 
         for obj in &mut self.model_objects.iter_mut() {
             if obj.urdf_data.2 != JointType::Fixed {
-                log(obj.name.as_str());
+                // log(obj.name.as_str());
                 //prev_orientation = Some(obj.mesh.gen_quaternion(gl, angle, &obj.geo_data.1));
 
                 if axis_number == 0 {
@@ -103,9 +103,9 @@ impl ArmModel {
                     hit += 1;
                 }
                 if hit - 1 == axis_number {
-                    log(obj.name.as_str());
+                    // log(obj.name.as_str());
                     prev_orientation = Some(obj.rot_first(gl, angle, &mut obj_origin));
-                    log("Rotation axis");
+                    // log("Rotation axis");
                     //log(obj.urdf_data.1.0.to_string().as_str());
                     //log(obj.urdf_data.1.1.to_string().as_str());
                     //log(obj.urdf_data.1.2.to_string().as_str());
@@ -113,9 +113,9 @@ impl ArmModel {
                     //panic!();
                 }
             } else {
-                log(obj.name.as_str());
+                // log(obj.name.as_str());
                 Some(obj.rot_after(gl, angle, &prev_orientation.unwrap(), &mut obj_origin));
-                log("Rotation axis");
+                // log("Rotation axis");
                 //log(obj.urdf_data.1.0.to_string().as_str());
                 //log(obj.urdf_data.1.1.to_string().as_str());
                 //log(obj.urdf_data.1.2.to_string().as_str());
@@ -198,8 +198,8 @@ impl ArmObject {
         *origin = (temp.0 - self.urdf_data.0.0 , temp.1 - self.urdf_data.0.1 ,temp.2 - self.urdf_data.0.2);
                 
 
-        log("Angle: ");
-        log(angle.to_string().as_str());
+        // log("Angle: ");
+        // log(angle.to_string().as_str());
 
         
         self.mesh.translate(gl, (self.urdf_data.0.0 + self.urdf_data.3.0),
@@ -225,8 +225,8 @@ impl ArmObject {
         let diff = (urdf_data.0.0 - temp.0, urdf_data.0.1 - temp.1, urdf_data.0.2 - temp.2);
         *origin = diff;
 
-        log("Angle: ");
-        log(angle.to_string().as_str());
+        // log("Angle: ");
+        // log(angle.to_string().as_str());
 
 
         let orientation = self.gen_rotation_quaternion(angle, &prev_orientation);

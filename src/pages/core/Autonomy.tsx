@@ -7,6 +7,7 @@ export default function CoreAutonomyPage() {
 		<div className="container feedback">
 			<CoreAutoFeedback />
 			<CoreDrivingFeedback />
+
 		</div>
 		<div className="container autonomy">
 			<MapComponent />
